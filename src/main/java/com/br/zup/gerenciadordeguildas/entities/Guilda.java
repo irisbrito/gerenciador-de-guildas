@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,6 +24,8 @@ public class Guilda {
     private List<Representante> representantes;
     @OneToMany
     private List<Atividade> atividades;
+    @OneToMany
+    private Ata ata;
 
 
 
