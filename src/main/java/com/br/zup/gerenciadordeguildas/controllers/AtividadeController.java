@@ -18,4 +18,10 @@ public class AtividadeController {
     public Atividade adicionarAtividade(@RequestBody Atividade atividade){
         return atividadeService.cadastrarAtividade(atividade);
     }
+
+    @DeleteMapping("{id}/")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarAtividade(@PathVariable Integer id){
+        atividadeService.deletarAtividade(id);
+    }
 }

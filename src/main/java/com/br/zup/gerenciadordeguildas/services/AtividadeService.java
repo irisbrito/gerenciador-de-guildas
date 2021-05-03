@@ -14,4 +14,8 @@ public class AtividadeService {
     public Atividade cadastrarAtividade(Atividade atividade){
        return atividadeRepository.save(atividade);
     }
+
+    public void deletarAtividade(Integer id){
+        atividadeRepository.deleteById(id);
+    }
 }
