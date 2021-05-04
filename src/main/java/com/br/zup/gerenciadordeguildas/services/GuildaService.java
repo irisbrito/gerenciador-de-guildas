@@ -32,6 +32,15 @@ public class GuildaService {
         throw new RecursoNaoEncontradoException("Guilda", null);
     }
 
+    public Guilda atualizarGuilda(Guilda guilda){
+        if(guildaRepository.existsById(guilda.getId())){
+            Guilda objGuilda = cadastrarGuilda(guilda);
+            return guilda;
+        }
+
+        throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+    }
+
     public void deletarGuildas(Integer id) {
         if(guildaRepository.existsById(id)){
             guildaRepository.deleteById(id);
