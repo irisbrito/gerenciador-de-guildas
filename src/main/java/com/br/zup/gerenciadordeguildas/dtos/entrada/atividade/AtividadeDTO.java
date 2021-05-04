@@ -1,4 +1,4 @@
-package com.br.zup.gerenciadordeguildas.dtos.entrada;
+package com.br.zup.gerenciadordeguildas.dtos.entrada.atividade;
 
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import lombok.*;
