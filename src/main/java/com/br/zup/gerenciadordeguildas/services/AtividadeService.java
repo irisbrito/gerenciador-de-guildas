@@ -19,6 +19,15 @@ public class AtividadeService {
         return atividadeRepository.findAll();
     }
 
+    public Atividade atualizarAtividade(Atividade atividade){
+        if(atividadeRepository.existsById(atividade.getId())){
+            Atividade objAtividade = cadastrarAtividade(atividade);
+            return atividade;
+        }
+
+        throw new RuntimeException("Atividade não encontrada");
+    }
+
     public void deletarAtividade(Integer id){
         if(atividadeRepository.existsById(id)){
             atividadeRepository.deleteById(id);
