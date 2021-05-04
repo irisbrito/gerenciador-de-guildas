@@ -22,8 +22,4 @@ public class AtaService {
         throw new ListaVaziaException("ata", 'a');
     }
 
-    public Ata cadastrarAtas(Ata ata){
-        return ataRepository.save(ata);
-    }
-
 }
