@@ -1,11 +1,16 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtividadeDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.representante.AtualizarRepresentanteDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.representante.RepresentanteDTO;
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Representante;
 import com.br.zup.gerenciadordeguildas.services.RepresentanteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -23,13 +28,22 @@ public class RepresentanteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Representante cadastrarRepresentante(@RequestBody Representante representante){
-        return representanteService.salvarRepresentante(representante);
+    public RepresentanteDTO cadastrarRepresentante(@RequestBody @Valid RepresentanteDTO representanteDTO){
+        Representante representante = modelMapper.map(representanteDTO, Representante.class);
+        representante = representanteService.cadastrarRepresentante(representante);
+
+        return modelMapper.map(representante, RepresentanteDTO.class);
     }
 
     @GetMapping
-    public List<Representante> listarRepresentantes(){
+    public Iterable<Representante> listarRepresentantes(){
         return representanteService.retornarTodosOsRepresentantes();
+    }
+
+    @PutMapping("{id}/")
+    public Representante atualizarRepresentante(@PathVariable Integer id, @RequestBody AtualizarRepresentanteDTO representanteDTO){
+        Representante representante = representanteService.atualizarRepresentante(representanteDTO.converterDTOParaModel(id));
+        return representante;
     }
 
     @DeleteMapping("{id}/")
