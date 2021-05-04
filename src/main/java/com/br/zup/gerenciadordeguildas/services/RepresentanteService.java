@@ -21,14 +21,13 @@ public class RepresentanteService {
        return representanteRepository.findAll();
     }
 
-    public Representante salvarRepresentante(Representante representante) {
-        try {
-            Representante obj = representanteRepository.save(representante);
+    public Representante atualizarRepresentante(Representante representante){
+        if(representanteRepository.existsById(representante.getId())){
+            Representante objRepresentante = representanteRepository.save(representante);
             return representante;
-
-        } catch (Exception error) {
-            throw new RuntimeException("Representante já cadastrado!");
         }
+
+        throw new RuntimeException("Representante não encontrado");
     }
 
     public void deletarRepresentante(Integer id) {
