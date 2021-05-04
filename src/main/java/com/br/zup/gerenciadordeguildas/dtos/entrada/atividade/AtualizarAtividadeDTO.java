@@ -1,5 +1,6 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.atividade;
 
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import lombok.*;
 
@@ -27,4 +28,15 @@ public class AtualizarAtividadeDTO {
 
     @NotNull
     private Status status;
+
+    public Atividade converterDTOParaModel(int id){
+        Atividade atividade = new Atividade();
+        atividade.setId(id);
+        atividade.setNome(this.nome);
+        atividade.setDescricao(this.descricao);
+        atividade.setResponsavel(this.responsavel);
+        atividade.setStatus(this.status);
+
+        return atividade;
+    }
 }
