@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Representante;
+import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.RepresentanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class RepresentanteService {
             return representante;
         }
 
-        throw new RuntimeException("Representante não encontrado");
+        throw new RecursoNaoEncontradoException("Representante", representante.getId());
     }
 
     public void deletarRepresentante(Integer id) {
@@ -35,7 +36,7 @@ public class RepresentanteService {
             representanteRepository.deleteById(id);
         }
 
-        throw new RuntimeException("Representante não encontrado");
+        throw new RecursoNaoEncontradoException("Representante", id);
     }
 
 }
