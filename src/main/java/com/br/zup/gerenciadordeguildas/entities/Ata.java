@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Ata {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private LocalDate data;
     private String titulo;
     private String assuntos;
