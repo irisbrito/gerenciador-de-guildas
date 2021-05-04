@@ -28,7 +28,7 @@ public class GuildaController {
     }
 
     @GetMapping
-    public List<Guilda> listarGuildas(){
+    public Iterable<Guilda> listarGuildas(){
         return guildaService.retornarTodasAsGuildas();
     }
 
