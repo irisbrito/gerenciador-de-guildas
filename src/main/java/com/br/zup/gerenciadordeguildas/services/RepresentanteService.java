@@ -6,8 +6,6 @@ import com.br.zup.gerenciadordeguildas.repositories.RepresentanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class RepresentanteService {
 
@@ -20,6 +18,10 @@ public class RepresentanteService {
 
     public Iterable<Representante> retornarTodosOsRepresentantes(){
        return representanteRepository.findAll();
+    }
+
+    public Iterable<Representante> buscarRepresentantesPeloNomeDaGuilda(String nome){
+        return representanteRepository.findAllByGuildasNome(nome);
     }
 
     public Representante atualizarRepresentante(Representante representante){

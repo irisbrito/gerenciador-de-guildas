@@ -1,9 +1,7 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.representante.AtualizarRepresentanteDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.representante.RepresentanteDTO;
-import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Representante;
 import com.br.zup.gerenciadordeguildas.services.RepresentanteService;
 import org.modelmapper.ModelMapper;
@@ -11,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-
 
 @RestController
 @RequestMapping("representantes/")
@@ -38,6 +34,11 @@ public class RepresentanteController {
     @GetMapping
     public Iterable<Representante> listarRepresentantes(){
         return representanteService.retornarTodosOsRepresentantes();
+    }
+
+    @GetMapping("guilda/{nome}/")
+    public Iterable<Representante> buscarRepresentantesPeloNomeDaGuilda(@PathVariable String nome){
+        return representanteService.buscarRepresentantesPeloNomeDaGuilda(nome);
     }
 
     @PutMapping("{id}/")
