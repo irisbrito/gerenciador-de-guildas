@@ -41,7 +41,7 @@ public class GuildaService {
         throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
     }
 
-    public void deletarGuildas(Integer id) {
+    public void deletarGuilda(Integer id) {
         if(guildaRepository.existsById(id)){
             guildaRepository.deleteById(id);
         }
