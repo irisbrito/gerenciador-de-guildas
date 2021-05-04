@@ -1,5 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
+import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +14,11 @@ public class AtaService {
         this.ataRepository = ataRepository;
     }
 
-    
+    public Iterable<Ata> buscarAtas() {
+        Iterable<Ata> listaComTodasAtas = ataRepository.findAll();
+        if(listaComTodasAtas.iterator().hasNext()) {
+            return listaComTodasAtas;
+        }
+        throw new ListaVaziaException("ata", 'a');
+    }
 }
