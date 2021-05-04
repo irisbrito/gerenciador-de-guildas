@@ -6,6 +6,8 @@ import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GuildaService {
 
@@ -18,6 +20,16 @@ public class GuildaService {
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
         return guildaRepository.findAll();
+    }
+
+    public Guilda buscarGuildaPeloNome(String nome){
+        Optional<Guilda> optionalGuilda = guildaRepository.findByNome(nome);
+
+        if(optionalGuilda.isPresent()){
+            return optionalGuilda.get();
+        }
+
+        throw new RecursoNaoEncontradoException("Guilda", null);
     }
 
     public void deletarGuildas(Integer id) {

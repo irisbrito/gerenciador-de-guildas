@@ -34,6 +34,11 @@ public class GuildaController {
         return guildaService.retornarTodasAsGuildas();
     }
 
+    @GetMapping("{nome}/")
+    public Guilda buscarGuildaPeloNome(@PathVariable String nome){
+        return guildaService.buscarGuildaPeloNome(nome);
+    }
+
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarGuildas(@PathVariable Integer id){
