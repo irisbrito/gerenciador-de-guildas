@@ -48,7 +48,7 @@ public class GuildaController {
 
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
-    public void deletarGuildas(@PathVariable Integer id){
-        guildaService.deletarGuildas(id);
+    public void deletarGuilda(@PathVariable Integer id){
+        guildaService.deletarGuilda(id);
     }
 }
