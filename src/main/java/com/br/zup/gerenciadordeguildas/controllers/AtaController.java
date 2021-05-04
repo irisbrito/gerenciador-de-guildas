@@ -1,13 +1,11 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.services.AtaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("atas/")
@@ -25,14 +23,6 @@ public class AtaController {
         this.ataService = ataService;
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public AtaDTO adicionarAta(@RequestBody @Valid AtaDTO ataDTO){
-        Ata ata = modelMapper.map(ataDTO, Ata.class);
-        ata = ataService.cadastrarAtas(ata);
-
-        return modelMapper.map(ata, AtaDTO.class);
-    }
 
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
