@@ -14,10 +14,6 @@ public class AtaController {
     private AtaService ataService;
     private ModelMapper modelMapper;
 
-    public AtaController(AtaService ataService, ModelMapper modelMapper) {
-        this.ataService = ataService;
-        this.modelMapper = modelMapper;
-    }
 
     public AtaController(AtaService ataService) {
         this.ataService = ataService;
