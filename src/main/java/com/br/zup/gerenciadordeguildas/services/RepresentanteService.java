@@ -5,6 +5,8 @@ import com.br.zup.gerenciadordeguildas.repositories.RepresentanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RepresentanteService {
 
@@ -16,8 +18,9 @@ public class RepresentanteService {
         return representanteRepository.save(representante);
     }
 
-    public void deletarRepresentante(Integer id) {
-        representanteRepository.deleteById(id);
+    public List<Representante> retornarTodosOsRepresentantes(){
+        List<Representante> representantes = (List<Representante>) representanteRepository.findAll();
+        return representantes;
     }
 
     public Representante salvarRepresentante(Representante representante) {
@@ -28,4 +31,8 @@ public class RepresentanteService {
             throw new RuntimeException("Representante já cadastrado!");
         }
     }
+    public void deletarRepresentante(Integer id) {
+        representanteRepository.deleteById(id);
+    }
+
 }
