@@ -15,4 +15,17 @@ public class RepresentanteService {
     public Representante cadastrarRepresentante(Representante representante) {
         return representanteRepository.save(representante);
     }
+
+    public void deletarRepresentante(Integer id) {
+        representanteRepository.deleteById(id);
+    }
+
+    public Representante salvarRepresentante(Representante representante) {
+        try{
+            Representante obj = representanteRepository.save(representante);
+            return representante;
+        }catch (Exception error){
+            throw new RuntimeException("Representante já cadastrado!");
+        }
+    }
 }
