@@ -21,4 +21,5 @@ public class AtaService {
         }
         throw new ListaVaziaException("ata", 'a');
     }
+
 }
