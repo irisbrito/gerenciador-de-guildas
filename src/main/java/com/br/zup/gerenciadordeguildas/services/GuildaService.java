@@ -17,7 +17,6 @@ public class GuildaService {
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
         return guildaRepository.findAll();
-
     }
 
     public void deletarGuildas(Integer id) {

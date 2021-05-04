@@ -1,10 +1,13 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.GuildaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("guildas/")
@@ -20,8 +23,10 @@ public class GuildaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Guilda cadastrarGuilda(@RequestBody Guilda guilda){
-        return guildaService.cadastrarGuilda(guilda);
+    public GuildaDTO cadastrarGuilda(@RequestBody @Valid GuildaDTO guildaDTO){
+        Guilda guilda = modelMapper.map(guildaDTO, Guilda.class);
+        guilda = guildaService.cadastrarGuilda(guilda);
+        return  modelMapper.map(guilda, GuildaDTO.class);
     }
 
     @GetMapping
