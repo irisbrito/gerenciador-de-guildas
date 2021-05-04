@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("guildas")
+@RequestMapping("guildas/")
 public class GuildaController {
 
     private GuildaService guildaService;
