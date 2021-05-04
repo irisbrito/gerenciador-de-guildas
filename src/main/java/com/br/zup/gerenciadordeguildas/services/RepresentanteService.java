@@ -24,16 +24,19 @@ public class RepresentanteService {
     public Representante salvarRepresentante(Representante representante) {
         try {
             Representante obj = representanteRepository.save(representante);
-
             return representante;
 
-        } catch (Exception error){
+        } catch (Exception error) {
             throw new RuntimeException("Representante já cadastrado!");
         }
     }
 
     public void deletarRepresentante(Integer id) {
-        representanteRepository.deleteById(id);
+        if(representanteRepository.existsById(id)){
+            representanteRepository.deleteById(id);
+        }
+
+        throw new RuntimeException("Representante não encontrado");
     }
 
 }
