@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,9 @@ public class AtaService {
         }
         throw new ListaVaziaException("ata", 'a');
     }
+
+    public Ata cadastrarAtas(Ata ata){
+        return ataRepository.save(ata);
+    }
+
 }
