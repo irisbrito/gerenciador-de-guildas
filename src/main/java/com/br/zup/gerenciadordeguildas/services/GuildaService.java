@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,13 @@ public class GuildaService {
     }
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
-        return guildaRepository.findAll();
+        Iterable<Guilda> listaDeGuildas = guildaRepository.findAll();
+
+        if(listaDeGuildas.iterator().hasNext()){
+            return listaDeGuildas;
+        }
+
+        throw new ListaVaziaException("guilda", 'a');
     }
 
     public Guilda buscarGuildaPeloNome(String nome){
