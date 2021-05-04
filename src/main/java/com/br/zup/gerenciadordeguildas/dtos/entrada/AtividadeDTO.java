@@ -3,9 +3,7 @@ package com.br.zup.gerenciadordeguildas.dtos.entrada;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import lombok.*;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -13,19 +11,21 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AtividadeDTO {
+
     private Integer id;
-    @NotBlank
-    @Min(value = 2, message = "Por favor digite um nome válido")
-    @Max(value = 100, message = "Por favor, digite no máximo 100 caracteres")
+
+    @NotNull
+    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String nome;
-    @NotBlank
-    @Max(value = 500, message = "Por favor, digite no máximo 500 caracteres")
+
+    @NotNull
+    @Size(max = 500, message = "Por favor, digite no máximo 500 caracteres")
     private String descricao;
-    @NotBlank
-    @Min(value = 2, message = "Por favor digite um nome válido")
-    @Max(value = 100, message = "Por favor, digite no máximo 100 caracteres")
+
+    @NotNull
+    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String responsavel;
-    @NotBlank
-    @Max(value = 18, message = "Por favor, digite um Status existente")
+
+    @NotNull
     private Status status;
 }
