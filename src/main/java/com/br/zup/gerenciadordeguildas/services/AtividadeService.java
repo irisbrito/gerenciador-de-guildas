@@ -15,6 +15,10 @@ public class AtividadeService {
        return atividadeRepository.save(atividade);
     }
 
+    public Iterable<Atividade> buscarAtividades(){
+        return atividadeRepository.findAll();
+    }
+
     public void deletarAtividade(Integer id){
         if(atividadeRepository.existsById(id)){
             atividadeRepository.deleteById(id);

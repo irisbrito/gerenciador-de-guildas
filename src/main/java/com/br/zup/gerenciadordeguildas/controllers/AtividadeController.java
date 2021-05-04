@@ -31,6 +31,12 @@ public class AtividadeController {
         return modelMapper.map(atividade, AtividadeDTO.class);
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<Atividade> buscarAtividades(){
+        return atividadeService.buscarAtividades();
+    }
+
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarAtividade(@PathVariable Integer id){
