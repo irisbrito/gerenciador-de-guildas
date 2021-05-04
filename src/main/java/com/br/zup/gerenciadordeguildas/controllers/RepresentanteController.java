@@ -36,6 +36,11 @@ public class RepresentanteController {
         return representanteService.retornarTodosOsRepresentantes();
     }
 
+    @GetMapping("guilda/{nome}/")
+    public Iterable<Representante> buscarRepresentantesPeloNomeDaGuilda(@PathVariable String nome){
+        return representanteService.buscarRepresentantesPeloNomeDaGuilda(nome);
+    }
+
     @PutMapping("{id}/")
     public Representante atualizarRepresentante(@PathVariable Integer id, @RequestBody AtualizarRepresentanteDTO representanteDTO){
         Representante representante = representanteService.atualizarRepresentante(representanteDTO.converterDTOParaModel(id));

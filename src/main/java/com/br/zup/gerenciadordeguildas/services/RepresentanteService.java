@@ -20,6 +20,10 @@ public class RepresentanteService {
        return representanteRepository.findAll();
     }
 
+    public Iterable<Representante> buscarRepresentantesPeloNomeDaGuilda(String nome){
+        return representanteRepository.findAllByGuildasNome(nome);
+    }
+
     public Representante atualizarRepresentante(Representante representante){
         if(representanteRepository.existsById(representante.getId())){
             Representante objRepresentante = representanteRepository.save(representante);
