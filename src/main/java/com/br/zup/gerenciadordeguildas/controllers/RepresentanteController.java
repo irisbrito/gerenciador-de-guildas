@@ -28,7 +28,7 @@ public class RepresentanteController {
     }
 
     @GetMapping
-    public List<Representante> listarRepresentantes(){
+    public Iterable<Representante> listarRepresentantes(){
         return representanteService.retornarTodosOsRepresentantes();
     }
 
