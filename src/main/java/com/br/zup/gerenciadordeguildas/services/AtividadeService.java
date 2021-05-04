@@ -16,6 +16,10 @@ public class AtividadeService {
     }
 
     public void deletarAtividade(Integer id){
-        atividadeRepository.deleteById(id);
+        if(atividadeRepository.existsById(id)){
+            atividadeRepository.deleteById(id);
+        }
+
+        throw new RuntimeException("Atividade não encontrada");
     }
 }
