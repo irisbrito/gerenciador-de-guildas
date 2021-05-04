@@ -25,7 +25,7 @@ public class Guilda {
     @OneToMany
     private List<Atividade> atividades;
     @OneToMany
-    private Ata ata;
+    private List<Ata> atas;
 
 
 
