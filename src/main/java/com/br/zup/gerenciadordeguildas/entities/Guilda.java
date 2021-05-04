@@ -28,5 +28,4 @@ public class Guilda {
     private List<Ata> atas;
 
 
-
 }
