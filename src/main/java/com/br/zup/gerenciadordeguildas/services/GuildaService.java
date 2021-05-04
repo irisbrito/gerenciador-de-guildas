@@ -17,9 +17,9 @@ public class GuildaService {
         return guildaRepository.save(guilda);
     }
 
-    public List<Guilda> retornarTodasAsGuildas(){
-        List<Guilda> guildas = (List<Guilda>) guildaRepository.findAll();
-        return guildas;
+    public Iterable<Guilda> retornarTodasAsGuildas(){
+        return guildaRepository.findAll();
+
     }
 
     public void deletarGuildas(Integer id) {
