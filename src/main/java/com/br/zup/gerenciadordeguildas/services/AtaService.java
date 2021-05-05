@@ -2,6 +2,7 @@ package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
@@ -25,6 +26,11 @@ public class AtaService {
         }
         throw new ListaVaziaException("Ata", 'a');
     }
+
+    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String nome){
+        return ataRepository.findAllByGuildasNome(nome);
+    }
+
     public Ata cadastrarAta(Ata ata) {
         ata.setData(LocalDate.now());
         return ataRepository.save(ata);

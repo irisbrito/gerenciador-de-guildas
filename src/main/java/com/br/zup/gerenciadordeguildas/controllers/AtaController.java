@@ -22,12 +22,6 @@ public class AtaController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/")
-    @ResponseStatus(HttpStatus.OK)
-    public Iterable<Ata> buscarAtas() {
-        return ataService.buscarAtas();
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AtaDTO cadastrarAta(@RequestBody @Valid AtaDTO ataDTO) {
@@ -36,6 +30,18 @@ public class AtaController {
 
         return modelMapper.map(ata, AtaDTO.class);
     }
+
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<Ata> buscarAtas() {
+        return ataService.buscarAtas();
+    }
+
+    @GetMapping("guilda/{nome}/")
+    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(@PathVariable String nome){
+        return ataService.buscarAtasPeloNomeDaGuilda(nome);
+    }
+
 
     @PutMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
