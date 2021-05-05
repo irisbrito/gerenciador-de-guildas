@@ -20,10 +20,6 @@ public class MembroService {
        return membroRepository.findAll();
     }
 
-    public Iterable<Membro> buscarMembrosPeloNomeDaGuilda(String nome){
-        return membroRepository.findAllByGuildasNome(nome);
-    }
-
     public Membro atualizarMembro(Membro membro){
         if(membroRepository.existsById(membro.getId())){
             Membro objMembro = membroRepository.save(membro);

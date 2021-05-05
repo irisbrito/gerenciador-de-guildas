@@ -20,6 +20,5 @@ public class Membro {
     private String email;
     private String zenity;
     private boolean representante;
-    @ManyToMany
-    private List<Guilda> guildas;
+
 }

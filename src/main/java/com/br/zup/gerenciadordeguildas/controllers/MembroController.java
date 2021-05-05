@@ -36,11 +36,6 @@ public class MembroController {
         return membroService.retornarTodosOsMembros();
     }
 
-    @GetMapping("guilda/{nome}/")
-    public Iterable<Membro> buscarMembrosPeloNomeDaGuilda(@PathVariable String nome){
-        return membroService.buscarMembrosPeloNomeDaGuilda(nome);
-    }
-
     @PutMapping("{id}/")
     public Membro atualizarMembro(@PathVariable Integer id, @RequestBody AtualizarMembroDTO membroDTO){
         Membro membro = membroService.atualizarMembro(membroDTO.converterDTOParaModel(id));
