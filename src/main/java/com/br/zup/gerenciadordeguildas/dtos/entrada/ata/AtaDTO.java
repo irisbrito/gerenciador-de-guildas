@@ -18,14 +18,11 @@ public class AtaDTO {
 
     @NotNull
     @Size(max = 30, message = "Digitar no máximo 30 caracteres.")
-    private String titulo;
+    private String pauta;
 
     @NotNull
     @Size(max = 500, message = "Digitar no máximo 500 caracteres.")
     private String assuntos;
 
-    @NotNull
-    @Size(max = 500, message = "Digitar no máximo 500 caracteres.")
-    private String resultado;
 
 }
