@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
@@ -27,6 +28,15 @@ public class AtaService {
     public Ata cadastrarAta(Ata ata) {
         ata.setData(LocalDate.now());
         return ataRepository.save(ata);
+    }
+
+    public Ata atualizarAta(Ata ata){
+        if(ataRepository.existsById(ata.getId())){
+            Ata objAta = cadastrarAta(ata);
+            return ata;
+        }
+
+        throw new RecursoNaoEncontradoException("Ata", ata.getId());
     }
 
     public void deletarAta(Integer id) {
