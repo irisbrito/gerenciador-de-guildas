@@ -19,6 +19,7 @@ public class Atividade {
     private Integer id;
     private String nome;
     private String descricao;
+    @ManyToMany
     private List<Membro> responsaveis;
     private Status status;
 
