@@ -1,7 +1,6 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.ata;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
-import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
