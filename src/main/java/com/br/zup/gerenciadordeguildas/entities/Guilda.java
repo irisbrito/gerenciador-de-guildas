@@ -1,6 +1,5 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,14 +18,14 @@ public class Guilda {
     private String nome;
     private String descricao;
     private String objetivos;
-    private String grupo;
-    @OneToMany()
-    private List<Representante> representantes;
+    private String linkDoChat;
+
+    @OneToMany
+    private List<Membro> membros;
+
     @OneToMany
     private List<Atividade> atividades;
+
     @OneToMany
     private List<Ata> atas;
-
-
-
 }

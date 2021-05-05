@@ -4,6 +4,8 @@ import com.br.zup.gerenciadordeguildas.enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,7 +19,9 @@ public class Atividade {
     private Integer id;
     private String nome;
     private String descricao;
-    private String responsavel;
+    private List<Membro> responsavel;
     private Status status;
 
+    @OneToMany
+    private Guilda guilda;
 }

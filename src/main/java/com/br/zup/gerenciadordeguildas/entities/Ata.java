@@ -15,8 +15,9 @@ public class Ata {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate data;
-    private String titulo;
+    private String pauta;
     private String assuntos;
-    private String resultado;
 
+    @OneToMany
+    private Guilda guilda;
 }

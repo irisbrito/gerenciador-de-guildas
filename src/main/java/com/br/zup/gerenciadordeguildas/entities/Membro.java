@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "representantes")
 
-public class Representante {
+public class Membro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,7 @@ public class Representante {
     private String nome;
     private String email;
     private String zenity;
+    private boolean representante;
     @ManyToMany
     private List<Guilda> guildas;
 }
