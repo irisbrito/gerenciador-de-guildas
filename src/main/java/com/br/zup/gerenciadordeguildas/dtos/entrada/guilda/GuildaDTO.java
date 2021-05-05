@@ -2,7 +2,7 @@ package com.br.zup.gerenciadordeguildas.dtos.entrada.guilda;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
-import com.br.zup.gerenciadordeguildas.entities.Representante;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
@@ -32,7 +32,7 @@ public class GuildaDTO {
     @NotNull
     private String grupo;
     @NotNull
-    private List<Representante> representantes;
+    private List<Membro> membros;
     private List<Atividade> atividades;
     private List<Ata> atas;
 }

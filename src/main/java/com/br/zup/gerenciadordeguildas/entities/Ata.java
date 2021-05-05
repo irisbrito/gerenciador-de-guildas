@@ -18,6 +18,6 @@ public class Ata {
     private String pauta;
     private String assuntos;
 
-    @OneToMany
+    @ManyToOne
     private Guilda guilda;
 }
