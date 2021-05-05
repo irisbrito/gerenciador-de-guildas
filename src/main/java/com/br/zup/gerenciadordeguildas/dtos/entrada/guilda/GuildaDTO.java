@@ -1,8 +1,5 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.guilda;
 
-import com.br.zup.gerenciadordeguildas.entities.Ata;
-import com.br.zup.gerenciadordeguildas.entities.Atividade;
-import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
@@ -10,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
@@ -31,8 +27,4 @@ public class GuildaDTO {
     private String objetivos;
     @NotNull
     private String linkDoChat;
-    @NotNull
-    private List<Membro> membros;
-    private List<Atividade> atividades;
-    private List<Ata> atas;
 }
