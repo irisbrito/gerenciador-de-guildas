@@ -2,6 +2,7 @@ package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
+import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,13 @@ public class AtaService {
     public Ata cadastrarAta(Ata ata) {
         ata.setData(LocalDate.now());
         return ataRepository.save(ata);
+    }
+
+    public void deletarAta(Integer id) {
+        if(ataRepository.existsById(id)){
+            ataRepository.deleteById(id);
+        }
+
+        throw new RecursoNaoEncontradoException("Ata", id);
     }
 }
