@@ -5,6 +5,8 @@ import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class AtaService {
 
@@ -19,7 +21,10 @@ public class AtaService {
         if(listaComTodasAtas.iterator().hasNext()) {
             return listaComTodasAtas;
         }
-        throw new ListaVaziaException("ata", 'a');
+        throw new ListaVaziaException("Ata", 'a');
     }
-
+    public Ata cadastrarAta(Ata ata) {
+        ata.setData(LocalDate.now());
+        return ataRepository.save(ata);
+    }
 }
