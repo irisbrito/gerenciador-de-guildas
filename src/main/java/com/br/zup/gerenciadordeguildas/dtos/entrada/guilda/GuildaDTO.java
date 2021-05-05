@@ -30,7 +30,7 @@ public class GuildaDTO {
     @NotNull
     private String objetivos;
     @NotNull
-    private String grupo;
+    private String linkDoChat;
     @NotNull
     private List<Membro> membros;
     private List<Atividade> atividades;
