@@ -45,6 +45,13 @@ public class AtividadeController {
         return atividade;
     }
 
+    @GetMapping("{guilda}/")
+    @ResponseStatus(HttpStatus.OK)
+    public AtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
+        Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
+        return modelMapper.map(atividade, AtividadeDTO.class);
+    }
+
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarAtividade(@PathVariable Integer id){
