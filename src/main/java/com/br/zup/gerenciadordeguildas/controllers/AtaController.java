@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.services.AtaService;
 import org.modelmapper.ModelMapper;
@@ -34,6 +35,14 @@ public class AtaController {
         ata = ataService.cadastrarAta(ata);
 
         return modelMapper.map(ata, AtaDTO.class);
+    }
+
+    @PutMapping("{id}/")
+    @ResponseStatus(HttpStatus.OK)
+    public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO){
+        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaModel(id));
+
+        return ata;
     }
 
     @DeleteMapping("{id}/")
