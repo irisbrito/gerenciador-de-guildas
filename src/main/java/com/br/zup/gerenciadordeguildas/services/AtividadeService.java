@@ -20,6 +20,10 @@ public class AtividadeService {
         return atividadeRepository.findAll();
     }
 
+    public Atividade buscarAtividadePelaGuilda(String guilda) {
+        return atividadeRepository.findByGuilda(guilda).get();
+    }
+
     public Atividade atualizarAtividade(Atividade atividade){
         if(atividadeRepository.existsById(atividade.getId())){
             Atividade objAtividade = cadastrarAtividade(atividade);
