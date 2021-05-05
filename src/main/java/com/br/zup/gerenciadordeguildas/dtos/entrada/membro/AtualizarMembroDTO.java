@@ -1,7 +1,7 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.representante;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
-import com.br.zup.gerenciadordeguildas.entities.Representante;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -20,14 +20,14 @@ public class AtualizarRepresentanteDTO {
     @NotNull
     private List<Guilda> guildas;
 
-    public Representante converterDTOParaModel(Integer id){
-        Representante representante = new Representante();
-        representante.setId(id);
-        representante.setNome(this.nome);
-        representante.setEmail(this.email);
-        representante.setZenity(this.zenity);
-        representante.setGuildas(this.guildas);
+    public Membro converterDTOParaModel(Integer id){
+        Membro membro = new Membro();
+        membro.setId(id);
+        membro.setNome(this.nome);
+        membro.setEmail(this.email);
+        membro.setZenity(this.zenity);
+        membro.setGuildas(this.guildas);
 
-        return representante;
+        return membro;
     }
 }

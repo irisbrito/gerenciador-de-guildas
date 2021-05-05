@@ -1,6 +1,6 @@
 package com.br.zup.gerenciadordeguildas.services;
 
-import com.br.zup.gerenciadordeguildas.entities.Representante;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.RepresentanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +12,25 @@ public class RepresentanteService {
     @Autowired
     private RepresentanteRepository representanteRepository;
 
-    public Representante cadastrarRepresentante(Representante representante) {
-        return representanteRepository.save(representante);
+    public Membro cadastrarRepresentante(Membro membro) {
+        return representanteRepository.save(membro);
     }
 
-    public Iterable<Representante> retornarTodosOsRepresentantes(){
+    public Iterable<Membro> retornarTodosOsRepresentantes(){
        return representanteRepository.findAll();
     }
 
-    public Iterable<Representante> buscarRepresentantesPeloNomeDaGuilda(String nome){
+    public Iterable<Membro> buscarRepresentantesPeloNomeDaGuilda(String nome){
         return representanteRepository.findAllByGuildasNome(nome);
     }
 
-    public Representante atualizarRepresentante(Representante representante){
-        if(representanteRepository.existsById(representante.getId())){
-            Representante objRepresentante = representanteRepository.save(representante);
-            return representante;
+    public Membro atualizarRepresentante(Membro membro){
+        if(representanteRepository.existsById(membro.getId())){
+            Membro objMembro = representanteRepository.save(membro);
+            return membro;
         }
 
-        throw new RecursoNaoEncontradoException("Representante", representante.getId());
+        throw new RecursoNaoEncontradoException("Representante", membro.getId());
     }
 
     public void deletarRepresentante(Integer id) {

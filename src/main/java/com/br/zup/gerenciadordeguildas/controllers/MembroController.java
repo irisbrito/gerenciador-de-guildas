@@ -2,7 +2,7 @@ package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.representante.AtualizarRepresentanteDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.representante.RepresentanteDTO;
-import com.br.zup.gerenciadordeguildas.entities.Representante;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.services.RepresentanteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -25,26 +25,26 @@ public class RepresentanteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RepresentanteDTO cadastrarRepresentante(@RequestBody @Valid RepresentanteDTO representanteDTO){
-        Representante representante = modelMapper.map(representanteDTO, Representante.class);
-        representante = representanteService.cadastrarRepresentante(representante);
+        Membro membro = modelMapper.map(representanteDTO, Membro.class);
+        membro = representanteService.cadastrarRepresentante(membro);
 
-        return modelMapper.map(representante, RepresentanteDTO.class);
+        return modelMapper.map(membro, RepresentanteDTO.class);
     }
 
     @GetMapping
-    public Iterable<Representante> listarRepresentantes(){
+    public Iterable<Membro> listarRepresentantes(){
         return representanteService.retornarTodosOsRepresentantes();
     }
 
     @GetMapping("guilda/{nome}/")
-    public Iterable<Representante> buscarRepresentantesPeloNomeDaGuilda(@PathVariable String nome){
+    public Iterable<Membro> buscarRepresentantesPeloNomeDaGuilda(@PathVariable String nome){
         return representanteService.buscarRepresentantesPeloNomeDaGuilda(nome);
     }
 
     @PutMapping("{id}/")
-    public Representante atualizarRepresentante(@PathVariable Integer id, @RequestBody AtualizarRepresentanteDTO representanteDTO){
-        Representante representante = representanteService.atualizarRepresentante(representanteDTO.converterDTOParaModel(id));
-        return representante;
+    public Membro atualizarRepresentante(@PathVariable Integer id, @RequestBody AtualizarRepresentanteDTO representanteDTO){
+        Membro membro = representanteService.atualizarRepresentante(representanteDTO.converterDTOParaModel(id));
+        return membro;
     }
 
     @DeleteMapping("{id}/")
