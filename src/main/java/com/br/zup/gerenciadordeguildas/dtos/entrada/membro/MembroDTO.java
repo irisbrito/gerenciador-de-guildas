@@ -1,4 +1,4 @@
-package com.br.zup.gerenciadordeguildas.dtos.entrada.representante;
+package com.br.zup.gerenciadordeguildas.dtos.entrada.membro;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import lombok.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RepresentanteDTO {
+public class MembroDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

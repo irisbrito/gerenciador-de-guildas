@@ -1,4 +1,4 @@
-package com.br.zup.gerenciadordeguildas.dtos.entrada.representante;
+package com.br.zup.gerenciadordeguildas.dtos.entrada.membro;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-public class AtualizarRepresentanteDTO {
+public class AtualizarMembroDTO {
 
     @NotNull
     @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
