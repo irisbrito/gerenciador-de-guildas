@@ -1,11 +1,13 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
+import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuildaService {
@@ -18,11 +20,39 @@ public class GuildaService {
     }
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
-        return guildaRepository.findAll();
+        Iterable<Guilda> listaDeGuildas = guildaRepository.findAll();
 
+        if(listaDeGuildas.iterator().hasNext()){
+            return listaDeGuildas;
+        }
+
+        throw new ListaVaziaException("guilda", 'a');
     }
 
-    public void deletarGuildas(Integer id) {
-        guildaRepository.deleteById(id);
+    public Guilda buscarGuildaPeloNome(String nome){
+        Optional<Guilda> optionalGuilda = guildaRepository.findByNome(nome);
+
+        if(optionalGuilda.isPresent()){
+            return optionalGuilda.get();
+        }
+
+        throw new RecursoNaoEncontradoException("Guilda", null);
+    }
+
+    public Guilda atualizarGuilda(Guilda guilda){
+        if(guildaRepository.existsById(guilda.getId())){
+            Guilda objGuilda = cadastrarGuilda(guilda);
+            return guilda;
+        }
+
+        throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+    }
+
+    public void deletarGuilda(Integer id) {
+        if(guildaRepository.existsById(id)){
+            guildaRepository.deleteById(id);
+        }
+
+        throw new RecursoNaoEncontradoException("Guilda", id);
     }
 }
