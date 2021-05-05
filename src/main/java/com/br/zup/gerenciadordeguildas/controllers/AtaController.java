@@ -35,4 +35,10 @@ public class AtaController {
 
         return modelMapper.map(ata, AtaDTO.class);
     }
+
+    @DeleteMapping("{id}/")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarAta(@PathVariable Integer id){
+        ataService.deletarAta(id);
+    }
 }

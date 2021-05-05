@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class AtaDTO {
 
-    private Long id;
+    private Integer id;
     private LocalDate data;
 
     @NotNull
