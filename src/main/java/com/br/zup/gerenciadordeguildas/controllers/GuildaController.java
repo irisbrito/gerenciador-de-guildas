@@ -1,13 +1,14 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.AtualizarGuildaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.GuildaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
-import com.br.zup.gerenciadordeguildas.entities.Representante;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("guildas/")
@@ -23,8 +24,10 @@ public class GuildaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Guilda cadastrarGuilda(@RequestBody Guilda guilda){
-        return guildaService.cadastrarGuilda(guilda);
+    public GuildaDTO cadastrarGuilda(@RequestBody @Valid GuildaDTO guildaDTO){
+        Guilda guilda = modelMapper.map(guildaDTO, Guilda.class);
+        guilda = guildaService.cadastrarGuilda(guilda);
+        return  modelMapper.map(guilda, GuildaDTO.class);
     }
 
     @GetMapping
@@ -32,9 +35,20 @@ public class GuildaController {
         return guildaService.retornarTodasAsGuildas();
     }
 
+    @GetMapping("{nome}/")
+    public Guilda buscarGuildaPeloNome(@PathVariable String nome){
+        return guildaService.buscarGuildaPeloNome(nome);
+    }
+
+    @PutMapping("{id}/")
+    public Guilda atualizarGuilda(@PathVariable Integer id, @RequestBody AtualizarGuildaDTO guildaDTO){
+        Guilda guilda = guildaService.atualizarGuilda(guildaDTO.converterDTOParaModel(id));
+        return guilda;
+    }
+
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
-    public void deletarGuildas(@PathVariable Integer id){
-        guildaService.deletarGuildas(id);
+    public void deletarGuilda(@PathVariable Integer id){
+        guildaService.deletarGuilda(id);
     }
 }
