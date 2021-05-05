@@ -1,13 +1,10 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
-import com.br.zup.gerenciadordeguildas.entities.Representante;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("guildas/")

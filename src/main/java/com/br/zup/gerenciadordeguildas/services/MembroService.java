@@ -2,43 +2,43 @@ package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
-import com.br.zup.gerenciadordeguildas.repositories.RepresentanteRepository;
+import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RepresentanteService {
+public class MembroService {
 
     @Autowired
-    private RepresentanteRepository representanteRepository;
+    private MembroRepository membroRepository;
 
-    public Membro cadastrarRepresentante(Membro membro) {
-        return representanteRepository.save(membro);
+    public Membro cadastrarMembro(Membro membro) {
+        return membroRepository.save(membro);
     }
 
-    public Iterable<Membro> retornarTodosOsRepresentantes(){
-       return representanteRepository.findAll();
+    public Iterable<Membro> retornarTodosOsMembros(){
+       return membroRepository.findAll();
     }
 
-    public Iterable<Membro> buscarRepresentantesPeloNomeDaGuilda(String nome){
-        return representanteRepository.findAllByGuildasNome(nome);
+    public Iterable<Membro> buscarMembrosPeloNomeDaGuilda(String nome){
+        return membroRepository.findAllByGuildasNome(nome);
     }
 
-    public Membro atualizarRepresentante(Membro membro){
-        if(representanteRepository.existsById(membro.getId())){
-            Membro objMembro = representanteRepository.save(membro);
+    public Membro atualizarMembro(Membro membro){
+        if(membroRepository.existsById(membro.getId())){
+            Membro objMembro = membroRepository.save(membro);
             return membro;
         }
 
-        throw new RecursoNaoEncontradoException("Representante", membro.getId());
+        throw new RecursoNaoEncontradoException("Membro", membro.getId());
     }
 
-    public void deletarRepresentante(Integer id) {
-        if(representanteRepository.existsById(id)){
-            representanteRepository.deleteById(id);
+    public void deletarMembro(Integer id) {
+        if(membroRepository.existsById(id)){
+            membroRepository.deleteById(id);
         }
 
-        throw new RecursoNaoEncontradoException("Representante", id);
+        throw new RecursoNaoEncontradoException("Membro", id);
     }
 
 }
