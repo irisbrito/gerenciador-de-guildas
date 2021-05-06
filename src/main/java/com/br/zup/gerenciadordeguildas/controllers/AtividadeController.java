@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtividadeDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizacaoParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.services.AtividadeService;
@@ -43,6 +44,13 @@ public class AtividadeController {
         Atividade atividade = atividadeService.atualizarAtividade(atividadeDTO.converterDTOParaModel(id));
 
         return atividade;
+    }
+
+    @PatchMapping("{id}/")
+    public Atividade atualizarAtividadeParcial(@PathVariable int id,
+                                               @RequestBody @Valid AtualizacaoParcialAtividadeDTO atividadeDTO){
+        Atividade atividade = atividadeDTO.converterDTOParaModel(id);
+        return atividadeService.atualizarParcialAtividade(atividade);
     }
 
     @GetMapping("{guilda}/")
