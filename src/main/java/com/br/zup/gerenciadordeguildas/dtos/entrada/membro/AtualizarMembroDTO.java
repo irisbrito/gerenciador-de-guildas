@@ -17,6 +17,8 @@ public class AtualizarMembroDTO {
     private String email;
     @NotNull
     private String zenity;
+    @NotNull
+    private List<Guilda> guildas;
 
     public Membro converterDTOParaModel(Integer id){
         Membro membro = new Membro();
@@ -24,6 +26,7 @@ public class AtualizarMembroDTO {
         membro.setNome(this.nome);
         membro.setEmail(this.email);
         membro.setZenity(this.zenity);
+        membro.setGuildas(this.guildas);
 
         return membro;
     }
