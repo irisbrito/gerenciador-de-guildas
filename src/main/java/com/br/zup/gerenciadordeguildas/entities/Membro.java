@@ -21,6 +21,10 @@ public class Membro {
     private String zenity;
     private boolean representante;
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "membros_guildas",
+            joinColumns = @JoinColumn(name = "membro_id"),
+            inverseJoinColumns = @JoinColumn(name = "guilda_id"))
     private List<Guilda> guildas;
 
 }
