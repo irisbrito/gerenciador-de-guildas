@@ -16,15 +16,8 @@ import java.util.List;
 public class AtualizacaoParcialAtividadeDTO {
 
 
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String nome;
-
-
-    @Size(max = 500, message = "Por favor, digite no máximo 500 caracteres")
     private String descricao;
-
-
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private List<String> responsaveis;
 
 
