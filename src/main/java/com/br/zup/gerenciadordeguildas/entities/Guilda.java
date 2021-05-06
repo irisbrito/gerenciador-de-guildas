@@ -20,7 +20,7 @@ public class Guilda {
     private String objetivos;
     private String linkDoChat;
 
-    @OneToMany
+    @ManyToMany(mappedBy = "guildas")
     private List<Membro> membros;
 
     @OneToMany

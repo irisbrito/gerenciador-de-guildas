@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.List;
 
@@ -45,10 +46,13 @@ public class GuildaService {
         List<Guilda> listaDeGuildas = new ArrayList<>();
 
         for (Guilda guilda : guildas) {
-            if(guildaRepository.existsById(guilda.getId())){
-                listaDeGuildas.add(guilda);
+           Optional<Guilda> objGuilda = guildaRepository.findById(guilda.getId());
+           if(Objects.nonNull(objGuilda)){
+               listaDeGuildas.add(guilda);
+            }else{
+                throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+
             }
-            throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
         }
 
         return listaDeGuildas;

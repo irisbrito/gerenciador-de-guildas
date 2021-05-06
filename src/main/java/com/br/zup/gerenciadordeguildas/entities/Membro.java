@@ -20,7 +20,11 @@ public class Membro {
     private String email;
     private String zenity;
     private boolean representante;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "membros_guildas",
+            joinColumns = @JoinColumn(name = "membro_id"),
+            inverseJoinColumns = @JoinColumn(name = "guilda_id"))
     private List<Guilda> guildas;
 
 }
