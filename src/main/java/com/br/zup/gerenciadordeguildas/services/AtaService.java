@@ -27,8 +27,8 @@ public class AtaService {
         throw new ListaVaziaException("Ata", 'a');
     }
 
-    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String nome){
-        return ataRepository.findAllByGuildasNome(nome);
+    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String guilda){
+        return ataRepository.findAllByGuilda(guilda);
     }
 
     public Ata cadastrarAta(Ata ata) {
