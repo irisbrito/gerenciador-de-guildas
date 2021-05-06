@@ -20,7 +20,7 @@ public class Membro {
     private String email;
     private String zenity;
     private boolean representante;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Guilda> guildas;
 
 }
