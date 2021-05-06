@@ -1,10 +1,12 @@
 package com.br.zup.gerenciadordeguildas.services;
 
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class MembroService {
@@ -12,7 +14,12 @@ public class MembroService {
     @Autowired
     private MembroRepository membroRepository;
 
+    @Autowired
+    private GuildaService guildaService;
+
     public Membro cadastrarMembro(Membro membro) {
+        List<Guilda> listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
+        membro.setGuildas(listaDeGuildasDoMembro);
         return membroRepository.save(membro);
     }
 
