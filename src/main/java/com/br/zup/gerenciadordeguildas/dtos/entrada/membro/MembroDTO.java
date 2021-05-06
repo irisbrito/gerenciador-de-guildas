@@ -28,5 +28,8 @@ public class MembroDTO {
     private String email;
     @NotNull
     private String zenity;
-
+    @NotNull
+    private boolean representante;
+    @NotNull
+    private List<Integer> guildas;
 }

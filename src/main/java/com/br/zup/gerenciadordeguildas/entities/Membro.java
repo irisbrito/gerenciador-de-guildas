@@ -20,5 +20,7 @@ public class Membro {
     private String email;
     private String zenity;
     private boolean representante;
+    @OneToMany
+    private List<Guilda> guildas;
 
 }
