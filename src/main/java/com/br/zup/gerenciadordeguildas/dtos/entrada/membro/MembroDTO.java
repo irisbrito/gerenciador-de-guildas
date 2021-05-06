@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class MembroDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
-    @Min(3)
     private String nome;
     @Email(message = "Email inválido!")
     private String email;
@@ -31,5 +29,5 @@ public class MembroDTO {
     @NotNull
     private boolean representante;
     @NotNull
-    private List<Integer> guildas;
+    private List<Guilda> guildas;
 }
