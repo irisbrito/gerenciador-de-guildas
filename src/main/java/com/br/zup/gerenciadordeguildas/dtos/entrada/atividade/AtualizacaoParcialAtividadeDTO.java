@@ -15,19 +15,19 @@ import java.util.List;
 @AllArgsConstructor
 public class AtualizacaoParcialAtividadeDTO {
 
-    @NotNull
+
     @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String nome;
 
-    @NotNull
+
     @Size(max = 500, message = "Por favor, digite no máximo 500 caracteres")
     private String descricao;
 
-    @NotNull
+
     @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private List<String> responsaveis;
 
-    @NotNull
+
     private Status status;
 
     public Atividade converterDTOParaModel(int id){
