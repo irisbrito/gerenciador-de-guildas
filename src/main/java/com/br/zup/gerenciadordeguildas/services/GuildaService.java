@@ -7,7 +7,9 @@ import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class GuildaService {
@@ -37,6 +39,19 @@ public class GuildaService {
         }
 
         throw new RecursoNaoEncontradoException("Guilda", null);
+    }
+
+    public List<Guilda> buscarGuildas(List<Guilda> guildas){
+        List<Guilda> listaDeGuildas = new ArrayList<>();
+
+        for (Guilda guilda : guildas) {
+            if(guildaRepository.existsById(guilda.getId())){
+                listaDeGuildas.add(guilda);
+            }
+            throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+        }
+
+        return listaDeGuildas;
     }
 
     public Guilda atualizarGuilda(Guilda guilda){
