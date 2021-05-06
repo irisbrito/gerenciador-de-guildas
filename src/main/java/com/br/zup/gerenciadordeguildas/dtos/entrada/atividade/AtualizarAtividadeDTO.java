@@ -26,7 +26,7 @@ public class AtualizarAtividadeDTO {
 
     @NotNull
     @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
-    private List<String> responsaveis;
+    private List<Membro> responsaveis;
 
     @NotNull
     private Status status;
