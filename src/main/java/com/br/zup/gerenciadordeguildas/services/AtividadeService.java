@@ -6,6 +6,8 @@ import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AtividadeService {
 
@@ -24,6 +26,16 @@ public class AtividadeService {
         return atividadeRepository.findByGuilda(guilda).get();
     }
 
+    public Atividade buscarAtividadePeloId(int id){
+        Optional<Atividade> optionalAtividade = atividadeRepository.findById(id);
+
+        if(optionalAtividade.isPresent()){
+            return optionalAtividade.get();
+        }
+
+        throw new RuntimeException("Atividade não existe");
+    }
+
     public Atividade atualizarAtividade(Atividade atividade){
         if(atividadeRepository.existsById(atividade.getId())){
             Atividade objAtividade = cadastrarAtividade(atividade);
@@ -31,6 +43,32 @@ public class AtividadeService {
         }
 
         throw new RecursoNaoEncontradoException("Atividade", atividade.getId());
+    }
+
+    public Atividade atualizarParcialAtividade(Atividade atividade){
+        Atividade objetoAtividade = buscarAtividadePeloId(atividade.getId());
+
+        if(!objetoAtividade.getNome().equals(atividade.getNome()) && atividade.getNome() != null ){
+            objetoAtividade.setNome(atividade.getNome());
+        }
+
+        if (objetoAtividade.getDescricao() != atividade.getDescricao() && atividade.getDescricao() != null){
+            objetoAtividade.setDescricao(atividade.getDescricao());
+        }
+
+        if (objetoAtividade.getResponsaveis() != atividade.getResponsaveis() && atividade.getResponsaveis() != null){
+            objetoAtividade.setResponsaveis(atividade.getResponsaveis());
+        }
+
+        if (objetoAtividade.getStatus() != atividade.getStatus() && atividade.getStatus() != null){
+            objetoAtividade.setStatus(atividade.getStatus());
+        }
+
+        if (objetoAtividade.getGuilda() != atividade.getGuilda() && atividade.getGuilda() != null){
+            objetoAtividade.setGuilda(atividade.getGuilda());
+        }
+
+        return atualizarAtividade(objetoAtividade);
     }
 
     public void deletarAtividade(Integer id){
