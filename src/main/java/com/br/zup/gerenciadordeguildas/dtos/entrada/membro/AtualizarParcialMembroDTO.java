@@ -5,7 +5,6 @@ import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -16,14 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 public class AtualizarParcialMembroDTO {
 
-    @NotNull
+
     @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String nome;
     @Email(message = "Email inválido")
     private String email;
-    @NotNull
+
     private String zenity;
-    @NotNull
+
     private List<Guilda> guildas;
 
     public Membro converterDTOParaModel(Integer id){
