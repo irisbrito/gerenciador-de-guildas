@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtualizacaoParcialAtividadeDTO {
+public class AtualizarParcialAtividadeDTO {
 
     @NotNull
     @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
