@@ -20,7 +20,7 @@ public class Atividade {
     private String nome;
     private String descricao;
     @ManyToMany
-    private List<Membro> responsaveis;
+    private List<String> responsaveis;
     private Status status;
 
     @ManyToOne
