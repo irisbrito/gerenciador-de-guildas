@@ -21,7 +21,7 @@ public class MembroService {
 
     public Membro cadastrarMembro(Membro membro) {
         listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
-        verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
+      // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
         membro.setGuildas(listaDeGuildasDoMembro);
         return membroRepository.save(membro);
     }
@@ -40,7 +40,7 @@ public class MembroService {
     }
 
     public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
-        if(listaDeGuildasDoMembro.stream().count() > 0 && membro.isRepresentante() == true){
+        if(listaDeGuildasDoMembro.stream().count() > 0 && membro.isRepresentante()){
             throw new RuntimeException("O membro só pode ser representante de uma guilda");
         }
     }
