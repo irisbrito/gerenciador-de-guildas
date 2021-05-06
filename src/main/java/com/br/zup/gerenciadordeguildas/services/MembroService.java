@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import java.util.Optional;
+
 @Service
 public class MembroService {
 
@@ -26,8 +28,19 @@ public class MembroService {
         return membroRepository.save(membro);
     }
 
+    public Membro buscarMembroPeloId(int id){
+        Optional<Membro> optionalMembro = membroRepository.findById(id);
+
+        if(optionalMembro.isPresent()){
+            return optionalMembro.get();
+        }
+
+        throw new RuntimeException("Membro não existe");
+    }
+
+
     public Iterable<Membro> retornarTodosOsMembros(){
-       return membroRepository.findAll();
+        return membroRepository.findAll();
     }
 
     public Membro atualizarMembro(Membro membro){
@@ -37,6 +50,28 @@ public class MembroService {
         }
 
         throw new RecursoNaoEncontradoException("Membro", membro.getId());
+    }
+
+    public Membro atualizarParcialMembro(Membro membro){
+        Membro  objetoMembro= buscarMembroPeloId(membro.getId());
+
+        if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
+            objetoMembro.setNome(membro.getNome());
+        }
+
+        if (objetoMembro.getEmail() != membro.getEmail() && membro.getEmail() != null){
+            objetoMembro.setEmail(membro.getEmail());
+        }
+
+        if (objetoMembro.getZenity() != membro.getZenity() && membro.getZenity() != null){
+            objetoMembro.setZenity(membro.getZenity());
+        }
+
+        if (objetoMembro.getGuildas() != membro.getGuildas() && membro.getGuildas() != null){
+            objetoMembro.setGuildas(membro.getGuildas());
+        }
+
+        return atualizarMembro(objetoMembro);
     }
 
     public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){

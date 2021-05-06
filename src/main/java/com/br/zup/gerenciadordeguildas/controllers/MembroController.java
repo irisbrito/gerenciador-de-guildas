@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarMembroDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarParcialMembroDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.MembroDTO;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.services.MembroService;
@@ -40,6 +41,13 @@ public class MembroController {
     public Membro atualizarMembro(@PathVariable Integer id, @RequestBody AtualizarMembroDTO membroDTO){
         Membro membro = membroService.atualizarMembro(membroDTO.converterDTOParaModel(id));
         return membro;
+    }
+
+    @PatchMapping("{id}/")
+    public Membro atualizarMembroParcial(@PathVariable int id,
+                                         @RequestBody @Valid AtualizarParcialMembroDTO membroDTO){
+        Membro membro = membroDTO.converterDTOParaModel(id);
+        return membroService.atualizarParcialMembro(membro);
     }
 
     @DeleteMapping("{id}/")
