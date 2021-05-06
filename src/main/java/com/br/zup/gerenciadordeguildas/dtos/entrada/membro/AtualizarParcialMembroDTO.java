@@ -16,13 +16,10 @@ import java.util.List;
 public class AtualizarParcialMembroDTO {
 
 
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String nome;
     @Email(message = "Email inválido")
     private String email;
-
     private String zenity;
-
     private List<Guilda> guildas;
 
     public Membro converterDTOParaModel(Integer id){
