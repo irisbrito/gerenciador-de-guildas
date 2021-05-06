@@ -17,8 +17,11 @@ public class MembroService {
     @Autowired
     private GuildaService guildaService;
 
+    List<Guilda> listaDeGuildasDoMembro;
+
     public Membro cadastrarMembro(Membro membro) {
-        List<Guilda> listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
+        listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
+        verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
         membro.setGuildas(listaDeGuildasDoMembro);
         return membroRepository.save(membro);
     }
@@ -34,6 +37,12 @@ public class MembroService {
         }
 
         throw new RecursoNaoEncontradoException("Membro", membro.getId());
+    }
+
+    public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
+        if(listaDeGuildasDoMembro.stream().count() > 0 && membro.isRepresentante() == true){
+            throw new RuntimeException("O membro só pode ser representante de uma guilda");
+        }
     }
 
     public void deletarMembro(Integer id) {
