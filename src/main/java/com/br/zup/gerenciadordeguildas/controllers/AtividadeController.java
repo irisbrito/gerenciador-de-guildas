@@ -1,6 +1,6 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtividadeDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.CadastroAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizacaoParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
@@ -25,11 +25,11 @@ public class AtividadeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AtividadeDTO adicionarAtividade(@RequestBody @Valid AtividadeDTO atividadeDTO){
+    public CadastroAtividadeDTO adicionarAtividade(@RequestBody @Valid CadastroAtividadeDTO atividadeDTO){
         Atividade atividade = modelMapper.map(atividadeDTO, Atividade.class);
         atividade = atividadeService.cadastrarAtividade(atividade);
 
-        return modelMapper.map(atividade, AtividadeDTO.class);
+        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
     }
 
     @GetMapping
@@ -55,9 +55,9 @@ public class AtividadeController {
 
     @GetMapping("{guilda}/")
     @ResponseStatus(HttpStatus.OK)
-    public AtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
+    public CadastroAtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
         Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
-        return modelMapper.map(atividade, AtividadeDTO.class);
+        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
     }
 
     @DeleteMapping("{id}/")
