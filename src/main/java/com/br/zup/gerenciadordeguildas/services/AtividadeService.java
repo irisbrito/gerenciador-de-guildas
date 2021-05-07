@@ -15,7 +15,7 @@ public class AtividadeService {
     private AtividadeRepository atividadeRepository;
 
     public Atividade cadastrarAtividade(Atividade atividade){
-       return atividadeRepository.save(atividade);
+        return atividadeRepository.save(atividade);
     }
 
     public Iterable<Atividade> buscarAtividades(){
@@ -46,29 +46,34 @@ public class AtividadeService {
     }
 
     public Atividade atualizarParcialAtividade(Atividade atividade){
-        Atividade objetoAtividade = buscarAtividadePeloId(atividade.getId());
+        try {
+            Atividade objetoAtividade = buscarAtividadePeloId(atividade.getId());
 
-        if(!objetoAtividade.getNome().equals(atividade.getNome()) && atividade.getNome() != null ){
-            objetoAtividade.setNome(atividade.getNome());
+            if (!objetoAtividade.getNome().equals(atividade.getNome()) && atividade.getNome() != null) {
+                objetoAtividade.setNome(atividade.getNome());
+            }
+
+            if (objetoAtividade.getDescricao() != atividade.getDescricao() && atividade.getDescricao() != null) {
+                objetoAtividade.setDescricao(atividade.getDescricao());
+            }
+
+            if (objetoAtividade.getResponsaveis() != atividade.getResponsaveis() && atividade.getResponsaveis() != null) {
+                objetoAtividade.setResponsaveis(atividade.getResponsaveis());
+            }
+
+            if (objetoAtividade.getStatus() != atividade.getStatus() && atividade.getStatus() != null) {
+                objetoAtividade.setStatus(atividade.getStatus());
+            }
+
+            if (objetoAtividade.getGuilda() != atividade.getGuilda() && atividade.getGuilda() != null) {
+                objetoAtividade.setGuilda(atividade.getGuilda());
+            }
+
+            return atualizarAtividade(objetoAtividade);
         }
-
-        if (objetoAtividade.getDescricao() != atividade.getDescricao() && atividade.getDescricao() != null){
-            objetoAtividade.setDescricao(atividade.getDescricao());
+        catch (Exception error){
+            throw new RecursoNaoEncontradoException("Atividade", atividade.getId());
         }
-
-        if (objetoAtividade.getResponsaveis() != atividade.getResponsaveis() && atividade.getResponsaveis() != null){
-            objetoAtividade.setResponsaveis(atividade.getResponsaveis());
-        }
-
-        if (objetoAtividade.getStatus() != atividade.getStatus() && atividade.getStatus() != null){
-            objetoAtividade.setStatus(atividade.getStatus());
-        }
-
-        if (objetoAtividade.getGuilda() != atividade.getGuilda() && atividade.getGuilda() != null){
-            objetoAtividade.setGuilda(atividade.getGuilda());
-        }
-
-        return atualizarAtividade(objetoAtividade);
     }
 
     public void deletarAtividade(Integer id){
