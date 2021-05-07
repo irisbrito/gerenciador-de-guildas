@@ -2,34 +2,44 @@ package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarMembroDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarParcialMembroDTO;
-import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.MembroDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.CadastroMembroDTO;
+import com.br.zup.gerenciadordeguildas.dtos.saida.membro.CadastroMembroDTOSaida;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
+import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import com.br.zup.gerenciadordeguildas.services.MembroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("membros/")
 public class MembroController {
 
     private MembroService membroService;
+    private GuildaService guildaService;
     private ModelMapper modelMapper;
 
-    public MembroController(MembroService membroService, ModelMapper modelMapper) {
+    public MembroController(MembroService membroService, GuildaService guildaService, ModelMapper modelMapper) {
         this.membroService = membroService;
         this.modelMapper = modelMapper;
+        this.guildaService = guildaService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MembroDTO cadastrarMembro(@RequestBody @Valid MembroDTO membroDTO){
-        Membro membro = modelMapper.map(membroDTO, Membro.class);
-        membro = membroService.cadastrarMembro(membro);
+    public CadastroMembroDTOSaida cadastrarMembro(@RequestBody @Valid CadastroMembroDTO cadastroMembroDTO){
+        List<Guilda> guildas = new ArrayList<>();
+        cadastroMembroDTO.getGuildas()
+                         .forEach( nomeDaGuilda -> guildas.add(guildaService.buscarGuildaPeloNome(nomeDaGuilda)));
+        Membro membro = membroService.cadastrarMembro(cadastroMembroDTO.converterDTOparaEntity(guildas));
 
-        return modelMapper.map(membro, MembroDTO.class);
+        return CadastroMembroDTOSaida.converterEntityParaDTOSaida(membro);
     }
 
     @GetMapping
