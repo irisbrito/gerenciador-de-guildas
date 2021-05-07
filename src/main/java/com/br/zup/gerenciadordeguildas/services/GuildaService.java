@@ -42,6 +42,16 @@ public class GuildaService {
         throw new RecursoNaoEncontradoException("Guilda", null);
     }
 
+    public Guilda buscarGuildaPeloId(Integer id){
+        Optional<Guilda> optionalGuilda = guildaRepository.findById(id);
+
+        if(optionalGuilda.isPresent()){
+            return optionalGuilda.get();
+        }
+
+        throw new RecursoNaoEncontradoException("Guilda", id);
+    }
+
     public List<Guilda> buscarGuildas(List<Guilda> guildas){
         List<Guilda> listaDeGuildas = new ArrayList<>();
 
