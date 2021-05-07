@@ -74,8 +74,8 @@ public class AtividadeService {
     public void deletarAtividade(Integer id){
         if(atividadeRepository.existsById(id)){
             atividadeRepository.deleteById(id);
+        } else {
+            throw new RecursoNaoEncontradoException("Atividade", id);
         }
-
-        throw new RecursoNaoEncontradoException("Atividade", id);
     }
 }
