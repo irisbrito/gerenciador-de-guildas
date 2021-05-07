@@ -47,6 +47,11 @@ public class MembroController {
         return membroService.retornarTodosOsMembros();
     }
 
+    @GetMapping("{id}/")
+    public Membro buscarMembroPeloId(@PathVariable Integer id){
+        return membroService.buscarMembroPeloId(id);
+    }
+
     @PutMapping("{id}/")
     public Membro atualizarMembro(@PathVariable Integer id, @RequestBody AtualizarMembroDTO membroDTO){
         Membro membro = membroService.atualizarMembro(membroDTO.converterDTOParaModel(id));
