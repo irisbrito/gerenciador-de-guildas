@@ -26,4 +26,20 @@ public class ManipuladorDeExcecoes {
         );
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<MensagemDeErro> recursoNaoEncontradoException(
+            RecursoNaoEncontradoException exception,
+            HttpServletRequest request) {
+        String error = "Resource Not Found";
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        MensagemDeErro err = new MensagemDeErro(
+                Instant.now(),
+                status.value(),
+                error,
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(err);
+    }
 }

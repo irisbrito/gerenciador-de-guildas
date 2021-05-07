@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.AtualizarGuildaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.AtualizarParcialGuildaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.GuildaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
@@ -42,6 +43,12 @@ public class GuildaController {
     @PutMapping("{id}/")
     public Guilda atualizarGuilda(@PathVariable Integer id, @RequestBody AtualizarGuildaDTO guildaDTO){
         Guilda guilda = guildaService.atualizarGuilda(guildaDTO.converterDTOParaModel(id));
+        return guilda;
+    }
+
+    @PatchMapping("{id}/")
+    public Guilda atualizarGuildaParcial(@PathVariable Integer id, @RequestBody AtualizarParcialGuildaDTO guildaDTO){
+        Guilda guilda = guildaService.atualizarGuildaParcial(guildaDTO.converterDTOParaModel(id));
         return guilda;
     }
 
