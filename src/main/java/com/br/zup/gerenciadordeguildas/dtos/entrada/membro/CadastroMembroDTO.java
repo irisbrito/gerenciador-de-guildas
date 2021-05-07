@@ -1,13 +1,13 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.membro;
 
+import com.br.zup.gerenciadordeguildas.dtos.saida.membro.CadastroMembroDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Getter
@@ -15,10 +15,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MembroDTO {
+public class CadastroMembroDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
     private String nome;
@@ -29,5 +27,16 @@ public class MembroDTO {
     @NotNull
     private boolean representante;
     @NotNull
-    private List<Guilda> guildas;
+    private List<String> guildas;
+
+    public Membro converterDTOparaEntity(List<Guilda> guildas) {
+        Membro membro = new Membro();
+        membro.setNome(this.nome);
+        membro.setEmail(this.email);
+        membro.setZenity(this.zenity);
+        membro.setRepresentante(this.representante);
+        membro.setGuildas(guildas);
+
+        return membro;
+    }
 }

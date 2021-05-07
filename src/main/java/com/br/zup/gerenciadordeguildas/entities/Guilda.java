@@ -1,5 +1,6 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,11 @@ public class Guilda {
     private String objetivos;
     private String linkDoChat;
 
-    @ManyToMany(mappedBy = "guildas")
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_guildas_membros",
+    joinColumns = @JoinColumn(name = "guildas_id"),
+    inverseJoinColumns = @JoinColumn(name = "membros_id"))
     private List<Membro> membros;
 
     @OneToMany
