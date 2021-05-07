@@ -48,8 +48,8 @@ public class AtaService {
     public void deletarAta(Integer id) {
         if(ataRepository.existsById(id)){
             ataRepository.deleteById(id);
+        } else {
+            throw new RecursoNaoEncontradoException("Ata", id);
         }
-
-        throw new RecursoNaoEncontradoException("Ata", id);
     }
 }
