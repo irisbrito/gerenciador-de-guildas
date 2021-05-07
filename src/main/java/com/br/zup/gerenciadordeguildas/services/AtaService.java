@@ -9,6 +9,7 @@ import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class AtaService {
@@ -29,6 +30,16 @@ public class AtaService {
 
     public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String guilda){
         return ataRepository.findAllByGuilda(guilda);
+    }
+
+    public Ata buscarAtaPeloId(int id){
+        Optional<Ata> optionalAta = ataRepository.findById(id);
+
+        if(optionalAta.isPresent()){
+            return optionalAta.get();
+        }
+
+        throw new RuntimeException("Atividade não existe");
     }
 
     public Ata cadastrarAta(Ata ata) {
