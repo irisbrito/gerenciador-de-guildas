@@ -1,11 +1,14 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
