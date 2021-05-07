@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,13 @@ public class AtividadeService {
     }
 
     public Iterable<Atividade> buscarAtividades(){
-        return atividadeRepository.findAll();
+        Iterable<Atividade> listaDeAtividades = atividadeRepository.findAll();
+
+        if(listaDeAtividades.iterator().hasNext()){
+            return listaDeAtividades;
+        }
+
+        throw new ListaVaziaException("atividade", 'a');
     }
 
     public Atividade buscarAtividadePelaGuilda(String guilda) {
