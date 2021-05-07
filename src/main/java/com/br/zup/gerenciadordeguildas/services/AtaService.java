@@ -1,14 +1,13 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
-import com.br.zup.gerenciadordeguildas.entities.Atividade;
-import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class AtaService {
@@ -29,6 +28,16 @@ public class AtaService {
 
     public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String guilda){
         return ataRepository.findAllByGuilda(guilda);
+    }
+
+    public Ata buscarAtaPeloId(int id){
+        Optional<Ata> optionalAta = ataRepository.findById(id);
+
+        if(optionalAta.isPresent()){
+            return optionalAta.get();
+        }
+
+        throw new RecursoNaoEncontradoException("Ata", id);
     }
 
     public Ata cadastrarAta(Ata ata) {

@@ -42,6 +42,10 @@ public class AtaController {
         return ataService.buscarAtasPeloNomeDaGuilda(nome);
     }
 
+    @GetMapping("{id}/")
+    public Ata buscarAtaPeloId(@PathVariable Integer id){
+        return ataService.buscarAtaPeloId(id);
+    }
 
     @PutMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
