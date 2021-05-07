@@ -2,6 +2,7 @@ package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,13 @@ public class MembroService {
 
 
     public Iterable<Membro> retornarTodosOsMembros(){
-        return membroRepository.findAll();
+        Iterable<Membro> listaDeMembros = membroRepository.findAll();
+
+        if(listaDeMembros.iterator().hasNext()){
+            return listaDeMembros;
+        }
+
+        throw new ListaVaziaException("membro", 'o');
     }
 
     public Membro atualizarMembro(Membro membro){
