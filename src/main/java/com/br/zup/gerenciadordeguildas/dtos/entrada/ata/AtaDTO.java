@@ -24,5 +24,6 @@ public class AtaDTO {
     @Size(max = 500, message = "Digitar no máximo 500 caracteres.")
     private String assuntos;
 
+    private String guilda;
 
 }
