@@ -37,7 +37,7 @@ public class AtaService {
             return optionalAta.get();
         }
 
-        throw new RuntimeException("Atividade não existe");
+        throw new RecursoNaoEncontradoException("Ata", id);
     }
 
     public Ata cadastrarAta(Ata ata) {
