@@ -83,9 +83,9 @@ public class MembroService {
     public void deletarMembro(Integer id) {
         if(membroRepository.existsById(id)){
             membroRepository.deleteById(id);
+        } else {
+            throw new RecursoNaoEncontradoException("Membro", id);
         }
-
-        throw new RecursoNaoEncontradoException("Membro", id);
     }
 
 }
