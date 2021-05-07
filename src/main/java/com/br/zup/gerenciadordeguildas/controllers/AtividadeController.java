@@ -3,19 +3,24 @@ package com.br.zup.gerenciadordeguildas.controllers;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.CadastroAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizacaoParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarAtividadeDTO;
+import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.CadastroAtividadeDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.services.AtividadeService;
+import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @RestController
 @RequestMapping("atividades/")
 public class AtividadeController {
 
     private AtividadeService atividadeService;
+    private GuildaService guildaService;
     private ModelMapper modelMapper;
 
     public AtividadeController(AtividadeService atividadeService, ModelMapper modelMapper) {
@@ -25,11 +30,10 @@ public class AtividadeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CadastroAtividadeDTO adicionarAtividade(@RequestBody @Valid CadastroAtividadeDTO atividadeDTO){
-        Atividade atividade = modelMapper.map(atividadeDTO, Atividade.class);
-        atividade = atividadeService.cadastrarAtividade(atividade);
-
-        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
+    public CadastroAtividadeDTOSaida cadastrarAtividade(@RequestBody @Valid CadastroAtividadeDTO cadastroAtividadeDTO){
+        Guilda guilda = guildaService.buscarGuildaPeloNome(cadastroAtividadeDTO.getGuilda());
+        Atividade atividade = atividadeService.cadastrarAtividade(cadastroAtividadeDTO.converterDTOparaEntity(guilda));
+        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
     @GetMapping
