@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.ata;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,8 @@ public class AtualizarAtaDTO {
     @Size(max = 500, message = "Digitar no máximo 500 caracteres.")
     private String assuntos;
 
+    private Guilda guilda;
+
 
     public Ata converterDTOParaModel(int id){
         Ata ata = new Ata();
@@ -32,6 +35,7 @@ public class AtualizarAtaDTO {
         ata.setData(this.data);
         ata.setPauta(this.pauta);
         ata.setAssuntos(this.assuntos);
+        ata.setGuilda(this.guilda);
 
         return ata;
     }

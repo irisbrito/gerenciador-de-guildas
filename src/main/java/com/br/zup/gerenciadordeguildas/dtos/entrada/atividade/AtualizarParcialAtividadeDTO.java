@@ -6,7 +6,6 @@ import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import lombok.*;
 
-import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -14,35 +13,24 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CadastroAtividadeDTO {
+public class AtualizarParcialAtividadeDTO {
 
-    private Integer id;
 
-    @NotNull
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private String nome;
-
-    @NotNull
-    @Size(max = 500, message = "Por favor, digite no máximo 500 caracteres")
     private String descricao;
-
-    @NotNull
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
     private List<Membro> responsaveis;
-
-    @NotNull
     private Status status;
 
-    @NotNull
-    private String guilda;
+    private Guilda guilda;
 
-    public Atividade converterDTOparaEntity(Guilda guilda) {
+    public Atividade converterDTOParaModel(int id){
         Atividade atividade = new Atividade();
+        atividade.setId(id);
         atividade.setNome(this.nome);
         atividade.setDescricao(this.descricao);
         atividade.setResponsaveis(this.responsaveis);
         atividade.setStatus(this.status);
-        atividade.setGuilda(guilda);
+        atividade.setGuilda(this.guilda);
 
         return atividade;
     }
