@@ -1,5 +1,6 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarParcialAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.CadastroAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.saida.ata.CadastroAtaDTOSaida;
@@ -58,6 +59,13 @@ public class AtaController {
         Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaModel(id));
 
         return ata;
+    }
+
+    @PatchMapping("{id}/")
+    public Ata atualizarAtaParcial(@PathVariable int id,
+                                   @RequestBody @Valid AtualizarParcialAtaDTO ataDTO){
+        Ata ata = ataDTO.converterDTOParaModel(id);
+        return ataService.atualizarParcialAta(ata);
     }
 
     @DeleteMapping("{id}/")
