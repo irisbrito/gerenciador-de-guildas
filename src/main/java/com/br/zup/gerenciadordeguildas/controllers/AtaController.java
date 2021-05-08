@@ -1,9 +1,12 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.CadastroAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.saida.ata.CadastroAtaDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.services.AtaService;
+import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +18,22 @@ import javax.validation.Valid;
 public class AtaController {
 
     private AtaService ataService;
+    private GuildaService guildaService;
     private ModelMapper modelMapper;
 
-    public AtaController(AtaService ataService, ModelMapper modelMapper) {
+    public AtaController(AtaService ataService, GuildaService guildaService, ModelMapper modelMapper) {
         this.ataService = ataService;
+        this.guildaService = guildaService;
         this.modelMapper = modelMapper;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AtaDTO cadastrarAta(@RequestBody @Valid AtaDTO ataDTO) {
-        Ata ata = modelMapper.map(ataDTO, Ata.class);
-        ata = ataService.cadastrarAta(ata);
+    public CadastroAtaDTOSaida cadastrarAta(@RequestBody @Valid CadastroAtaDTO cadastroAtaDTO) {
+        Guilda guilda = guildaService.buscarGuildaPeloNome(cadastroAtaDTO.getGuilda());
+        Ata ata = ataService.cadastrarAta(cadastroAtaDTO.converterDTOParaEntity(guilda));
 
-        return modelMapper.map(ata, AtaDTO.class);
+        return CadastroAtaDTOSaida.converterEntityParaDTOSaida(ata);
     }
 
     @GetMapping("/")
