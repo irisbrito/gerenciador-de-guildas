@@ -16,14 +16,14 @@ public class AtualizarParcialAtaDTO {
     private LocalDate data;
     private String pauta;
     private String assuntos;
-    private Guilda guildas;
+    private Guilda guilda;
 
     public Ata converterDTOParaModel(Integer id){
        Ata ata = new Ata();
         ata.setId(id);
         ata.setData(this.data);
         ata.setAssuntos(this.assuntos);
-        ata.setGuilda(this.guildas);
+        ata.setGuilda(this.guilda);
 
         return ata;
     }
