@@ -21,7 +21,6 @@ public class Guilda {
     private String objetivos;
     private String linkDoChat;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_guildas_membros",
     joinColumns = @JoinColumn(name = "guildas_id"),
