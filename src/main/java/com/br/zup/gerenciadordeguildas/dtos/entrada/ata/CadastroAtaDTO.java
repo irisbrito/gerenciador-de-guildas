@@ -1,5 +1,7 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.ata;
 
+import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtaDTO {
+public class CadastroAtaDTO {
 
     private Integer id;
     private LocalDate data;
@@ -26,4 +28,14 @@ public class AtaDTO {
 
     private String guilda;
 
+    public Ata converterDTOParaEntity(Guilda guilda){
+        Ata ata = new Ata();
+        ata.setId(this.id);
+        ata.setData(LocalDate.now());
+        ata.setAssuntos(this.assuntos);
+        ata.setPauta(this.pauta);
+        ata.setGuilda(guilda);
+
+        return ata;
+    }
 }
