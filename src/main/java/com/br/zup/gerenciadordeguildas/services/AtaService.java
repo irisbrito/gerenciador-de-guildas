@@ -27,7 +27,7 @@ public class AtaService {
     }
 
     public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String guilda){
-       Iterable<Ata> listaAtas = ataRepository.findAllByGuilda(guilda);
+        Iterable<Ata> listaAtas = ataRepository.findAllByGuilda(guilda);
         if(listaAtas.iterator().hasNext()){
             return listaAtas;
         }
@@ -56,6 +56,33 @@ public class AtaService {
         }
 
         throw new RecursoNaoEncontradoException("Ata", ata.getId());
+    }
+
+    public Ata atualizarParcialAta(Ata ata){
+        try {
+            Ata objetoAta = buscarAtaPeloId(ata.getId());
+
+            if (!objetoAta.getData().equals(ata.getData()) && ata.getData() != null) {
+                objetoAta.setData(ata.getData());
+            }
+
+            if (!objetoAta.getPauta().equals(ata.getPauta()) && ata.getPauta() != null) {
+                objetoAta.setPauta(ata.getPauta());
+            }
+
+            if (!objetoAta.getAssuntos().equals(ata.getAssuntos()) && ata.getAssuntos() != null) {
+                objetoAta.setAssuntos(ata.getAssuntos());
+            }
+
+            if (!objetoAta.getGuilda().equals(ata.getGuilda()) && ata.getGuilda() != null) {
+                objetoAta.setGuilda(ata.getGuilda());
+            }
+
+            return atualizarAta(objetoAta);
+        }
+        catch (Exception error){
+            throw new RecursoNaoEncontradoException("Ata", ata.getId());
+        }
     }
 
     public void deletarAta(Integer id) {
