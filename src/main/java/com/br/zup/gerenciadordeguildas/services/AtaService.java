@@ -27,7 +27,11 @@ public class AtaService {
     }
 
     public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String guilda){
-        return ataRepository.findAllByGuilda(guilda);
+       Iterable<Ata> listaAtas = ataRepository.findAllByGuilda(guilda);
+        if(listaAtas.iterator().hasNext()){
+            return listaAtas;
+        }
+        throw new ListaVaziaException("atas", 'a');
     }
 
     public Ata buscarAtaPeloId(int id){
