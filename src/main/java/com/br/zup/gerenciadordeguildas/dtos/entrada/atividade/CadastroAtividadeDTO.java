@@ -36,13 +36,13 @@ public class CadastroAtividadeDTO {
     @NotNull
     private String guilda;
 
-    public Atividade converterDTOparaEntity(Guilda guildas) {
+    public Atividade converterDTOparaEntity(Guilda guilda) {
         Atividade atividade = new Atividade();
         atividade.setNome(this.nome);
         atividade.setDescricao(this.descricao);
         atividade.setResponsaveis(this.responsaveis);
         atividade.setStatus(this.status);
-        atividade.setGuilda(guildas);
+        atividade.setGuilda(guilda);
 
         return atividade;
     }
