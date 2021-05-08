@@ -22,7 +22,7 @@ public class Guilda {
     private String linkDoChat;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_guildas_membros",
+    @JoinTable(name = "guildas_membros",
     joinColumns = @JoinColumn(name = "guildas_id"),
     inverseJoinColumns = @JoinColumn(name = "membros_id"))
     private List<Membro> membros;
