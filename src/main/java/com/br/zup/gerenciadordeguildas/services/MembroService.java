@@ -23,10 +23,13 @@ public class MembroService {
     List<Guilda> listaDeGuildasDoMembro;
 
     public Membro cadastrarMembro(Membro membro) {
-        listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
-        // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
-        membro.setGuildas(listaDeGuildasDoMembro);
-        return membroRepository.save(membro);
+        try{ listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
+            // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
+            membro.setGuildas(listaDeGuildasDoMembro);
+            return membroRepository.save(membro);}
+        catch (Exception error){
+            throw new RuntimeException("Não foi posssível cadastrar membro!");
+        }
     }
 
     public Membro buscarMembroPeloId(int id){
