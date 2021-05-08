@@ -28,7 +28,7 @@ public class MembroService {
             membro.setGuildas(listaDeGuildasDoMembro);
             return membroRepository.save(membro);}
         catch (Exception error){
-            throw new RuntimeException("Guilda não encontrada!");
+            throw new RuntimeException("Não foi posssível cadastrar membro!");
         }
     }
 
