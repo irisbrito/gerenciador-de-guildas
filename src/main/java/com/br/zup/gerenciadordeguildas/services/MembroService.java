@@ -24,7 +24,7 @@ public class MembroService {
 
     public Membro cadastrarMembro(Membro membro) {
         listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
-      // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
+        // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
         membro.setGuildas(listaDeGuildasDoMembro);
         return membroRepository.save(membro);
     }
@@ -60,25 +60,27 @@ public class MembroService {
     }
 
     public Membro atualizarParcialMembro(Membro membro){
-        Membro  objetoMembro= buscarMembroPeloId(membro.getId());
+        try{ Membro  objetoMembro= buscarMembroPeloId(membro.getId());
 
-        if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
-            objetoMembro.setNome(membro.getNome());
-        }
+            if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
+                objetoMembro.setNome(membro.getNome());
+            }
 
-        if (objetoMembro.getEmail() != membro.getEmail() && membro.getEmail() != null){
-            objetoMembro.setEmail(membro.getEmail());
-        }
+            if (objetoMembro.getEmail() != membro.getEmail() && membro.getEmail() != null){
+                objetoMembro.setEmail(membro.getEmail());
+            }
 
-        if (objetoMembro.getZenity() != membro.getZenity() && membro.getZenity() != null){
-            objetoMembro.setZenity(membro.getZenity());
-        }
+            if (objetoMembro.getZenity() != membro.getZenity() && membro.getZenity() != null){
+                objetoMembro.setZenity(membro.getZenity());
+            }
 
-        if (objetoMembro.getGuildas() != membro.getGuildas() && membro.getGuildas() != null){
-            objetoMembro.setGuildas(membro.getGuildas());
-        }
+            if (objetoMembro.getGuildas() != membro.getGuildas() && membro.getGuildas() != null){
+                objetoMembro.setGuildas(membro.getGuildas());
+            }
 
-        return atualizarMembro(objetoMembro);
+            return atualizarMembro(objetoMembro);}
+        catch (Exception error){
+            throw new RecursoNaoEncontradoException("Membro", membro.getId());}
     }
 
     public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
