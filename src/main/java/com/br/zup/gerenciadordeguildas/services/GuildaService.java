@@ -57,11 +57,9 @@ public class GuildaService {
     public Guilda adicionarAtividadeNaGuilda(Integer idDaGuilda, Integer idDaAtividade){
         Guilda guilda = buscarGuildaPeloId(idDaGuilda);
         Atividade atividade = atividadeService.buscarAtividadePeloId(idDaAtividade);
-        List<Atividade> atividadesDaGuilda = guilda.getAtividades();
-        atividadesDaGuilda.add(atividade);
-        guilda.setAtividades(atividadesDaGuilda);
+        guilda.getAtividades().add(atividade);
 
-        return guilda;
+        return guildaRepository.save(guilda);
     }
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
