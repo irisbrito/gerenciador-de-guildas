@@ -1,10 +1,10 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
 import com.br.zup.gerenciadordeguildas.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -20,9 +20,17 @@ public class Atividade {
     private Integer id;
     private String nome;
     private String descricao;
-    @OneToMany
+
+    @ManyToMany
+    @JoinTable(
+        name = "atividades_membro",
+        joinColumns = @JoinColumn(name = "atividade_id"),
+        inverseJoinColumns = @JoinColumn(name = "membro_id")
+    )
     private List<Membro> responsaveis;
     private Status status;
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "guilda_id")
     private Guilda guilda;
 }
