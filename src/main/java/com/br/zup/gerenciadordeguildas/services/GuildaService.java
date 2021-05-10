@@ -27,6 +27,9 @@ public class GuildaService {
     @Autowired
     private AtaService ataService;
 
+    @Autowired
+    private AtividadeService atividadeService;
+
     public Guilda cadastrarGuilda(Guilda guilda) {
         return guildaRepository.save(guilda);
     }
@@ -45,6 +48,14 @@ public class GuildaService {
         Guilda guilda = buscarGuildaPeloId(idDaGuilda);
         Ata ata = ataService.buscarAtaPeloId(idDaAta);
         guilda.getAtas().add(ata);
+
+        return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarAtividadeNaGuilda(Integer idDaGuilda, Integer idDaAtividade){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Atividade atividade = atividadeService.buscarAtividadePeloId(idDaAtividade);
+        guilda.getAtividades().add(atividade);
 
         return guildaRepository.save(guilda);
     }
