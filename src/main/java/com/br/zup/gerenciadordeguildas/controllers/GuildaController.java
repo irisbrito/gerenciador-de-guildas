@@ -42,7 +42,7 @@ public class GuildaController {
         return guildaService.adicionarAtaNaGuilda(id, idDaAta);
     }
 
-    @PostMapping("{id}/atividade/{idDaAtividade}/")
+    @PostMapping("{id}/atividades/{idDaAtividade}/")
     @ResponseStatus(HttpStatus.CREATED)
     public Guilda cadastrarAtividadeNaGuilda(@PathVariable Integer id, @PathVariable Integer idDaAtividade){
         return guildaService.adicionarAtividadeNaGuilda(id, idDaAtividade);
