@@ -76,7 +76,7 @@ public class GuildaController {
         return guilda;
     }
 
-    @DeleteMapping("{id}/membros/{idDoMembro}/")
+    @DeleteMapping("{idDaGuilda}/membros/{idDoMembro}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarMembroDaGuilda(@PathVariable Integer idDaGuilda, @PathVariable Integer idDoMembro){
         guildaService.deletarMembroDaGuilda(idDaGuilda, idDoMembro);
