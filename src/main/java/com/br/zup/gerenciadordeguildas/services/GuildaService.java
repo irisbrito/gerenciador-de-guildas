@@ -35,11 +35,24 @@ public class GuildaService {
     }
 
     public Guilda adicionarMembroNaGuilda(Integer idDaGuilda, Integer idDoMembro){
-       Guilda guilda = buscarGuildaPeloId(idDaGuilda);
-       Membro membro = membroService.buscarMembroPeloId(idDoMembro);
-       guilda.getMembros().add(membro);
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+        guilda.getMembros().add(membro);
 
        return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+
+        if (!guilda.getMembros().contains(idDoMembro)) {
+            guilda.getMembros().add(membro);
+        }
+
+        guilda.getRepresentantes().add(membro);
+
+        return guildaRepository.save(guilda);
     }
 
     public Guilda adicionarAtaNaGuilda(Integer idDaGuilda, Integer idDaAta){
