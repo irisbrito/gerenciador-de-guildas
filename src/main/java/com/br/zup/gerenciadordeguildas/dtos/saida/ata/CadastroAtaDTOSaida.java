@@ -1,4 +1,4 @@
-package com.br.zup.gerenciadordeguildas.dtos.entrada.ata;
+package com.br.zup.gerenciadordeguildas.dtos.saida.ata;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtualizarAtaDTO {
+public class CadastroAtaDTOSaida {
 
     private Integer id;
     private LocalDate data;
@@ -28,15 +28,14 @@ public class AtualizarAtaDTO {
 
     private Guilda guilda;
 
+    public static CadastroAtaDTOSaida converterEntityParaDTOSaida(Ata ata) {
+        CadastroAtaDTOSaida cadastroAtaDTOSaida = new CadastroAtaDTOSaida();
+        cadastroAtaDTOSaida.setId(ata.getId());
+        cadastroAtaDTOSaida.setPauta(ata.getPauta());
+        cadastroAtaDTOSaida.setData(ata.getData());
+        cadastroAtaDTOSaida.setAssuntos(ata.getAssuntos());
+        cadastroAtaDTOSaida.setGuilda(ata.getGuilda());
 
-    public Ata converterDTOParaModel(int id){
-        Ata ata = new Ata();
-        ata.setId(id);
-        ata.setData(this.data);
-        ata.setPauta(this.pauta);
-        ata.setAssuntos(this.assuntos);
-        ata.setGuilda(this.guilda);
-
-        return ata;
+        return cadastroAtaDTOSaida;
     }
 }

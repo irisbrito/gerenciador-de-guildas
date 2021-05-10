@@ -1,7 +1,9 @@
 package com.br.zup.gerenciadordeguildas.services;
 
+import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
@@ -19,7 +21,53 @@ public class GuildaService {
     @Autowired
     private GuildaRepository guildaRepository;
 
+    @Autowired
+    private MembroService membroService;
+
+    @Autowired
+    private AtaService ataService;
+
+    @Autowired
+    private AtividadeService atividadeService;
+
     public Guilda cadastrarGuilda(Guilda guilda) {
+        return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarMembroNaGuilda(Integer idDaGuilda, Integer idDoMembro){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+        guilda.getMembros().add(membro);
+
+        return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+
+        if (!guilda.getMembros().contains(idDoMembro)) {
+            guilda.getMembros().add(membro);
+        }
+
+        guilda.getRepresentantes().add(membro);
+
+        return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarAtaNaGuilda(Integer idDaGuilda, Integer idDaAta){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Ata ata = ataService.buscarAtaPeloId(idDaAta);
+        guilda.getAtas().add(ata);
+
+        return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarAtividadeNaGuilda(Integer idDaGuilda, Integer idDaAtividade){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Atividade atividade = atividadeService.buscarAtividadePeloId(idDaAtividade);
+        guilda.getAtividades().add(atividade);
+
         return guildaRepository.save(guilda);
     }
 
@@ -57,9 +105,9 @@ public class GuildaService {
         List<Guilda> listaDeGuildas = new ArrayList<>();
 
         for (Guilda guilda : guildas) {
-           Optional<Guilda> objGuilda = guildaRepository.findById(guilda.getId());
-           if(Objects.nonNull(objGuilda)){
-               listaDeGuildas.add(guilda);
+            Optional<Guilda> objGuilda = guildaRepository.findById(guilda.getId());
+            if(Objects.nonNull(objGuilda)){
+                listaDeGuildas.add(guilda);
             }else{
                 throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
 
@@ -102,6 +150,16 @@ public class GuildaService {
         }
         catch (Exception error){
             throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+        }
+    }
+
+    public void deletarMembroDaGuilda(Integer idDaGuilda, Integer idDoMembro){
+        try{
+            Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+            Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+            guilda.getMembros().remove(membro);
+        }catch (Exception error){
+            throw new RuntimeException("Não foi possível deletar o membro");
         }
     }
 

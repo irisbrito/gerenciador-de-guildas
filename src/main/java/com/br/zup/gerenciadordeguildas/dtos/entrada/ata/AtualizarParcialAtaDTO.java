@@ -4,8 +4,6 @@ import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
@@ -13,27 +11,17 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtualizarAtaDTO {
+public class AtualizarParcialAtaDTO {
 
-    private Integer id;
     private LocalDate data;
-
-    @NotNull
-    @Size(max = 30, message = "Digitar no máximo 30 caracteres.")
     private String pauta;
-
-    @NotNull
-    @Size(max = 500, message = "Digitar no máximo 500 caracteres.")
     private String assuntos;
-
     private Guilda guilda;
 
-
-    public Ata converterDTOParaModel(int id){
-        Ata ata = new Ata();
+    public Ata converterDTOParaModel(Integer id){
+       Ata ata = new Ata();
         ata.setId(id);
         ata.setData(this.data);
-        ata.setPauta(this.pauta);
         ata.setAssuntos(this.assuntos);
         ata.setGuilda(this.guilda);
 

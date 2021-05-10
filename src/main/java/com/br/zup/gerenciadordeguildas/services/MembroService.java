@@ -23,14 +23,27 @@ public class MembroService {
     List<Guilda> listaDeGuildasDoMembro;
 
     public Membro cadastrarMembro(Membro membro) {
-        listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
-      // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
-        membro.setGuildas(listaDeGuildasDoMembro);
-        return membroRepository.save(membro);
+        try{ listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
+            // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
+            membro.setGuildas(listaDeGuildasDoMembro);
+            return membroRepository.save(membro);}
+        catch (Exception error){
+            throw new RuntimeException("Não foi posssível cadastrar membro!");
+        }
     }
 
     public Membro buscarMembroPeloId(int id){
         Optional<Membro> optionalMembro = membroRepository.findById(id);
+
+        if(optionalMembro.isPresent()){
+            return optionalMembro.get();
+        }
+
+        throw new RuntimeException("Membro não existe");
+    }
+
+    public Membro buscarMembroPeloEmail(String email){
+        Optional<Membro> optionalMembro = membroRepository.findByEmail(email);
 
         if(optionalMembro.isPresent()){
             return optionalMembro.get();
@@ -60,25 +73,29 @@ public class MembroService {
     }
 
     public Membro atualizarParcialMembro(Membro membro){
-        Membro  objetoMembro= buscarMembroPeloId(membro.getId());
+        try {
+            Membro objetoMembro = buscarMembroPeloId(membro.getId());
 
-        if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
-            objetoMembro.setNome(membro.getNome());
-        }
+            if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
+                objetoMembro.setNome(membro.getNome());
+            }
 
-        if (objetoMembro.getEmail() != membro.getEmail() && membro.getEmail() != null){
-            objetoMembro.setEmail(membro.getEmail());
-        }
+            if (objetoMembro.getEmail() != membro.getEmail() && membro.getEmail() != null){
+                objetoMembro.setEmail(membro.getEmail());
+            }
 
-        if (objetoMembro.getZenity() != membro.getZenity() && membro.getZenity() != null){
-            objetoMembro.setZenity(membro.getZenity());
-        }
+            if (objetoMembro.getZenity() != membro.getZenity() && membro.getZenity() != null){
+                objetoMembro.setZenity(membro.getZenity());
+            }
 
-        if (objetoMembro.getGuildas() != membro.getGuildas() && membro.getGuildas() != null){
-            objetoMembro.setGuildas(membro.getGuildas());
-        }
+            if (objetoMembro.getGuildas() != membro.getGuildas() && membro.getGuildas() != null){
+                objetoMembro.setGuildas(membro.getGuildas());
+            }
 
-        return atualizarMembro(objetoMembro);
+            return atualizarMembro(objetoMembro);
+
+        } catch (Exception error){
+            throw new RecursoNaoEncontradoException("Membro", membro.getId());}
     }
 
     public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
