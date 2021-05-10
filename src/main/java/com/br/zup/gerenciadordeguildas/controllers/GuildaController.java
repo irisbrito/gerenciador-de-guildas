@@ -36,6 +36,12 @@ public class GuildaController {
         return guildaService.adicionarMembroNaGuilda(id, idDoMembro);
     }
 
+    @PostMapping("{id}/atas/{idDaAta}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Guilda cadastrarAtaNaGuilda(@PathVariable Integer id, @PathVariable Integer idDaAta){
+        return guildaService.adicionarAtaNaGuilda(id, idDaAta);
+    }
+
     @GetMapping
     public Iterable<Guilda> listarGuildas(){
         return guildaService.retornarTodasAsGuildas();
