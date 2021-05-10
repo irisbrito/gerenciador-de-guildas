@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,15 +22,18 @@ public class Guilda {
     private String objetivos;
     private String linkDoChat;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_guildas_membros",
     joinColumns = @JoinColumn(name = "guildas_id"),
     inverseJoinColumns = @JoinColumn(name = "membros_id"))
     private List<Membro> membros;
 
-    @OneToMany
-    private List<Atividade> atividades;
+    @JsonIgnore
+    @OneToMany(mappedBy = "guilda")
+    private List<Atividade> atividades = new ArrayList<>();
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "guilda")
     private List<Ata> atas;
 }
