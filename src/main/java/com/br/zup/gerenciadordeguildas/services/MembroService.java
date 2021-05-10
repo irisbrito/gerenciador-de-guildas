@@ -42,6 +42,16 @@ public class MembroService {
         throw new RuntimeException("Membro não existe");
     }
 
+    public Membro buscarMembroPeloEmail(String email){
+        Optional<Membro> optionalMembro = membroRepository.findByEmail(email);
+
+        if(optionalMembro.isPresent()){
+            return optionalMembro.get();
+        }
+
+        throw new RuntimeException("Membro não existe");
+    }
+
 
     public Iterable<Membro> retornarTodosOsMembros(){
         Iterable<Membro> listaDeMembros = membroRepository.findAll();
@@ -63,7 +73,8 @@ public class MembroService {
     }
 
     public Membro atualizarParcialMembro(Membro membro){
-        try{ Membro  objetoMembro= buscarMembroPeloId(membro.getId());
+        try {
+            Membro objetoMembro = buscarMembroPeloId(membro.getId());
 
             if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
                 objetoMembro.setNome(membro.getNome());
@@ -81,8 +92,9 @@ public class MembroService {
                 objetoMembro.setGuildas(membro.getGuildas());
             }
 
-            return atualizarMembro(objetoMembro);}
-        catch (Exception error){
+            return atualizarMembro(objetoMembro);
+
+        } catch (Exception error){
             throw new RecursoNaoEncontradoException("Membro", membro.getId());}
     }
 

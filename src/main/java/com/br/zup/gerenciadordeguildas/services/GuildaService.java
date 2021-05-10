@@ -1,7 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
-import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
@@ -19,8 +19,21 @@ public class GuildaService {
     @Autowired
     private GuildaRepository guildaRepository;
 
+    @Autowired
+    private MembroService membroService;
+
     public Guilda cadastrarGuilda(Guilda guilda) {
         return guildaRepository.save(guilda);
+    }
+
+    public Guilda adicionarMembroNaGuilda(Integer idDaGuilda, Integer idDoMembro){
+       Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+       Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+       List<Membro> membrosDaGuilda = guilda.getMembros();
+       membrosDaGuilda.add(membro);
+       guilda.setMembros(membrosDaGuilda);
+
+       return guilda;
     }
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
