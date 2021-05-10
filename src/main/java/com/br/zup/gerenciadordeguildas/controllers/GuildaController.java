@@ -30,10 +30,16 @@ public class GuildaController {
         return  modelMapper.map(guilda, GuildaDTO.class);
     }
 
-    @PostMapping("{id}/membro/{idDoMembro}/")
+    @PostMapping("{id}/membros/{idDoMembro}/")
     @ResponseStatus(HttpStatus.CREATED)
     public Guilda cadastrarMembroNaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
         return guildaService.adicionarMembroNaGuilda(id, idDoMembro);
+    }
+
+    @PostMapping("{id}/representantes/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Guilda cadastrarRepresentanteDaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        return guildaService.adicionarRepresentanteNaGuilda(id, idDoMembro);
     }
 
     @PostMapping("{id}/atas/{idDaAta}/")
@@ -44,7 +50,7 @@ public class GuildaController {
 
     @PostMapping("{id}/atividades/{idDaAtividade}/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Guilda cadastrarAtividadeNaGuilda(@PathVariable Integer id, @PathVariable Integer idDaAtividade){
+    public Guilda cadastrarAtividadeNaGuilda(@PathVariable Integer id, @PathVariable Integer idDaAtividade) {
         return guildaService.adicionarAtividadeNaGuilda(id, idDaAtividade);
     }
 

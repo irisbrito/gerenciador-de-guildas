@@ -28,6 +28,9 @@ public class Guilda {
     private List<Membro> membros;
 
     @OneToMany
+    private List<Membro> representantes;
+
+    @OneToMany
     private List<Atividade> atividades;
 
     @OneToMany
