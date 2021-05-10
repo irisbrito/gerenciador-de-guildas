@@ -163,6 +163,16 @@ public class GuildaService {
         }
     }
 
+    public void deletarAtividadeDaGuilda(Integer idDaGuilda, Integer idDaAtividade){
+        try{
+            Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+            Atividade atividade = atividadeService.buscarAtividadePeloId(idDaAtividade);
+            guilda.getAtividades().remove(atividade);
+        }catch (Exception error){
+            throw new RuntimeException("Não foi possível deletar a atividade!");
+        }
+    }
+
     public void deletarGuilda(Integer id) {
         if(guildaRepository.existsById(id)){
             guildaRepository.deleteById(id);
