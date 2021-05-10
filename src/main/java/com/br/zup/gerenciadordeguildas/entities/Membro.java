@@ -1,5 +1,6 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class Membro {
     private String email;
     private String zenity;
     private boolean representante;
+    @JsonIgnore
     @ManyToMany(mappedBy = "membros")
     private List<Guilda> guildas;
 
