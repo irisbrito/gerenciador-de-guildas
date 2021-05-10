@@ -30,6 +30,12 @@ public class GuildaController {
         return  modelMapper.map(guilda, GuildaDTO.class);
     }
 
+    @PostMapping("{id}/membro/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Guilda cadastrarMembroNaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        return guildaService.adicionarMembroNaGuilda(id, idDoMembro);
+    }
+
     @GetMapping
     public Iterable<Guilda> listarGuildas(){
         return guildaService.retornarTodasAsGuildas();
