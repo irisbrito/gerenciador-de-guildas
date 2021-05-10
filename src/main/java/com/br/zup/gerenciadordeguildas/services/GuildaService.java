@@ -1,5 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
+import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
@@ -22,18 +24,31 @@ public class GuildaService {
     @Autowired
     private MembroService membroService;
 
+    @Autowired
+    private AtaService ataService;
+
     public Guilda cadastrarGuilda(Guilda guilda) {
         return guildaRepository.save(guilda);
     }
 
     public Guilda adicionarMembroNaGuilda(Integer idDaGuilda, Integer idDoMembro){
-       Guilda guilda = buscarGuildaPeloId(idDaGuilda);
-       Membro membro = membroService.buscarMembroPeloId(idDoMembro);
-       List<Membro> membrosDaGuilda = guilda.getMembros();
-       membrosDaGuilda.add(membro);
-       guilda.setMembros(membrosDaGuilda);
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+        List<Membro> membrosDaGuilda = guilda.getMembros();
+        membrosDaGuilda.add(membro);
+        guilda.setMembros(membrosDaGuilda);
 
-       return guilda;
+        return guilda;
+    }
+
+    public Guilda adicionarAtaNaGuilda(Integer idDaGuilda, Integer idDaAta){
+        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        Ata ata = ataService.buscarAtaPeloId(idDaAta);
+        List<Ata> atasDaGuilda = guilda.getAtas();
+        atasDaGuilda.add(ata);
+        guilda.setAtas(atasDaGuilda);
+
+        return guilda;
     }
 
     public Iterable<Guilda> retornarTodasAsGuildas(){
@@ -70,9 +85,9 @@ public class GuildaService {
         List<Guilda> listaDeGuildas = new ArrayList<>();
 
         for (Guilda guilda : guildas) {
-           Optional<Guilda> objGuilda = guildaRepository.findById(guilda.getId());
-           if(Objects.nonNull(objGuilda)){
-               listaDeGuildas.add(guilda);
+            Optional<Guilda> objGuilda = guildaRepository.findById(guilda.getId());
+            if(Objects.nonNull(objGuilda)){
+                listaDeGuildas.add(guilda);
             }else{
                 throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
 
