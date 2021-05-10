@@ -19,5 +19,6 @@ public class Ata {
     private String assuntos;
 
     @ManyToOne
+    @JoinColumn(name = "guilda_id")
     private Guilda guilda;
 }

@@ -7,13 +7,17 @@ import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.CadastroAtividadeDTO
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.services.AtividadeService;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
+import com.br.zup.gerenciadordeguildas.services.MembroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -22,10 +26,13 @@ public class AtividadeController {
 
     private AtividadeService atividadeService;
     private GuildaService guildaService;
+    private MembroService membroService;
     private ModelMapper modelMapper;
 
-    public AtividadeController(AtividadeService atividadeService, ModelMapper modelMapper) {
+    public AtividadeController(AtividadeService atividadeService, GuildaService guildaService, MembroService membroService, ModelMapper modelMapper) {
         this.atividadeService = atividadeService;
+        this.guildaService = guildaService;
+        this.membroService = membroService;
         this.modelMapper = modelMapper;
     }
 
@@ -33,7 +40,11 @@ public class AtividadeController {
     @ResponseStatus(HttpStatus.CREATED)
     public CadastroAtividadeDTOSaida cadastrarAtividade(@RequestBody @Valid CadastroAtividadeDTO cadastroAtividadeDTO){
         Guilda guilda = guildaService.buscarGuildaPeloNome(cadastroAtividadeDTO.getGuilda());
-        Atividade atividade = atividadeService.cadastrarAtividade(cadastroAtividadeDTO.converterDTOparaEntity(guilda));
+        List<Membro> membros = new ArrayList<>();
+        cadastroAtividadeDTO.getResponsaveis()
+                .forEach( nomeDoMembro -> membros.add(membroService.buscarMembroPeloNome(nomeDoMembro)));
+        Atividade atividade = atividadeService.cadastrarAtividade(cadastroAtividadeDTO.converterDTOparaEntity(guilda, membros));
+
         return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
