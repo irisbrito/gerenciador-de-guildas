@@ -17,7 +17,7 @@ public class CadastroMembroDTOSaida {
         private String email;
         private String zenity;
         private boolean representante;
-        private List<Guilda> guildas;
+        private Guilda guilda;
 
         public static CadastroMembroDTOSaida converterEntityParaDTOSaida(Membro membro) {
             CadastroMembroDTOSaida cadastroMembroDTOSaida = new CadastroMembroDTOSaida();
@@ -25,8 +25,8 @@ public class CadastroMembroDTOSaida {
             cadastroMembroDTOSaida.setNome(membro.getNome());
             cadastroMembroDTOSaida.setEmail(membro.getEmail());
             cadastroMembroDTOSaida.setZenity(membro.getZenity());
-            cadastroMembroDTOSaida.setRepresentante(membro.getRepresentante());
-            cadastroMembroDTOSaida.setGuildas(membro.getGuildas());
+            cadastroMembroDTOSaida.setRepresentante(membro.isRepresentante());
+            cadastroMembroDTOSaida.setGuilda(membro.getGuilda());
 
             return cadastroMembroDTOSaida;
         }
