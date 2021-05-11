@@ -1,10 +1,9 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.CadastroAtividadeDTO;
-import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizacaoParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.CadastroAtividadeDTOSaida;
-import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
@@ -64,7 +63,7 @@ public class AtividadeController {
 
     @PatchMapping("{id}/")
     public Atividade atualizarAtividadeParcial(@PathVariable int id,
-                                               @RequestBody @Valid AtualizacaoParcialAtividadeDTO atividadeDTO){
+                                               @RequestBody @Valid AtualizarParcialAtividadeDTO atividadeDTO){
         Atividade atividade = atividadeDTO.converterDTOParaModel(id);
         return atividadeService.atualizarParcialAtividade(atividade);
     }
