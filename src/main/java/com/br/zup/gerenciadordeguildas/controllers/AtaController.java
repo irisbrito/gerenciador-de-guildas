@@ -2,13 +2,11 @@ package com.br.zup.gerenciadordeguildas.controllers;
 
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarParcialAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.CadastroAtaDTO;
-import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.saida.ata.CadastroAtaDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.services.AtaService;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +18,11 @@ public class AtaController {
 
     private AtaService ataService;
     private GuildaService guildaService;
-    private ModelMapper modelMapper;
 
-    public AtaController(AtaService ataService, GuildaService guildaService, ModelMapper modelMapper) {
+
+    public AtaController(AtaService ataService, GuildaService guildaService) {
         this.ataService = ataService;
         this.guildaService = guildaService;
-        this.modelMapper = modelMapper;
     }
 
     @PostMapping
@@ -53,18 +50,11 @@ public class AtaController {
         return ataService.buscarAtaPeloId(id);
     }
 
-    @PutMapping("{id}/")
-    @ResponseStatus(HttpStatus.OK)
-    public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO){
-        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaModel(id));
-
-        return ata;
-    }
-
     @PatchMapping("{id}/")
     public Ata atualizarAtaParcial(@PathVariable int id,
                                    @RequestBody @Valid AtualizarParcialAtaDTO ataDTO){
-        Ata ata = ataDTO.converterDTOParaModel(id);
+        Guilda guilda = guildaService.buscarGuildaPeloNome(ataDTO.getGuilda());
+        Ata ata = ataDTO.converterDTOParaModel(id, guilda);
         return ataService.atualizarParcialAta(ata);
     }
 
