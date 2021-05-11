@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -20,9 +19,9 @@ public class Membro {
     private String nome;
     private String email;
     private String zenity;
-    private Boolean representante;
+    private boolean representante;
     @JsonIgnore
-    @ManyToMany(mappedBy = "membros")
+    @ManyToOne
     private Guilda guilda;
 
 }
