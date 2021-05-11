@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface GuildaRepository extends CrudRepository<Guilda, Integer> {
     Optional<Guilda> findByNome(String nome);
+    Boolean existsByNome(String nome);
 }
