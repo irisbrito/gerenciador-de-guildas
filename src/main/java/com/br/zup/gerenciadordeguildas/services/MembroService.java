@@ -34,7 +34,7 @@ public class MembroService {
             return optionalMembro.get();
         }
 
-        throw new RuntimeException("Membro não existe");
+        throw new RecursoNaoEncontradoException("Membro", id);
     }
 
     public Membro buscarMembroPeloEmail(String email){
