@@ -24,7 +24,6 @@ public class MembroService {
 
     public Membro cadastrarMembro(Membro membro) {
         try{ listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
-            // todo: rever regra - verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(membro);
             membro.setGuildas(listaDeGuildasDoMembro);
             return membroRepository.save(membro);}
         catch (Exception error){
@@ -96,6 +95,14 @@ public class MembroService {
 
         } catch (Exception error){
             throw new RecursoNaoEncontradoException("Membro", membroParaAtualizar.getId());}
+    }
+
+    public boolean verificarEmailCadastrado(String email){
+        if(!membroRepository.existsByEmail(email)){
+            return true;
+        } else {
+            throw new RuntimeException("Membro já cadastrado com esse e-mail!");
+        }
     }
 //
 //    public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
