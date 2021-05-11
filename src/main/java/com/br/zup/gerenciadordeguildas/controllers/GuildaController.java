@@ -36,11 +36,11 @@ public class GuildaController {
         return guildaService.adicionarMembroNaGuilda(id, idDoMembro);
     }
 
-    @PostMapping("{id}/representantes/{idDoMembro}/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Guilda cadastrarRepresentanteDaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
-        return guildaService.adicionarRepresentanteNaGuilda(id, idDoMembro);
-    }
+   // @PostMapping("{id}/representantes/{idDoMembro}/")
+   // @ResponseStatus(HttpStatus.CREATED)
+   // public Guilda cadastrarRepresentanteDaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        //return guildaService.adicionarRepresentanteNaGuilda(id, idDoMembro);
+   // }
 
     @PostMapping("{id}/atas/{idDaAta}/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -88,6 +88,11 @@ public class GuildaController {
         guildaService.deletarMembroDaGuilda(idDaGuilda, idDaAtividade);
     }
 
+    @DeleteMapping("{idDaGuilda}/atas/{idDaAta}/")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarAtaDaGuilda(@PathVariable Integer idDaGuilda, @PathVariable Integer idDaAta){
+        guildaService.deletarMembroDaGuilda(idDaGuilda, idDaAta);
+    }
 
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
