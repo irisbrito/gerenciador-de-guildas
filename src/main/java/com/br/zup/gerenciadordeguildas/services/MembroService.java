@@ -72,37 +72,37 @@ public class MembroService {
         throw new RecursoNaoEncontradoException("Membro", membro.getId());
     }
 
-    public Membro atualizarParcialMembro(Membro membro){
+    public Membro atualizarParcialMembro(Membro membroParaAtualizar){
         try {
-            Membro objetoMembro = buscarMembroPeloId(membro.getId());
+            Membro membroAtualNoBD = buscarMembroPeloId(membroParaAtualizar.getId());
 
-            if(!objetoMembro.getNome().equals(membro.getNome()) && membro.getNome() != null ){
-                objetoMembro.setNome(membro.getNome());
+            if(!membroAtualNoBD.getNome().equals(membroParaAtualizar.getNome()) && membroParaAtualizar.getNome() != null ){
+                membroAtualNoBD.setNome(membroParaAtualizar.getNome());
             }
 
-            if (objetoMembro.getEmail() != membro.getEmail() && membro.getEmail() != null){
-                objetoMembro.setEmail(membro.getEmail());
+            if (membroAtualNoBD.getEmail() != membroParaAtualizar.getEmail() && membroParaAtualizar.getEmail() != null){
+                membroAtualNoBD.setEmail(membroParaAtualizar.getEmail());
             }
 
-            if (objetoMembro.getZenity() != membro.getZenity() && membro.getZenity() != null){
-                objetoMembro.setZenity(membro.getZenity());
+            if (membroAtualNoBD.getZenity() != membroParaAtualizar.getZenity() && membroParaAtualizar.getZenity() != null){
+                membroAtualNoBD.setZenity(membroParaAtualizar.getZenity());
             }
 
-            if (objetoMembro.getGuildas() != membro.getGuildas() && membro.getGuildas() != null){
-                objetoMembro.setGuildas(membro.getGuildas());
+            if (membroAtualNoBD.getRepresentante() != membroParaAtualizar.getRepresentante() && membroParaAtualizar.getRepresentante() != null){
+                membroAtualNoBD.setRepresentante(membroParaAtualizar.getRepresentante());
             }
 
-            return atualizarMembro(objetoMembro);
+            return atualizarMembro(membroAtualNoBD);
 
         } catch (Exception error){
-            throw new RecursoNaoEncontradoException("Membro", membro.getId());}
+            throw new RecursoNaoEncontradoException("Membro", membroParaAtualizar.getId());}
     }
-
-    public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
-        if(listaDeGuildasDoMembro.stream().count() > 0 && membro.isRepresentante()){
-            throw new RuntimeException("O membro só pode ser representante de uma guilda");
-        }
-    }
+//
+//    public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
+//        if(listaDeGuildasDoMembro.stream().count() > 0 && membro.isRepresentante()){
+//            throw new RuntimeException("O membro só pode ser representante de uma guilda");
+//        }
+//    }
 
     public void deletarMembro(Integer id) {
         if(membroRepository.existsById(id)){
