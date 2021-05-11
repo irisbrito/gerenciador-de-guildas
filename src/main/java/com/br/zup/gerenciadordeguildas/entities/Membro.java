@@ -20,7 +20,7 @@ public class Membro {
     private String nome;
     private String email;
     private String zenity;
-    private boolean representante;
+    private Boolean representante;
     @JsonIgnore
     @ManyToMany(mappedBy = "membros")
     private List<Guilda> guildas;

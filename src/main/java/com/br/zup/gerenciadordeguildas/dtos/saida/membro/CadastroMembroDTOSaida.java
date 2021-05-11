@@ -25,7 +25,7 @@ public class CadastroMembroDTOSaida {
             cadastroMembroDTOSaida.setNome(membro.getNome());
             cadastroMembroDTOSaida.setEmail(membro.getEmail());
             cadastroMembroDTOSaida.setZenity(membro.getZenity());
-            cadastroMembroDTOSaida.setRepresentante(membro.isRepresentante());
+            cadastroMembroDTOSaida.setRepresentante(membro.getRepresentante());
             cadastroMembroDTOSaida.setGuildas(membro.getGuildas());
 
             return cadastroMembroDTOSaida;
