@@ -27,6 +27,7 @@ public class GuildaService {
     @Autowired
     private AtaService ataService;
 
+
     @Autowired
     private AtividadeService atividadeService;
 
@@ -42,18 +43,18 @@ public class GuildaService {
         return guildaRepository.save(guilda);
     }
 
-    public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
-        Guilda guilda = buscarGuildaPeloId(idDaGuilda);
-        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+   // public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
+        //Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+        //Membro membro = membroService.buscarMembroPeloId(idDoMembro);
 
-        if (!guilda.getMembros().contains(idDoMembro)) {
-            guilda.getMembros().add(membro);
-        }
+        //if (!guilda.getMembros().contains(idDoMembro)) {
+            //guilda.getMembros().add(membro);
+        //}
 
-        guilda.getRepresentantes().add(membro);
+       // guilda.getRepresentantes().add(membro);
 
-        return guildaRepository.save(guilda);
-    }
+       // return guildaRepository.save(guilda);
+    //}
 
     public Guilda adicionarAtaNaGuilda(Integer idDaGuilda, Integer idDaAta){
         Guilda guilda = buscarGuildaPeloId(idDaGuilda);
@@ -170,6 +171,16 @@ public class GuildaService {
             guilda.getAtividades().remove(atividade);
         }catch (Exception error){
             throw new RuntimeException("Não foi possível deletar a atividade!");
+        }
+    }
+
+    public void deletarAtaDaGuilda(Integer idDaGuilda, Integer idDaAta){
+        try{
+            Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+            Ata ata = ataService.buscarAtaPeloId(idDaAta);
+            guilda.getAtas().remove(ata);
+        }catch (Exception error){
+            throw new RuntimeException("Não foi possível deletar a ata!");
         }
     }
 
