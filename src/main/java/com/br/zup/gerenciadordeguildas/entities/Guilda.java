@@ -23,7 +23,7 @@ public class Guilda {
     private String linkDoChat;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "guildas_membros",
     joinColumns = @JoinColumn(name = "guildas_id"),
     inverseJoinColumns = @JoinColumn(name = "membros_id"))
