@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Membro;
+import com.br.zup.gerenciadordeguildas.exceptions.EmailExistenteException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
@@ -96,7 +97,7 @@ public class MembroService {
         if(!membroRepository.existsByEmail(email)){
             return true;
         } else {
-            throw new RuntimeException("Membro já cadastrado com esse e-mail!");
+            throw new EmailExistenteException();
         }
     }
 //
