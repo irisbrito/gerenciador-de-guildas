@@ -1,6 +1,5 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.membro;
 
-import com.br.zup.gerenciadordeguildas.dtos.saida.membro.CadastroMembroDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
@@ -27,15 +26,15 @@ public class CadastroMembroDTO {
     @NotNull
     private boolean representante;
     @NotNull
-    private List<String> guildas;
+    private String guilda;
 
-    public Membro converterDTOparaEntity(List<Guilda> guildas) {
+    public Membro converterDTOparaEntity(Guilda guilda) {
         Membro membro = new Membro();
         membro.setNome(this.nome);
         membro.setEmail(this.email);
         membro.setZenity(this.zenity);
         membro.setRepresentante(this.representante);
-        membro.setGuildas(guildas);
+        membro.setGuilda(guilda);
 
         return membro;
     }
