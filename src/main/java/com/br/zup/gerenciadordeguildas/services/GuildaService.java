@@ -4,7 +4,7 @@ import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
-import com.br.zup.gerenciadordeguildas.exceptions.NegocioException;
+import com.br.zup.gerenciadordeguildas.exceptions.RecursoDuplicadoException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
@@ -106,7 +106,7 @@ public class GuildaService {
 
     public void validarNomeGuilda(String nome){
         if(guildaRepository.existsByNome(nome)){
-            throw new NegocioException("Guilda com nome já cadastrado!");
+            throw new RecursoDuplicadoException("Guilda com nome já cadastrado!");
         }
     }
 
