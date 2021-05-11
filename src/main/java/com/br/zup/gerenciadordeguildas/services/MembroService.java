@@ -1,13 +1,11 @@
 package com.br.zup.gerenciadordeguildas.services;
 
-import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 import java.util.Optional;
 
@@ -20,15 +18,12 @@ public class MembroService {
     @Autowired
     private GuildaService guildaService;
 
-    List<Guilda> listaDeGuildasDoMembro;
-
     public Membro cadastrarMembro(Membro membro) {
-        try{ listaDeGuildasDoMembro = guildaService.buscarGuildas(membro.getGuildas());
-            membro.setGuildas(listaDeGuildasDoMembro);
-            return membroRepository.save(membro);}
-        catch (Exception error){
-            throw new RuntimeException("Não foi posssível cadastrar membro!");
-        }
+        verificarEmailCadastrado(membro.getEmail());
+        Membro objMembro = membroRepository.save(membro);
+        guildaService.adicionarMembroNaGuilda(membro.getGuilda().getId(), membro.getId());
+
+        return objMembro;
     }
 
     public Membro buscarMembroPeloId(int id){
@@ -87,8 +82,8 @@ public class MembroService {
                 membroAtualNoBD.setZenity(membroParaAtualizar.getZenity());
             }
 
-            if (membroAtualNoBD.getRepresentante() != membroParaAtualizar.getRepresentante() && membroParaAtualizar.getRepresentante() != null){
-                membroAtualNoBD.setRepresentante(membroParaAtualizar.getRepresentante());
+            if (membroAtualNoBD.isRepresentante() != membroParaAtualizar.isRepresentante()){
+                membroAtualNoBD.setRepresentante(membroParaAtualizar.isRepresentante());
             }
 
             return atualizarMembro(membroAtualNoBD);
