@@ -126,15 +126,6 @@ public class GuildaService {
         return listaDeGuildas;
     }
 
-    public Guilda atualizarGuilda(Guilda guilda){
-        if(guildaRepository.existsById(guilda.getId())){
-            Guilda objGuilda = cadastrarGuilda(guilda);
-            return guilda;
-        }
-
-        throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
-    }
-
     public Guilda atualizarGuildaParcial(Guilda guilda){
         try{
             Guilda objetoGuilda = buscarGuildaPeloId(guilda.getId());
