@@ -23,6 +23,6 @@ public class Membro {
     private Boolean representante;
     @JsonIgnore
     @ManyToMany(mappedBy = "membros")
-    private List<Guilda> guildas;
+    private Guilda guilda;
 
 }
