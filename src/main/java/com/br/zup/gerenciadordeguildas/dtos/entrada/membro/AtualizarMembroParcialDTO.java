@@ -21,15 +21,4 @@ public class AtualizarParcialMembroDTO {
     private String zenity;
 
     private List<Guilda> guildas;
-
-    public Membro converterDTOParaModel(Integer id){
-        Membro membro = new Membro();
-        membro.setId(id);
-        membro.setNome(this.nome);
-        membro.setEmail(this.email);
-        membro.setZenity(this.zenity);
-        membro.setGuildas(this.guildas);
-
-        return membro;
-    }
 }

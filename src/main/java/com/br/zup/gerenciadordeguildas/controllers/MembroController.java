@@ -1,7 +1,6 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarMembroDTO;
-import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarParcialMembroDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarMembroParcialDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.CadastroMembroDTO;
 import com.br.zup.gerenciadordeguildas.dtos.saida.membro.CadastroMembroDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("membros/")
@@ -52,17 +50,13 @@ public class MembroController {
         return membroService.buscarMembroPeloId(id);
     }
 
-    @PutMapping("{id}/")
-    public Membro atualizarMembro(@PathVariable Integer id, @RequestBody AtualizarMembroDTO membroDTO){
-        Membro membro = membroService.atualizarMembro(membroDTO.converterDTOParaModel(id));
-        return membro;
-    }
-
     @PatchMapping("{id}/")
-    public Membro atualizarMembroParcial(@PathVariable int id,
-                                         @RequestBody @Valid AtualizarParcialMembroDTO membroDTO){
-        Membro membro = membroDTO.converterDTOParaModel(id);
-        return membroService.atualizarParcialMembro(membro);
+    public AtualizarMembroParcialDTO atualizarMembroParcial(@PathVariable Integer id,
+                                         @RequestBody @Valid AtualizarMembroParcialDTO membroDTO){
+        Membro membroParaAtualizar = modelMapper.map(membroDTO, Membro.class);
+        membroParaAtualizar.setId(id);
+        membroParaAtualizar = membroService.atualizarParcialMembro(membroParaAtualizar);
+        return  modelMapper.map(membroParaAtualizar, AtualizarMembroParcialDTO.class);
     }
 
     @DeleteMapping("{id}/")
