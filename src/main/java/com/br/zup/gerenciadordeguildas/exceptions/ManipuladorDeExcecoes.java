@@ -91,5 +91,4 @@ public class ManipuladorDeExcecoes {
         );
         return ResponseEntity.status(status).body(err);
     }
-
 }
