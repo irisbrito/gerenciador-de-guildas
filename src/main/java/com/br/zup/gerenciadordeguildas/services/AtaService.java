@@ -62,10 +62,6 @@ public class AtaService {
         try {
             Ata objetoAta = buscarAtaPeloId(ata.getId());
 
-            if (!objetoAta.getData().equals(ata.getData()) && ata.getData() != null) {
-                objetoAta.setData(ata.getData());
-            }
-
             if (!objetoAta.getPauta().equals(ata.getPauta()) && ata.getPauta() != null) {
                 objetoAta.setPauta(ata.getPauta());
             }
@@ -78,7 +74,7 @@ public class AtaService {
                 objetoAta.setGuilda(ata.getGuilda());
             }
 
-            return atualizarAta(objetoAta);
+            return objetoAta;
         }
         catch (Exception error){
             throw new RecursoNaoEncontradoException("Ata", ata.getId());
