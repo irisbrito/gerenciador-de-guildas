@@ -1,24 +1,19 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.membro;
 
-import com.br.zup.gerenciadordeguildas.entities.Guilda;
-import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
 
 import javax.validation.constraints.Email;
-import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtualizarParcialMembroDTO {
+public class AtualizarMembroParcialDTO {
 
     private String nome;
-    @Email(message = "Email inválido")
+    @Email(message = "Por favor digite um email válido.")
     private String email;
-
     private String zenity;
-
-    private List<Guilda> guildas;
+    private Boolean representante;
 }
