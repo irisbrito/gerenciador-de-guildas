@@ -69,10 +69,6 @@ public class AtividadeService {
                 objetoAtividade.setDescricao(atividade.getDescricao());
             }
 
-            if (objetoAtividade.getResponsaveis() != atividade.getResponsaveis() && atividade.getResponsaveis() != null) {
-                objetoAtividade.setResponsaveis(atividade.getResponsaveis());
-            }
-
             if (objetoAtividade.getStatus() != atividade.getStatus() && atividade.getStatus() != null) {
                 objetoAtividade.setStatus(atividade.getStatus());
             }
