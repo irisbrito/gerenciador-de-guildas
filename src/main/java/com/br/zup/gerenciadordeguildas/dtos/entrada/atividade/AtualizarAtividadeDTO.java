@@ -25,10 +25,6 @@ public class AtualizarAtividadeDTO {
     private String descricao;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
-    private List<Membro> responsaveis;
-
-    @NotNull
     private Status status;
 
     public Atividade converterDTOParaModel(int id){
@@ -36,7 +32,6 @@ public class AtualizarAtividadeDTO {
         atividade.setId(id);
         atividade.setNome(this.nome);
         atividade.setDescricao(this.descricao);
-        atividade.setResponsaveis(this.responsaveis);
         atividade.setStatus(this.status);
 
         return atividade;
