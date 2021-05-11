@@ -61,9 +61,9 @@ public class ManipuladorDeExcecoes {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(NegocioException.class)
+    @ExceptionHandler(RecursoDuplicadoException.class)
     public ResponseEntity<MensagemDeErro> bussinessException(
-            NegocioException exception,
+            RecursoDuplicadoException exception,
             HttpServletRequest request) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         MensagemDeErro err = new MensagemDeErro(
