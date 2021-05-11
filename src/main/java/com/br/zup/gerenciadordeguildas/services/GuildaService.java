@@ -4,6 +4,7 @@ import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
+import com.br.zup.gerenciadordeguildas.exceptions.NegocioException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
@@ -32,6 +33,7 @@ public class GuildaService {
     private AtividadeService atividadeService;
 
     public Guilda cadastrarGuilda(Guilda guilda) {
+        validarNomeGuilda(guilda.getNome());
         return guildaRepository.save(guilda);
     }
 
@@ -100,6 +102,12 @@ public class GuildaService {
         }
 
         throw new RecursoNaoEncontradoException("Guilda", id);
+    }
+
+    public void validarNomeGuilda(String nome){
+        if(guildaRepository.existsByNome(nome)){
+            throw new NegocioException("Guilda com nome já cadastrado!");
+        }
     }
 
     public List<Guilda> buscarGuildas(List<Guilda> guildas){
