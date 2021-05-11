@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtualizarParcialAtaDTO {
+public class AtualizarAtaParcialDTO {
 
     private String pauta;
     private String assuntos;
