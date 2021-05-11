@@ -19,7 +19,7 @@ public class Membro {
     private String nome;
     private String email;
     private String zenity;
-    private boolean representante;
+    private Boolean representante;
     @ManyToMany(mappedBy = "membros")
     private List<Guilda> guildas;
 
