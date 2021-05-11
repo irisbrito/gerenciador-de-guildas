@@ -76,6 +76,19 @@ public class GuildaController {
         return guilda;
     }
 
+    @DeleteMapping("{idDaGuilda}/membros/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarMembroDaGuilda(@PathVariable Integer idDaGuilda, @PathVariable Integer idDoMembro){
+        guildaService.deletarMembroDaGuilda(idDaGuilda, idDoMembro);
+    }
+
+    @DeleteMapping("{idDaGuilda}/membros/{idDaAtividade}/")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarAtividadeDaGuilda(@PathVariable Integer idDaGuilda, @PathVariable Integer idDaAtividade){
+        guildaService.deletarMembroDaGuilda(idDaGuilda, idDaAtividade);
+    }
+
+
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarGuilda(@PathVariable Integer id){

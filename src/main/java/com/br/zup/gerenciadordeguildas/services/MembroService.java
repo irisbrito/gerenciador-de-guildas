@@ -112,4 +112,8 @@ public class MembroService {
         }
     }
 
+    public Membro buscarMembroPeloNome(String nome) {
+        Optional<Membro> membro = membroRepository.findByNome(nome);
+        return membro.orElseThrow( () -> new RecursoNaoEncontradoException("Membro" +nome, null));
+    }
 }

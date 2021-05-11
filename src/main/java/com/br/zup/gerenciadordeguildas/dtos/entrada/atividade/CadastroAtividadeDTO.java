@@ -27,8 +27,7 @@ public class CadastroAtividadeDTO {
     private String descricao;
 
     @NotNull
-    @Size(min = 2, max = 100, message = "Por favor digite um nome válido")
-    private List<Membro> responsaveis;
+    private List<String> responsaveis;
 
     @NotNull
     private Status status;
@@ -36,11 +35,11 @@ public class CadastroAtividadeDTO {
     @NotNull
     private String guilda;
 
-    public Atividade converterDTOparaEntity(Guilda guilda) {
+    public Atividade converterDTOparaEntity(Guilda guilda, List<Membro> membros) {
         Atividade atividade = new Atividade();
         atividade.setNome(this.nome);
         atividade.setDescricao(this.descricao);
-        atividade.setResponsaveis(this.responsaveis);
+        atividade.setResponsaveis(membros);
         atividade.setStatus(this.status);
         atividade.setGuilda(guilda);
 

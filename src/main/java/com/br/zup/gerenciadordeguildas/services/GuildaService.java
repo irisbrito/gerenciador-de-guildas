@@ -39,7 +39,7 @@ public class GuildaService {
         Membro membro = membroService.buscarMembroPeloId(idDoMembro);
         guilda.getMembros().add(membro);
 
-       return guildaRepository.save(guilda);
+        return guildaRepository.save(guilda);
     }
 
     public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
@@ -150,6 +150,26 @@ public class GuildaService {
         }
         catch (Exception error){
             throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+        }
+    }
+
+    public void deletarMembroDaGuilda(Integer idDaGuilda, Integer idDoMembro){
+        try{
+            Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+            Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+            guilda.getMembros().remove(membro);
+        }catch (Exception error){
+            throw new RuntimeException("Não foi possível deletar o membro");
+        }
+    }
+
+    public void deletarAtividadeDaGuilda(Integer idDaGuilda, Integer idDaAtividade){
+        try{
+            Guilda guilda = buscarGuildaPeloId(idDaGuilda);
+            Atividade atividade = atividadeService.buscarAtividadePeloId(idDaAtividade);
+            guilda.getAtividades().remove(atividade);
+        }catch (Exception error){
+            throw new RuntimeException("Não foi possível deletar a atividade!");
         }
     }
 
