@@ -60,4 +60,20 @@ public class ManipuladorDeExcecoes {
         );
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<MensagemDeErro> bussinessException(
+            NegocioException exception,
+            HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        MensagemDeErro err = new MensagemDeErro(
+                Instant.now(),
+                status.value(),
+                status.name(),
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(err);
+    }
+
 }
