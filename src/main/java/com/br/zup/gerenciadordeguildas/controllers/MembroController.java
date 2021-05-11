@@ -32,10 +32,8 @@ public class MembroController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CadastroMembroDTOSaida cadastrarMembro(@RequestBody @Valid CadastroMembroDTO cadastroMembroDTO){
-        List<Guilda> guildas = new ArrayList<>();
-        cadastroMembroDTO.getGuildas()
-                         .forEach( nomeDaGuilda -> guildas.add(guildaService.buscarGuildaPeloNome(nomeDaGuilda)));
-        Membro membro = membroService.cadastrarMembro(cadastroMembroDTO.converterDTOparaEntity(guildas));
+        Guilda guilda = guildaService.buscarGuildaPeloNome(cadastroMembroDTO.getGuilda());
+        Membro membro = membroService.cadastrarMembro(cadastroMembroDTO.converterDTOparaEntity(guilda));
 
         return CadastroMembroDTOSaida.converterEntityParaDTOSaida(membro);
     }
