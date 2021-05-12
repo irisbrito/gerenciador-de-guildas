@@ -1,5 +1,7 @@
 package com.br.zup.gerenciadordeguildas.jwt;
 
+import com.br.zup.gerenciadordeguildas.exceptions.TokenInvalidoException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,15 @@ public class ComponenteJWT {
                 .setExpiration(vencimento).signWith(SignatureAlgorithm.HS512, segredo.getBytes()).compact();
 
         return token;
+    }
+
+    public Claims getClaims(String token){
+        try{
+            Claims claims = Jwts.parser().setSigningKey(segredo.getBytes()).parseClaimsJws(token).getBody();
+            return claims;
+        } catch (Exception error ){
+            throw new TokenInvalidoException();
+        }
     }
 
 }
