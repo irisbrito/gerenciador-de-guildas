@@ -8,6 +8,7 @@ import com.br.zup.gerenciadordeguildas.exceptions.RecursoDuplicadoException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
+import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +29,11 @@ public class GuildaService {
     @Autowired
     private AtaService ataService;
 
-
     @Autowired
     private AtividadeService atividadeService;
+
+    @Autowired
+    private MembroRepository membroRepository;
 
     public Guilda cadastrarGuilda(Guilda guilda) {
         validarNomeGuilda(guilda.getNome());
@@ -102,6 +105,21 @@ public class GuildaService {
         }
 
         throw new RecursoNaoEncontradoException("Guilda", id);
+    }
+
+    public Iterable<Membro> buscarRepresentantesDaGuilda(boolean booleano){
+        if(booleano){
+            Iterable<Membro> listaDeRepresentantesDaGuilda = membroRepository.findAllByRepresentanteIs(booleano);
+
+            if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
+                return listaDeRepresentantesDaGuilda;
+            } else {
+                throw new ListaVaziaException("representante", 'o');
+            }
+
+        } else {
+            throw new RuntimeException("Não foi possível buscar os representantes da Guilda");
+        }
     }
 
     public void validarNomeGuilda(String nome){
