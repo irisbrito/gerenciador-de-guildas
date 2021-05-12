@@ -6,7 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class CadastroAtaDTO {
 
     private Integer id;
-    private LocalDate data;
+    private Instant data;
 
     @NotNull
     @Size(max = 30, message = "Digitar no máximo 30 caracteres.")
@@ -31,7 +31,7 @@ public class CadastroAtaDTO {
     public Ata converterDTOParaEntity(Guilda guilda){
         Ata ata = new Ata();
         ata.setId(this.id);
-        ata.setData(LocalDate.now());
+        ata.setData(Instant.now());
         ata.setAssuntos(this.assuntos);
         ata.setPauta(this.pauta);
         ata.setGuilda(guilda);
