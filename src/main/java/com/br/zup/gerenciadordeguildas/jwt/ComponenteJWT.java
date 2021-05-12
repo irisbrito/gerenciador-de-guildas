@@ -33,4 +33,9 @@ public class ComponenteJWT {
         }
     }
 
+    public String getUsername(String token){
+        Claims claims = getClaims(token);
+        return claims.getSubject();
+    }
+
 }
