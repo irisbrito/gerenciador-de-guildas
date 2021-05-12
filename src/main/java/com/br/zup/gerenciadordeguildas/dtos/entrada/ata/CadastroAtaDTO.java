@@ -4,6 +4,7 @@ import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
@@ -18,14 +19,15 @@ public class CadastroAtaDTO {
     private Integer id;
     private Instant data;
 
-    @NotNull
+    @NotBlank
     @Size(max = 30, message = "Digitar no máximo 30 caracteres.")
     private String pauta;
 
-    @NotNull
+    @NotBlank
     @Size(max = 500, message = "Digitar no máximo 500 caracteres.")
     private String assuntos;
 
+    @NotBlank
     private String guilda;
 
     public Ata converterDTOParaEntity(Guilda guilda){
