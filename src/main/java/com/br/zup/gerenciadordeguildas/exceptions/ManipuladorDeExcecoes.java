@@ -91,4 +91,20 @@ public class ManipuladorDeExcecoes {
         );
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(TokenInvalidoException.class)
+    public ResponseEntity<MensagemDeErro> tokenInvalidoException(
+            TokenInvalidoException exception,
+            HttpServletRequest request) {
+        String error = "Bad request";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        MensagemDeErro err = new MensagemDeErro(
+                Instant.now(),
+                status.value(),
+                error,
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(err);
+    }
 }
