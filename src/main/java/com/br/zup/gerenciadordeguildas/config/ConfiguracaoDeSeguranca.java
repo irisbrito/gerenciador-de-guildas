@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -27,6 +28,10 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    private static final String[] PUBLIC_MATCHERS_POST = {
+            "/usuarios/"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -35,8 +40,11 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/atas/**").permitAll()
                 .antMatchers("/atividades/**").permitAll()
                 .antMatchers("/guildas/").permitAll()
+                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .anyRequest()
                 .authenticated();
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilter(new FiltroDeAutenticacao(componenteJWT, authenticationManager()));
         http.addFilter(new FiltroDeAutorizacao(authenticationManager(), componenteJWT, userDetailsService));
