@@ -39,7 +39,7 @@ public class ManipuladorDeExcecoes {
                 Instant.now(),
                 status.value(),
                 error,
-                exception.getFieldError().getDefaultMessage(),
+                exception.getFieldError().getField() + " " + exception.getFieldError().getDefaultMessage(),
                 request.getRequestURI()
         );
         return ResponseEntity.status(status).body(err);
