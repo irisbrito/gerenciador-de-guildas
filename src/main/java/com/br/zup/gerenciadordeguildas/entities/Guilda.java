@@ -1,8 +1,7 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,17 +21,15 @@ public class Guilda {
     private String objetivos;
     private String linkDoChat;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "guildas_membros",
-    joinColumns = @JoinColumn(name = "guildas_id"),
-    inverseJoinColumns = @JoinColumn(name = "membros_id"))
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Membro.class)
     private List<Membro> membros;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "guilda")
-    private List<Atividade> atividades = new ArrayList<>();
-    @JsonIgnore
-    @OneToMany(mappedBy = "guilda")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Atividade.class)
+    private List<Atividade> atividades;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Ata.class)
     private List<Ata> atas;
+
+
 }
