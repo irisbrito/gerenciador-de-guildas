@@ -2,6 +2,7 @@ package com.br.zup.gerenciadordeguildas.config;
 
 import com.br.zup.gerenciadordeguildas.jwt.ComponenteJWT;
 import com.br.zup.gerenciadordeguildas.jwt.FiltroDeAutenticacao;
+import com.br.zup.gerenciadordeguildas.jwt.FiltroDeAutorizacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,7 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
                 .authenticated();
 
         http.addFilter(new FiltroDeAutenticacao(componenteJWT, authenticationManager()));
+        http.addFilter(new FiltroDeAutorizacao(authenticationManager(), componenteJWT, userDetailsService));
     }
 
     @Override
