@@ -57,7 +57,13 @@ public class AtaController {
     @PutMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO) {
-        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaEntity(id));
+        Guilda guilda = new Guilda();
+
+        if(ataDTO.getGuilda() != null){
+         guilda  =  guildaService.buscarGuildaPeloNome(ataDTO.getGuilda());
+        }
+
+        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaEntity(id, guilda));
 
         return ata;
     }
