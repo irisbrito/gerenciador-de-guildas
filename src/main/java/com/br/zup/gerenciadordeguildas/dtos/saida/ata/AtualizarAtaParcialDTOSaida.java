@@ -1,21 +1,21 @@
 package com.br.zup.gerenciadordeguildas.dtos.saida.ata;
 
-import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import lombok.*;
 
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AtualizarAtaParcialDTOSaida {
 
+    private Integer id;
+    private LocalDate data;
     private String pauta;
     private String assuntos;
-    private String guilda;
+    private Guilda guilda;
 
-    //public static AtualizarAtaParcialDTOSaida atualizarAtaParcialDTOSaida(Ata ata) {
-        //AtualizarAtaParcialDTOSaida atualizarAtaParcialDTOSaida = new AtualizarAtaParcialDTOSaida();
-        //atualizarAtaParcialDTOSaida.setId(ata.getId());
-        //cadastroAtaDTOSaida.setPauta(ata.getPauta());
-       // cadastroAtaDTOSaida.setData(ata.getData());
-        //cadastroAtaDTOSaida.setAssuntos(ata.getAssuntos());
-        //cadastroAtaDTOSaida.setGuilda(ata.getGuilda());
-
-        //return cadastroAtaDTOSaida;
-    //}
 }
