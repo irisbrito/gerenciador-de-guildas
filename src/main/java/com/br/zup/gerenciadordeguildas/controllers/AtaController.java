@@ -1,8 +1,9 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarParcialAtaDTO;
-import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.CadastroAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaParcialDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.CadastroAtaDTO;
+import com.br.zup.gerenciadordeguildas.dtos.saida.ata.AtualizarAtaParcialDTOSaida;
 import com.br.zup.gerenciadordeguildas.dtos.saida.ata.CadastroAtaDTOSaida;
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
@@ -44,28 +45,33 @@ public class AtaController {
     }
 
     @GetMapping("guilda/{nome}/")
-    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(@PathVariable String nome){
+    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(@PathVariable String nome) {
         return ataService.buscarAtasPeloNomeDaGuilda(nome);
     }
 
     @GetMapping("{id}/")
-    public Ata buscarAtaPeloId(@PathVariable Integer id){
+    public Ata buscarAtaPeloId(@PathVariable Integer id) {
         return ataService.buscarAtaPeloId(id);
     }
 
     @PutMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
-    public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO){
-        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaModel(id));
+    public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO) {
+        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaEntity(id));
 
         return ata;
     }
 
     @PatchMapping("{id}/")
-    public Ata atualizarAtaParcial(@PathVariable int id,
-                                   @RequestBody @Valid AtualizarParcialAtaDTO ataDTO){
-        Ata ata = ataDTO.converterDTOParaModel(id);
-        return ataService.atualizarParcialAta(ata);
+    @ResponseStatus(HttpStatus.OK)
+    public AtualizarAtaParcialDTOSaida atualizarAtaParcial(@PathVariable int id,
+                                                           @RequestBody @Valid AtualizarAtaParcialDTO ataDTO){
+        Ata ata = ataDTO.converterDTOParaEntity(id);
+        if (ataDTO.getGuilda() != null) {
+            ata.setGuilda(guildaService.buscarGuildaPeloNome(ataDTO.getGuilda()));
+        }
+        ata = ataService.atualizarAtaParcial(ata);
+        return modelMapper.map(ata, AtualizarAtaParcialDTOSaida.class);
     }
 
     @DeleteMapping("{id}/")

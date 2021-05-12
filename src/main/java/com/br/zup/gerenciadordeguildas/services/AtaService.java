@@ -58,30 +58,30 @@ public class AtaService {
         throw new RecursoNaoEncontradoException("Ata", ata.getId());
     }
 
-    public Ata atualizarParcialAta(Ata ata){
+    public void atualizarDadosDaAta(Ata ata, Ata dadosParaAtualizar) {
+
+        if (!ata.getPauta().equals(dadosParaAtualizar.getPauta()) && dadosParaAtualizar.getPauta() != null) {
+            ata.setPauta(dadosParaAtualizar.getPauta());
+        }
+
+        if (!ata.getAssuntos().equals(dadosParaAtualizar.getAssuntos()) && dadosParaAtualizar.getAssuntos() != null) {
+            ata.setAssuntos(dadosParaAtualizar.getAssuntos());
+        }
+
+        if (ata.getGuilda() != dadosParaAtualizar.getGuilda() && dadosParaAtualizar.getGuilda() != null) {
+            ata.setGuilda(dadosParaAtualizar.getGuilda());
+        }
+    }
+
+    public Ata atualizarAtaParcial(Ata dadosParaAtualizar){
         try {
-            Ata objetoAta = buscarAtaPeloId(ata.getId());
+            Ata ata = buscarAtaPeloId(dadosParaAtualizar.getId());
+            atualizarDadosDaAta(ata,dadosParaAtualizar);
 
-            if (!objetoAta.getData().equals(ata.getData()) && ata.getData() != null) {
-                objetoAta.setData(ata.getData());
-            }
-
-            if (!objetoAta.getPauta().equals(ata.getPauta()) && ata.getPauta() != null) {
-                objetoAta.setPauta(ata.getPauta());
-            }
-
-            if (!objetoAta.getAssuntos().equals(ata.getAssuntos()) && ata.getAssuntos() != null) {
-                objetoAta.setAssuntos(ata.getAssuntos());
-            }
-
-            if (!objetoAta.getGuilda().equals(ata.getGuilda()) && ata.getGuilda() != null) {
-                objetoAta.setGuilda(ata.getGuilda());
-            }
-
-            return atualizarAta(objetoAta);
+            return atualizarAta(ata);
         }
         catch (Exception error){
-            throw new RecursoNaoEncontradoException("Ata", ata.getId());
+            throw new RecursoNaoEncontradoException("Ata", dadosParaAtualizar.getId());
         }
     }
 
