@@ -1,5 +1,6 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaParcialDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.CadastroAtaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.saida.ata.CadastroAtaDTOSaida;
@@ -51,16 +52,24 @@ public class AtaController {
         return ataService.buscarAtaPeloId(id);
     }
 
-   // @PatchMapping("{id}/")
-    //public Ata atualizarAtaParcial(@PathVariable Integer id,
-                                                     // @RequestBody AtualizarAtaParcialDTO ataDTO){
-        //Ata ata = ataDTO.converterDTOParaModel(id);
-        //if(ataDTO.getGuilda() != null){
-            //Guilda guilda = guildaService.buscarGuildaPeloNome(ataDTO.getGuilda());
-           // ata.setGuilda(guilda);
-       // }
-      // return ataService.atualizarParcialAta(ataDTO);
-   // }
+    @PutMapping("{id}/")
+    @ResponseStatus(HttpStatus.OK)
+    public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO){
+        Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaEntity(id));
+
+        return ata;
+    }
+
+    @PatchMapping("{id}/")
+    public Ata atualizarAtaParcial(@PathVariable int id,
+                                   @RequestBody @Valid AtualizarAtaParcialDTO ataDTO){
+        Ata ata = ataDTO.converterDTOParaEntity(id);
+        if (ataDTO.getGuilda() != null) {
+            ata.setGuilda(guildaService.buscarGuildaPeloNome(ataDTO.getGuilda()));
+        }
+        ata = ataService.atualizarAtaParcial(ata);
+        return ata;
+    }
 
     @DeleteMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
