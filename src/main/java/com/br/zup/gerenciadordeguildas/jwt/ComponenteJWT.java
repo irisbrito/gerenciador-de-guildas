@@ -38,4 +38,21 @@ public class ComponenteJWT {
         return claims.getSubject();
     }
 
+    public boolean isTokenValid(String token){
+        try {
+            Claims claims = getClaims(token);
+            Date vencimento = claims.getExpiration();
+            Date agora = new Date(System.currentTimeMillis());
+            String username = getUsername(token);
+
+            if(username != null && vencimento != null && agora.before(vencimento)){
+                return true;
+            }
+
+            return false;
+
+        } catch (TokenInvalidoException error){
+            return false;
+        }
+    }
 }
