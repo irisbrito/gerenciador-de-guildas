@@ -73,10 +73,6 @@ public class AtividadeService {
                 objetoAtividade.setStatus(atividade.getStatus());
             }
 
-            if (objetoAtividade.getGuilda() != atividade.getGuilda() && atividade.getGuilda() != null) {
-                objetoAtividade.setGuilda(atividade.getGuilda());
-            }
-
             return atualizarAtividade(objetoAtividade);
         }
         catch (Exception error){

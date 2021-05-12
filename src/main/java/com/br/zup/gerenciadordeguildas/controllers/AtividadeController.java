@@ -1,9 +1,13 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
+import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaParcialDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.CadastroAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarAtividadeDTO;
+import com.br.zup.gerenciadordeguildas.dtos.saida.ata.AtualizarAtaParcialDTOSaida;
+import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.AtualizarAtividadeDTOSaida;
 import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.CadastroAtividadeDTOSaida;
+import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
@@ -56,16 +60,18 @@ public class AtividadeController {
     @PutMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public Atividade atualizarAtividade(@PathVariable Integer id, @RequestBody AtualizarAtividadeDTO atividadeDTO){
-        Atividade atividade = atividadeService.atualizarAtividade(atividadeDTO.converterDTOParaModel(id));
+        Atividade atividade = atividadeService.atualizarAtividade(atividadeDTO.converterDTOParaEntity(id));
 
         return atividade;
     }
 
     @PatchMapping("{id}/")
-    public Atividade atualizarAtividadeParcial(@PathVariable int id,
-                                               @RequestBody @Valid AtualizarParcialAtividadeDTO atividadeDTO){
-        Atividade atividade = atividadeDTO.converterDTOParaModel(id);
-        return atividadeService.atualizarParcialAtividade(atividade);
+    @ResponseStatus(HttpStatus.OK)
+    public AtualizarAtividadeDTOSaida atualizarAtividadeParcial(@PathVariable int id,
+                                                          @RequestBody @Valid AtualizarParcialAtividadeDTO atividadeDTO){
+        Atividade atividade = atividadeDTO.converterDTOParaEntity(id);
+        atividade = atividadeService.atualizarParcialAtividade(atividade);
+        return modelMapper.map(atividade, AtualizarAtividadeDTOSaida.class);
     }
 
     @GetMapping("{id}/")
