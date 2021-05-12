@@ -27,7 +27,7 @@ public class AtualizarAtividadeDTO {
     @NotNull
     private Status status;
 
-    public Atividade converterDTOParaModel(int id){
+    public Atividade converterDTOParaEntity(int id){
         Atividade atividade = new Atividade();
         atividade.setId(id);
         atividade.setNome(this.nome);

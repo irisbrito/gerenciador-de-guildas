@@ -29,7 +29,7 @@ public class Atividade {
     )
     private List<Membro> responsaveis;
     private Status status;
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "guilda_id")
     private Guilda guilda;
