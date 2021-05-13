@@ -11,6 +11,9 @@ import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class GuildaService {
 
@@ -94,36 +97,48 @@ public class GuildaService {
     }
 
     public Guilda atualizarGuildaParcial(Guilda guilda){
-            Guilda objetoGuilda = buscarGuildaPeloId(guilda.getId());
+        Guilda objetoGuilda = buscarGuildaPeloId(guilda.getId());
 
-            if(objetoGuilda.getNome() != null  && !objetoGuilda.getNome().equals(guilda.getNome())){
-                objetoGuilda.setNome(guilda.getNome());
-            }
+        if(objetoGuilda.getNome() != null  && !objetoGuilda.getNome().equals(guilda.getNome())){
+            objetoGuilda.setNome(guilda.getNome());
+        }
 
-            if(objetoGuilda.getDescricao() != null && !objetoGuilda.getDescricao().equals(guilda.getDescricao())){
-                objetoGuilda.setDescricao(guilda.getDescricao());
-            }
+        if(objetoGuilda.getDescricao() != null && !objetoGuilda.getDescricao().equals(guilda.getDescricao())){
+            objetoGuilda.setDescricao(guilda.getDescricao());
+        }
 
-            if(objetoGuilda.getObjetivos() != null && !objetoGuilda.getObjetivos().equals(guilda.getObjetivos())){
-                objetoGuilda.setObjetivos(guilda.getObjetivos());
-            }
+        if(objetoGuilda.getObjetivos() != null && !objetoGuilda.getObjetivos().equals(guilda.getObjetivos())){
+            objetoGuilda.setObjetivos(guilda.getObjetivos());
+        }
 
-            if(objetoGuilda.getLinkDoChat() != null && !objetoGuilda.getLinkDoChat().equals(guilda.getLinkDoChat())){
-                objetoGuilda.setLinkDoChat(guilda.getLinkDoChat());
-            }
+        if(objetoGuilda.getLinkDoChat() != null && !objetoGuilda.getLinkDoChat().equals(guilda.getLinkDoChat())){
+            objetoGuilda.setLinkDoChat(guilda.getLinkDoChat());
+        }
 
-            return objetoGuilda;
-        
+        return objetoGuilda;
     }
 
     public void deletarMembroDaGuilda(Integer idDaGuilda, Integer idDoMembro){
         try{
             Guilda guilda = buscarGuildaPeloId(idDaGuilda);
             Membro membro = membroService.buscarMembroPeloId(idDoMembro);
-            guilda.getMembros().remove(membro);
+            guilda.setMembros(removerMembroDaGuilda(guilda.getMembros(), membro));
+            guildaRepository.save(guilda);
         }catch (Exception error){
             throw new RuntimeException("Não foi possível deletar o membro");
         }
+    }
+
+    private List<Membro> removerMembroDaGuilda(List<Membro> membros, Membro membro){
+        List<Membro> listaAtualizadaDeMembros = new ArrayList<>();
+
+        for(Membro membroItem : membros){
+            if(!membroItem.getId().equals(membro.getId())){
+                listaAtualizadaDeMembros.add(membroItem);
+            }
+        }
+
+        return listaAtualizadaDeMembros;
     }
 
     public void deletarAtividadeDaGuilda(Integer idDaGuilda, Integer idDaAtividade){
