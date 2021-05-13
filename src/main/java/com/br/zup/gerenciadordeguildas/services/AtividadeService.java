@@ -84,6 +84,16 @@ public class AtividadeService {
         }
     }
 
+    public void deletarResponsavelAtividade(Integer idDaAtividade, Integer idDoMembro) {
+        try {
+            Atividade atividade = buscarAtividadePeloId(idDaAtividade);
+            Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+            atividade.getResponsaveis().remove(membro);
+        } catch (Exception error) {
+            throw new RuntimeException("Não foi possível deletar o responsável");
+        }
+    }
+
     public Atividade adicionarRepresentanteNaAtividade(Integer idDaAtividade, Integer idDoMembro){
         Atividade atividade = buscarAtividadePeloId(idDaAtividade);
         Membro membro = membroService.buscarMembroPeloId(idDoMembro);

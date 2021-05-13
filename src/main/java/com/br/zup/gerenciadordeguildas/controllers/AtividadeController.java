@@ -86,6 +86,12 @@ public class AtividadeController {
         return modelMapper.map(atividade, CadastroAtividadeDTO.class);
     }
 
+    @DeleteMapping("{idDaAtividade}/atividades/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarResponsavelDaAtividade(@PathVariable Integer idDaAtividade, @PathVariable Integer idDoMembro) {
+        atividadeService.deletarResponsavelAtividade(idDaAtividade, idDoMembro);
+    }
+
     @PostMapping("{id}/representantes/{idDoMembro}/")
     @ResponseStatus(HttpStatus.CREATED)
     public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
