@@ -38,7 +38,7 @@ public class AtividadeService {
         try{
             return atividadeRepository.findByGuilda(guilda).get();
         }catch (Exception error){
-            throw new RecursoNaoEncontradoException("Guilda", null);
+            throw new RecursoNaoEncontradoException("Guilda", guilda);
         }
     }
 
