@@ -68,7 +68,7 @@ public class AtividadeController {
     @PatchMapping("{id}/")
     @ResponseStatus(HttpStatus.OK)
     public AtualizarAtividadeDTOSaida atualizarAtividadeParcial(@PathVariable int id,
-                                                          @RequestBody @Valid AtualizarParcialAtividadeDTO atividadeDTO){
+                                                                @RequestBody @Valid AtualizarParcialAtividadeDTO atividadeDTO){
         Atividade atividade = atividadeDTO.converterDTOParaEntity(id);
         atividade = atividadeService.atualizarParcialAtividade(atividade);
         return modelMapper.map(atividade, AtualizarAtividadeDTOSaida.class);
@@ -84,6 +84,13 @@ public class AtividadeController {
     public CadastroAtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
         Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
         return modelMapper.map(atividade, CadastroAtividadeDTO.class);
+    }
+
+    @PostMapping("{id}/representantes/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        Atividade atividade = atividadeService.adicionarRepresentanteNaAtividade(id, idDoMembro);
+        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
     @DeleteMapping("{id}/")
