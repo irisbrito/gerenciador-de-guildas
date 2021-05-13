@@ -50,8 +50,7 @@ public class FiltroDeAutorizacao extends BasicAuthenticationFilter {
             } catch (TokenInvalidoException error){
                 System.out.println(error.getMessage());
             }
-
-            chain.doFilter(request, response);
         }
+        chain.doFilter(request, response);
     }
 }
