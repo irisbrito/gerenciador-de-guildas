@@ -30,7 +30,11 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_POST = {
             "/usuarios/",
-            "/login"
+            "/login",
+            "/guildas/",
+            "/membros/",
+            "/atividades/",
+            "/atas/"
     };
 
     @Override
