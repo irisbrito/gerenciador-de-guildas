@@ -16,13 +16,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastrarUsuario(@RequestBody @Valid CadastroUsuarioDTO usuario){
+        System.out.println(usuario.getEmail());
         usuarioService.cadastrarNovoUsuario(usuario.converterDTOParaModel());
     }
 
-    @GetMapping()
+    @GetMapping
     public List<UsuarioDTO> retornarTodosOsUsuarios(){
         List<Usuario> usuarios = usuarioService.buscarTodosOsUsuarios();
         return UsuarioDTO.converterListaDeModelParaDTO(usuarios);
