@@ -20,20 +20,19 @@ import java.util.List;
 @Service
 public class GuildaService {
 
-    @Autowired
     private GuildaRepository guildaRepository;
-
-    @Autowired
     private MembroService membroService;
-
-    @Autowired
     private AtaService ataService;
-
-    @Autowired
     private AtividadeService atividadeService;
-
-    @Autowired
     private MembroRepository membroRepository;
+
+    public GuildaService(GuildaRepository guildaRepository, MembroService membroService, AtaService ataService, AtividadeService atividadeService, MembroRepository membroRepository) {
+        this.guildaRepository = guildaRepository;
+        this.membroService = membroService;
+        this.ataService = ataService;
+        this.atividadeService = atividadeService;
+        this.membroRepository = membroRepository;
+    }
 
     public Guilda cadastrarGuilda(Guilda guilda) {
         validarNomeGuilda(guilda.getNome());
