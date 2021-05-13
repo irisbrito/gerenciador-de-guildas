@@ -3,6 +3,7 @@ package com.br.zup.gerenciadordeguildas.controllers;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.AtualizarMembroParcialDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.membro.CadastroMembroDTO;
 import com.br.zup.gerenciadordeguildas.dtos.saida.membro.CadastroMembroDTOSaida;
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("membros/")
@@ -46,6 +48,11 @@ public class MembroController {
     @GetMapping("{id}/")
     public Membro buscarMembroPeloId(@PathVariable Integer id){
         return membroService.buscarMembroPeloId(id);
+    }
+
+    @GetMapping("{id}/atividades/")
+    public List<Atividade> buscarAtividadesDeUmResponsavel(@PathVariable Integer id){
+        return membroService.buscarAtividadesDeUmResponsavel(id);
     }
 
     @PatchMapping("{id}/")
