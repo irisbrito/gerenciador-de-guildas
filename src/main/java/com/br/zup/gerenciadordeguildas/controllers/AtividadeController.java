@@ -88,8 +88,15 @@ public class AtividadeController {
 
     @DeleteMapping("{idDaAtividade}/atividades/{idDoMembro}/")
     @ResponseStatus(HttpStatus.OK)
-    public void deletarResponsavelDaAtividade(@PathVariable Integer idDaAtividade, @PathVariable Integer idDoMembro){
+    public void deletarResponsavelDaAtividade(@PathVariable Integer idDaAtividade, @PathVariable Integer idDoMembro) {
         atividadeService.deletarResponsavelAtividade(idDaAtividade, idDoMembro);
+    }
+
+    @PostMapping("{id}/representantes/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        Atividade atividade = atividadeService.adicionarRepresentanteNaAtividade(id, idDoMembro);
+        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
     @DeleteMapping("{id}/")

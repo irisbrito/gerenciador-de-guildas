@@ -84,14 +84,25 @@ public class AtividadeService {
         }
     }
 
-    public void deletarResponsavelAtividade(Integer idDaAtividade, Integer idDoMembro){
-        try{
+    public void deletarResponsavelAtividade(Integer idDaAtividade, Integer idDoMembro) {
+        try {
             Atividade atividade = buscarAtividadePeloId(idDaAtividade);
             Membro membro = membroService.buscarMembroPeloId(idDoMembro);
             atividade.getResponsaveis().remove(membro);
-        }catch (Exception error){
+        } catch (Exception error) {
             throw new RuntimeException("Não foi possível deletar o responsável");
         }
+    }
+
+    public Atividade adicionarRepresentanteNaAtividade(Integer idDaAtividade, Integer idDoMembro){
+        Atividade atividade = buscarAtividadePeloId(idDaAtividade);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+
+        if (!atividade.getResponsaveis().contains(idDoMembro)) {
+            atividade.getResponsaveis().add(membro);
+        }
+        atividade.getResponsaveis().add(membro);
+        return atividadeRepository.save(atividade);
     }
 
     public void deletarAtividade(Integer id){

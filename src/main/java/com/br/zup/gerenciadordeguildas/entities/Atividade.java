@@ -1,7 +1,6 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
 import com.br.zup.gerenciadordeguildas.enums.Status;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +20,7 @@ public class Atividade {
     private String nome;
     private String descricao;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
         name = "atividades_membro",
         joinColumns = @JoinColumn(name = "atividade_id"),
