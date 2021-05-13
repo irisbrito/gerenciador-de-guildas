@@ -6,7 +6,7 @@ import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -45,7 +45,7 @@ public class AtaService {
     }
 
     public Ata cadastrarAta(Ata ata) {
-        ata.setData(LocalDate.now());
+        ata.setData(Instant.now());
         return ataRepository.save(ata);
     }
 
