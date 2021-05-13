@@ -1,10 +1,9 @@
 package com.br.zup.gerenciadordeguildas.dtos.saida.membro;
 
-import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.dtos.saida.guilda.GuildaSaidaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import lombok.*;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ public class CadastroMembroDTOSaida {
         private String email;
         private String zenity;
         private boolean representante;
-        private Guilda guilda;
+        private GuildaSaidaDTO guilda;
 
         public static CadastroMembroDTOSaida converterEntityParaDTOSaida(Membro membro) {
             CadastroMembroDTOSaida cadastroMembroDTOSaida = new CadastroMembroDTOSaida();
@@ -26,8 +25,9 @@ public class CadastroMembroDTOSaida {
             cadastroMembroDTOSaida.setEmail(membro.getEmail());
             cadastroMembroDTOSaida.setZenity(membro.getZenity());
             cadastroMembroDTOSaida.setRepresentante(membro.isRepresentante());
-            cadastroMembroDTOSaida.setGuilda(membro.getGuilda());
-
+            if(membro.getGuilda() != null) {
+                cadastroMembroDTOSaida.setGuilda(GuildaSaidaDTO.converterGuildaParaDTO(membro.getGuilda()));
+            }
             return cadastroMembroDTOSaida;
         }
 }
