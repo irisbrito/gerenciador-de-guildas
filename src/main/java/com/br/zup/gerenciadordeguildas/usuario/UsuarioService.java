@@ -16,7 +16,9 @@ public class UsuarioService {
     private BCryptPasswordEncoder encoder;
 
     public Usuario salvarUsuario(Usuario usuario){
-        return usuarioRepository.save(usuario);
+        Usuario objUsuario = usuarioRepository.save(usuario);
+        System.out.println(objUsuario.getId());
+        return objUsuario;
     }
 
     public Usuario cadastrarNovoUsuario(Usuario usuario){
