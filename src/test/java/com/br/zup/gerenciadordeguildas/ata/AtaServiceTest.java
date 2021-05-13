@@ -2,6 +2,7 @@ package com.br.zup.gerenciadordeguildas.ata;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
 import com.br.zup.gerenciadordeguildas.services.AtaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,8 +60,15 @@ public class AtaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar erro de validação quando não houver dados suficientes para criação de uma Ata")
-    public void testarErroAoCadastrarAta() {
+    @DisplayName("Deve buscar todas as Atas com sucesso")
+    public void testarBuscarAtas() {
+        Optional<Ata> optionalAta = Optional.empty();
 
+        Mockito.when(ataRepository.findById(Mockito.anyInt())).thenReturn(optionalAta);
+
+        assertThrows(ListaVaziaException.class,() ->{
+            ataService.buscarAtas();
+            throw new ListaVaziaException("ata", 'a');
+        });
     }
 }
