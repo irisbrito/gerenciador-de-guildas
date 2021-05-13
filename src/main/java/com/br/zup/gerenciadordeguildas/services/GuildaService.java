@@ -4,17 +4,14 @@ import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
-import com.br.zup.gerenciadordeguildas.exceptions.RecursoDuplicadoException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
+import com.br.zup.gerenciadordeguildas.exceptions.RecursoDuplicadoException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.List;
 
 @Service
@@ -74,23 +71,13 @@ public class GuildaService {
     }
 
     public Guilda buscarGuildaPeloNome(String nome){
-        Optional<Guilda> optionalGuilda = guildaRepository.findByNome(nome);
-
-        if(optionalGuilda.isPresent()){
-            return optionalGuilda.get();
-        }
-
-        throw new RecursoNaoEncontradoException("Guilda", null);
+       return guildaRepository.findByNome(nome)
+               .orElseThrow((() -> new RecursoNaoEncontradoException("Guilda", nome)));
     }
 
     public Guilda buscarGuildaPeloId(Integer id){
-        Optional<Guilda> optionalGuilda = guildaRepository.findById(id);
-
-        if(optionalGuilda.isPresent()){
-            return optionalGuilda.get();
-        }
-
-        throw new RecursoNaoEncontradoException("Guilda", id);
+       return guildaRepository.findById(id)
+               .orElseThrow((() -> new RecursoNaoEncontradoException("Guilda", id)));
     }
 
     public Iterable<Membro> buscarRepresentantesDaGuilda(Guilda guilda){
@@ -98,9 +85,9 @@ public class GuildaService {
 
         if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
             return listaDeRepresentantesDaGuilda;
-        } else {
-            throw new ListaVaziaException("representante", 'o');
         }
+
+        throw new ListaVaziaException("representante", 'o');
     }
 
     public void validarNomeGuilda(String nome){
@@ -109,57 +96,49 @@ public class GuildaService {
         }
     }
 
-    public List<Guilda> buscarGuildas(List<Guilda> guildas){
-        List<Guilda> listaDeGuildas = new ArrayList<>();
-
-        for (Guilda guilda : guildas) {
-            Optional<Guilda> objGuilda = guildaRepository.findById(guilda.getId());
-            if(Objects.nonNull(objGuilda)){
-                listaDeGuildas.add(guilda);
-            }else{
-                throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
-
-            }
-        }
-
-        return listaDeGuildas;
-    }
-
     public Guilda atualizarGuildaParcial(Guilda guilda){
-        try{
-            Guilda objetoGuilda = buscarGuildaPeloId(guilda.getId());
+        Guilda objetoGuilda = buscarGuildaPeloId(guilda.getId());
 
-            if(!objetoGuilda.getNome().equals(guilda.getNome()) && objetoGuilda.getNome() != null ){
-                objetoGuilda.setNome(guilda.getNome());
-            }
-
-            if(!objetoGuilda.getDescricao().equals(guilda.getDescricao()) && objetoGuilda.getDescricao() != null){
-                objetoGuilda.setDescricao(guilda.getDescricao());
-            }
-
-            if(!objetoGuilda.getObjetivos().equals(guilda.getObjetivos()) && objetoGuilda.getObjetivos() != null){
-                objetoGuilda.setObjetivos(guilda.getObjetivos());
-            }
-
-            if(!objetoGuilda.getLinkDoChat().equals(guilda.getLinkDoChat()) && objetoGuilda.getLinkDoChat() != null){
-                objetoGuilda.setLinkDoChat(guilda.getLinkDoChat());
-            }
-
-            return objetoGuilda;
+        if(objetoGuilda.getNome() != null  && !objetoGuilda.getNome().equals(guilda.getNome())){
+            objetoGuilda.setNome(guilda.getNome());
         }
-        catch (Exception error){
-            throw new RecursoNaoEncontradoException("Guilda", guilda.getId());
+
+        if(objetoGuilda.getDescricao() != null && !objetoGuilda.getDescricao().equals(guilda.getDescricao())){
+            objetoGuilda.setDescricao(guilda.getDescricao());
         }
+
+        if(objetoGuilda.getObjetivos() != null && !objetoGuilda.getObjetivos().equals(guilda.getObjetivos())){
+            objetoGuilda.setObjetivos(guilda.getObjetivos());
+        }
+
+        if(objetoGuilda.getLinkDoChat() != null && !objetoGuilda.getLinkDoChat().equals(guilda.getLinkDoChat())){
+            objetoGuilda.setLinkDoChat(guilda.getLinkDoChat());
+        }
+
+        return objetoGuilda;
     }
 
     public void deletarMembroDaGuilda(Integer idDaGuilda, Integer idDoMembro){
         try{
             Guilda guilda = buscarGuildaPeloId(idDaGuilda);
             Membro membro = membroService.buscarMembroPeloId(idDoMembro);
-            guilda.getMembros().remove(membro);
+            guilda.setMembros(removerMembroDaGuilda(guilda.getMembros(), membro));
+            guildaRepository.save(guilda);
         }catch (Exception error){
             throw new RuntimeException("Não foi possível deletar o membro");
         }
+    }
+
+    private List<Membro> removerMembroDaGuilda(List<Membro> membros, Membro membro){
+        List<Membro> listaAtualizadaDeMembros = new ArrayList<>();
+
+        for(Membro membroItem : membros){
+            if(!membroItem.getId().equals(membro.getId())){
+                listaAtualizadaDeMembros.add(membroItem);
+            }
+        }
+
+        return listaAtualizadaDeMembros;
     }
 
     public void deletarAtividadeDaGuilda(Integer idDaGuilda, Integer idDaAtividade){
