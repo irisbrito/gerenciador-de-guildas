@@ -48,19 +48,6 @@ public class GuildaService {
         return guildaRepository.save(guilda);
     }
 
-   // public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
-        //Guilda guilda = buscarGuildaPeloId(idDaGuilda);
-        //Membro membro = membroService.buscarMembroPeloId(idDoMembro);
-
-        //if (!guilda.getMembros().contains(idDoMembro)) {
-            //guilda.getMembros().add(membro);
-        //}
-
-       // guilda.getRepresentantes().add(membro);
-
-       // return guildaRepository.save(guilda);
-    //}
-
     public Guilda adicionarAtaNaGuilda(Integer idDaGuilda, Integer idDaAta){
         Guilda guilda = buscarGuildaPeloId(idDaGuilda);
         Ata ata = ataService.buscarAtaPeloId(idDaAta);
@@ -107,18 +94,13 @@ public class GuildaService {
         throw new RecursoNaoEncontradoException("Guilda", id);
     }
 
-    public Iterable<Membro> buscarRepresentantesDaGuilda(boolean booleano){
-        if(booleano){
-            Iterable<Membro> listaDeRepresentantesDaGuilda = membroRepository.findAllByRepresentanteIs(booleano);
+    public Iterable<Membro> buscarRepresentantesDaGuilda(Guilda guilda){
+        Iterable<Membro> listaDeRepresentantesDaGuilda = membroRepository.findAllByRepresentanteIsAndGuilda(true, guilda);
 
-            if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
-                return listaDeRepresentantesDaGuilda;
-            } else {
-                throw new ListaVaziaException("representante", 'o');
-            }
-
+        if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
+            return listaDeRepresentantesDaGuilda;
         } else {
-            throw new RuntimeException("Não foi possível buscar os representantes da Guilda");
+            throw new ListaVaziaException("representante", 'o');
         }
     }
 
