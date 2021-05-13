@@ -38,8 +38,8 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
         http.cors();
 
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/atas/**").permitAll()
-                .antMatchers("/atividades/**").permitAll()
-                .antMatchers("/guildas/").permitAll()
+                .antMatchers(HttpMethod.GET, "/atividades/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/guildas/").permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .anyRequest()
                 .authenticated();

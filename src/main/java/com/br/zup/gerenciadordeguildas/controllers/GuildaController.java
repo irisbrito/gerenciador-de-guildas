@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("guildas/")
@@ -64,9 +65,9 @@ public class GuildaController {
         return guildaService.buscarGuildaPeloNome(nome);
     }
 
-    @GetMapping("{id}/representantes/{booleano}/")
-    public Iterable<Membro> buscaRepresentantesDaGuilda(@PathVariable boolean booleano){
-        return guildaService.buscarRepresentantesDaGuilda(booleano);
+    @GetMapping("{id}/representantes/")
+    public List<Membro> buscaRepresentantesDaGuilda(@PathVariable Integer id){
+        return guildaService.buscarRepresentantesDaGuilda(id);
     }
 
     @PatchMapping("{id}/")

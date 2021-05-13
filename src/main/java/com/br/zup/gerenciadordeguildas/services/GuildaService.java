@@ -107,19 +107,19 @@ public class GuildaService {
         throw new RecursoNaoEncontradoException("Guilda", id);
     }
 
-    public Iterable<Membro> buscarRepresentantesDaGuilda(boolean booleano){
-        if(booleano){
-            Iterable<Membro> listaDeRepresentantesDaGuilda = membroRepository.findAllByRepresentanteIs(booleano);
+    public List<Membro> buscarRepresentantesDaGuilda(Integer idDaGuilda) {
+        Guilda guilda =  buscarGuildaPeloId(idDaGuilda);
+        Iterable<Membro> listaDeRepresentantes = membroRepository.findAllByRepresentanteIs(true);
+        List<Membro> listaDeRepresentantesDaGuilda = new ArrayList<>();
 
-            if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
-                return listaDeRepresentantesDaGuilda;
-            } else {
-                throw new ListaVaziaException("representante", 'o');
+        for(Membro membro : listaDeRepresentantes){
+            if(membro.getGuilda().getId().equals(guilda)){
+                listaDeRepresentantesDaGuilda.add(membro);
             }
-
-        } else {
-            throw new RuntimeException("Não foi possível buscar os representantes da Guilda");
+            return listaDeRepresentantesDaGuilda;
         }
+
+        throw new ListaVaziaException("Representante", 'o');
     }
 
     public void validarNomeGuilda(String nome){
