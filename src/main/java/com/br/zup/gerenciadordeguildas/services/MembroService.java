@@ -1,25 +1,38 @@
 package com.br.zup.gerenciadordeguildas.services;
 
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.EmailExistenteException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
+import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class MembroService {
 
-    @Autowired
     private MembroRepository membroRepository;
+    private AtividadeService atividadeService;
+    private GuildaService guildaService;
+    private AtividadeRepository atividadeRepository;
+
+    public MembroService(@Lazy MembroRepository membroRepository, @Lazy AtividadeService atividadeService, @Lazy GuildaService guildaService, @Lazy AtividadeRepository atividadeRepository) {
+        this.membroRepository = membroRepository;
+        this.atividadeService = atividadeService;
+        this.guildaService = guildaService;
+        this.atividadeRepository = atividadeRepository;
+    }
 
     public Membro cadastrarMembro(Membro membro) {
         verificarEmailCadastrado(membro.getEmail());
         Membro objMembro = membroRepository.save(membro);
-       // guildaService.adicionarMembroNaGuilda(membro.getGuilda().getId(), membro.getId());
+        guildaService.adicionarMembroNaGuilda(membro.getGuilda().getId(), membro.getId());
 
         return objMembro;
     }
@@ -97,15 +110,21 @@ public class MembroService {
             throw new EmailExistenteException();
         }
     }
-//
-//    public void verificarSeMembroERepresentanteEEstaEmMaisDeUmaGuilda(Membro membro){
-//        if(listaDeGuildasDoMembro.stream().count() > 0 && membro.isRepresentante()){
-//            throw new RuntimeException("O membro só pode ser representante de uma guilda");
-//        }
-//    }
+
+    public List<Atividade> buscarAtividadesDeUmResponsavel(Integer idDoMembro){
+        Optional<Membro> membroOptional = membroRepository.findById(idDoMembro);
+
+        membroOptional.orElseThrow(() -> new RecursoNaoEncontradoException("Responsável", idDoMembro));
+
+      return atividadeRepository.findByResponsaveis_id(idDoMembro);
+    }
 
     public void deletarMembro(Integer id) {
+
         if(membroRepository.existsById(id)){
+            if(!atividadeRepository.findByResponsaveis_id(id).isEmpty()){
+                throw new RuntimeException("Não é possível deletar o membro, pois ele tem atividades associadas");
+            }
             membroRepository.deleteById(id);
         } else {
             throw new RecursoNaoEncontradoException("Membro", id);
@@ -114,6 +133,6 @@ public class MembroService {
 
     public Membro buscarMembroPeloNome(String nome) {
         Optional<Membro> membro = membroRepository.findByNome(nome);
-        return membro.orElseThrow( () -> new RecursoNaoEncontradoException("Membro" +nome, null));
+        return membro.orElseThrow( () -> new RecursoNaoEncontradoException("Membro" , nome));
     }
 }
