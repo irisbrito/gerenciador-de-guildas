@@ -12,7 +12,6 @@ import java.util.Collection;
 @AllArgsConstructor
 public class UsuarioLogin implements UserDetails {
 
-    private Integer id;
     private String email;
     private String senha;
 
