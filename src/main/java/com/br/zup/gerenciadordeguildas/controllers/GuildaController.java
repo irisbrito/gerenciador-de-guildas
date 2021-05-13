@@ -64,9 +64,10 @@ public class GuildaController {
         return guildaService.buscarGuildaPeloNome(nome);
     }
 
-    @GetMapping("{id}/representantes/{booleano}/")
-    public Iterable<Membro> buscaRepresentantesDaGuilda(@PathVariable boolean booleano){
-        return guildaService.buscarRepresentantesDaGuilda(booleano);
+    @GetMapping("{idDaGuilda}/representantes/")
+    public Iterable<Membro> buscaRepresentantesDaGuilda(@PathVariable Integer idDaGuilda){
+        Guilda guilda = guildaService.buscarGuildaPeloId(idDaGuilda);
+        return guildaService.buscarRepresentantesDaGuilda(guilda);
     }
 
     @PatchMapping("{id}/")
