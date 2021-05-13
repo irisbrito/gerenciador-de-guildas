@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
@@ -15,6 +16,9 @@ public class AtividadeService {
 
     @Autowired
     private AtividadeRepository atividadeRepository;
+
+    @Autowired
+    private MembroService membroService;
 
     public Atividade cadastrarAtividade(Atividade atividade){
         return atividadeRepository.save(atividade);
@@ -78,6 +82,17 @@ public class AtividadeService {
         catch (Exception error){
             throw new RecursoNaoEncontradoException("Atividade", atividade.getId());
         }
+    }
+
+    public Atividade adicionarRepresentanteNaAtividade(Integer idDaAtividade, Integer idDoMembro){
+        Atividade atividade = buscarAtividadePeloId(idDaAtividade);
+        Membro membro = membroService.buscarMembroPeloId(idDoMembro);
+
+        if (!atividade.getResponsaveis().contains(idDoMembro)) {
+            atividade.getResponsaveis().add(membro);
+        }
+        atividade.getResponsaveis().add(membro);
+        return atividadeRepository.save(atividade);
     }
 
     public void deletarAtividade(Integer id){
