@@ -20,16 +20,20 @@ public class Atividade {
     private String nome;
     private String descricao;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
         name = "atividades_membro",
         joinColumns = @JoinColumn(name = "atividade_id"),
-        inverseJoinColumns = @JoinColumn(name = "membro_id")
+        inverseJoinColumns = @JoinColumn(name = "membro_id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
     private List<Membro> responsaveis;
     private Status status;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "guilda_id")
     private Guilda guilda;
 }

@@ -1,6 +1,5 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +20,7 @@ public class Membro {
     private String zenity;
     private boolean representante;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Guilda guilda;
 
 }

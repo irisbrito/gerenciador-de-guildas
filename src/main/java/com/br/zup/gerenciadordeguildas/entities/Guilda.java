@@ -1,10 +1,8 @@
 package com.br.zup.gerenciadordeguildas.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,14 +19,13 @@ public class Guilda {
     private String objetivos;
     private String linkDoChat;
 
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Membro.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Membro.class, cascade = CascadeType.ALL)
     private List<Membro> membros;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Atividade.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Atividade.class, cascade = CascadeType.ALL)
     private List<Atividade> atividades;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Ata.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guilda", targetEntity = Ata.class, cascade = CascadeType.ALL)
     private List<Ata> atas;
 
 

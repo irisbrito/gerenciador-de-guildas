@@ -16,13 +16,10 @@ public class MembroService {
     @Autowired
     private MembroRepository membroRepository;
 
-    @Autowired
-    private GuildaService guildaService;
-
     public Membro cadastrarMembro(Membro membro) {
         verificarEmailCadastrado(membro.getEmail());
         Membro objMembro = membroRepository.save(membro);
-        guildaService.adicionarMembroNaGuilda(membro.getGuilda().getId(), membro.getId());
+       // guildaService.adicionarMembroNaGuilda(membro.getGuilda().getId(), membro.getId());
 
         return objMembro;
     }
