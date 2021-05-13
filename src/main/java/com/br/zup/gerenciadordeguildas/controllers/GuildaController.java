@@ -3,6 +3,7 @@ package com.br.zup.gerenciadordeguildas.controllers;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.AtualizarParcialGuildaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.GuildaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,12 @@ public class GuildaController {
     @GetMapping("{nome}/")
     public Guilda buscarGuildaPeloNome(@PathVariable String nome){
         return guildaService.buscarGuildaPeloNome(nome);
+    }
+
+    @GetMapping("{idDaGuilda}/representantes/")
+    public Iterable<Membro> buscaRepresentantesDaGuilda(@PathVariable Integer idDaGuilda){
+        Guilda guilda = guildaService.buscarGuildaPeloId(idDaGuilda);
+        return guildaService.buscarRepresentantesDaGuilda(guilda);
     }
 
     @PatchMapping("{id}/")

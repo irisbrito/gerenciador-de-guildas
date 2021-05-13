@@ -8,6 +8,7 @@ import com.br.zup.gerenciadordeguildas.exceptions.RecursoDuplicadoException;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
+import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +20,19 @@ import java.util.List;
 @Service
 public class GuildaService {
 
-    @Autowired
     private GuildaRepository guildaRepository;
-
-    @Autowired
     private MembroService membroService;
-
-    @Autowired
     private AtaService ataService;
-
-
-    @Autowired
     private AtividadeService atividadeService;
+    private MembroRepository membroRepository;
+
+    public GuildaService(GuildaRepository guildaRepository, MembroService membroService, AtaService ataService, AtividadeService atividadeService, MembroRepository membroRepository) {
+        this.guildaRepository = guildaRepository;
+        this.membroService = membroService;
+        this.ataService = ataService;
+        this.atividadeService = atividadeService;
+        this.membroRepository = membroRepository;
+    }
 
     public Guilda cadastrarGuilda(Guilda guilda) {
         validarNomeGuilda(guilda.getNome());
@@ -44,19 +46,6 @@ public class GuildaService {
 
         return guildaRepository.save(guilda);
     }
-
-   // public Guilda adicionarRepresentanteNaGuilda(Integer idDaGuilda, Integer idDoMembro){
-        //Guilda guilda = buscarGuildaPeloId(idDaGuilda);
-        //Membro membro = membroService.buscarMembroPeloId(idDoMembro);
-
-        //if (!guilda.getMembros().contains(idDoMembro)) {
-            //guilda.getMembros().add(membro);
-        //}
-
-       // guilda.getRepresentantes().add(membro);
-
-       // return guildaRepository.save(guilda);
-    //}
 
     public Guilda adicionarAtaNaGuilda(Integer idDaGuilda, Integer idDaAta){
         Guilda guilda = buscarGuildaPeloId(idDaGuilda);
@@ -102,6 +91,16 @@ public class GuildaService {
         }
 
         throw new RecursoNaoEncontradoException("Guilda", id);
+    }
+
+    public Iterable<Membro> buscarRepresentantesDaGuilda(Guilda guilda){
+        Iterable<Membro> listaDeRepresentantesDaGuilda = membroRepository.findAllByRepresentanteIsAndGuilda(true, guilda);
+
+        if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
+            return listaDeRepresentantesDaGuilda;
+        } else {
+            throw new ListaVaziaException("representante", 'o');
+        }
     }
 
     public void validarNomeGuilda(String nome){
