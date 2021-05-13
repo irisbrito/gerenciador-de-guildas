@@ -17,7 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import java.time.Instant;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -60,7 +59,7 @@ public class AtaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve buscar todas as Atas com sucesso")
+    @DisplayName("Deve buscar todas as Atas com sucesso ou lançar a exceção ListaVaziaException caso não haja nenhuma Ata cadastrada")
     public void testarBuscarAtas() {
         Optional<Ata> optionalAta = Optional.empty();
 
@@ -70,5 +69,17 @@ public class AtaServiceTest {
             ataService.buscarAtas();
             throw new ListaVaziaException("ata", 'a');
         });
+    }
+
+    @Test
+    @DisplayName("Deve buscar uma Ata pelo Id com sucesso")
+    public void testarBuscarAtaPeloId(){
+        Optional<Ata> optionalAta = Optional.of(this.ata);
+        Mockito.when(ataRepository.findById(Mockito.anyInt())).thenReturn(optionalAta);
+
+        Ata saldo = ataService.buscarAtaPeloId(1);
+
+        assertSame(this.ata, saldo);
+        assertEquals(ata.getId(),1 );
     }
 }
