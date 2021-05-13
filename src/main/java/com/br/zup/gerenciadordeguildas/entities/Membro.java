@@ -20,8 +20,8 @@ public class Membro {
     private String email;
     private String zenity;
     private boolean representante;
-    @JsonIgnore
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Guilda guilda;
 
 }

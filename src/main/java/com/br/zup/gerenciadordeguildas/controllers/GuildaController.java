@@ -3,11 +3,13 @@ package com.br.zup.gerenciadordeguildas.controllers;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.AtualizarParcialGuildaDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.guilda.GuildaDTO;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.services.GuildaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("guildas/")
@@ -61,6 +63,11 @@ public class GuildaController {
     @GetMapping("{nome}/")
     public Guilda buscarGuildaPeloNome(@PathVariable String nome){
         return guildaService.buscarGuildaPeloNome(nome);
+    }
+
+    @GetMapping("{id}/representantes/")
+    public List<Membro> buscaRepresentantesDaGuilda(@PathVariable Integer id){
+        return guildaService.buscarRepresentantesDaGuilda(id);
     }
 
     @PatchMapping("{id}/")
