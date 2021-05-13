@@ -29,13 +29,14 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     private static final String[] PUBLIC_MATCHERS_POST = {
-            "/usuarios/"
+            "/usuarios/",
+            "/login"
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.cors();
+        http.cors().configurationSource(configuracaoDeCors());
 
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/atas/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/atividades/**").permitAll()
