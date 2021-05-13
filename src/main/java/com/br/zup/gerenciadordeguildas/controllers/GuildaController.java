@@ -30,18 +30,6 @@ public class GuildaController {
         return  modelMapper.map(guilda, GuildaDTO.class);
     }
 
-    @PostMapping("{id}/membros/{idDoMembro}/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Guilda cadastrarMembroNaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
-        return guildaService.adicionarMembroNaGuilda(id, idDoMembro);
-    }
-
-   // @PostMapping("{id}/representantes/{idDoMembro}/")
-   // @ResponseStatus(HttpStatus.CREATED)
-   // public Guilda cadastrarRepresentanteDaGuilda(@PathVariable Integer id, @PathVariable Integer idDoMembro){
-        //return guildaService.adicionarRepresentanteNaGuilda(id, idDoMembro);
-   // }
-
     @PostMapping("{id}/atas/{idDaAta}/")
     @ResponseStatus(HttpStatus.CREATED)
     public Guilda cadastrarAtaNaGuilda(@PathVariable Integer id, @PathVariable Integer idDaAta){
@@ -72,8 +60,7 @@ public class GuildaController {
 
     @PatchMapping("{id}/")
     public Guilda atualizarGuildaParcial(@PathVariable Integer id, @RequestBody AtualizarParcialGuildaDTO guildaDTO){
-        Guilda guilda = guildaService.atualizarGuildaParcial(guildaDTO.converterDTOParaModel(id));
-        return guilda;
+        return guildaService.atualizarGuildaParcial(guildaDTO.converterDTOParaModel(id));
     }
 
     @DeleteMapping("{idDaGuilda}/membros/{idDoMembro}/")
