@@ -51,10 +51,29 @@ public class AtividadeController {
         return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
+    @PostMapping("{id}/representantes/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        Atividade atividade = atividadeService.adicionarRepresentanteNaAtividade(id, idDoMembro);
+        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Atividade> buscarAtividades(){
         return atividadeService.buscarAtividades();
+    }
+
+    @GetMapping("{id}/")
+    public Atividade buscarAtividadePeloId(@PathVariable Integer id){
+        return atividadeService.buscarAtividadePeloId(id);
+    }
+
+    @GetMapping("/guilda/{guilda}/")
+    @ResponseStatus(HttpStatus.OK)
+    public CadastroAtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
+        Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
+        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
     }
 
     @PutMapping("{id}/")
@@ -74,29 +93,10 @@ public class AtividadeController {
         return modelMapper.map(atividade, AtualizarAtividadeDTOSaida.class);
     }
 
-    @GetMapping("{id}/")
-    public Atividade buscarAtividadePeloId(@PathVariable Integer id){
-        return atividadeService.buscarAtividadePeloId(id);
-    }
-
-    @GetMapping("{guilda}/")
-    @ResponseStatus(HttpStatus.OK)
-    public CadastroAtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
-        Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
-        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
-    }
-
     @DeleteMapping("{idDaAtividade}/atividades/{idDoMembro}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarResponsavelDaAtividade(@PathVariable Integer idDaAtividade, @PathVariable Integer idDoMembro) {
         atividadeService.deletarResponsavelAtividade(idDaAtividade, idDoMembro);
-    }
-
-    @PostMapping("{id}/representantes/{idDoMembro}/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
-        Atividade atividade = atividadeService.adicionarRepresentanteNaAtividade(id, idDoMembro);
-        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
     @DeleteMapping("{id}/")
