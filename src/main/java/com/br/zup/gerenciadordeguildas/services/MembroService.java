@@ -17,13 +17,11 @@ import java.util.List;
 public class MembroService {
 
     private MembroRepository membroRepository;
-    private AtividadeService atividadeService;
     private GuildaService guildaService;
     private AtividadeRepository atividadeRepository;
 
-    public MembroService(@Lazy MembroRepository membroRepository, @Lazy AtividadeService atividadeService, @Lazy GuildaService guildaService, @Lazy AtividadeRepository atividadeRepository) {
+    public MembroService(@Lazy MembroRepository membroRepository, @Lazy GuildaService guildaService, @Lazy AtividadeRepository atividadeRepository) {
         this.membroRepository = membroRepository;
-        this.atividadeService = atividadeService;
         this.guildaService = guildaService;
         this.atividadeRepository = atividadeRepository;
     }
