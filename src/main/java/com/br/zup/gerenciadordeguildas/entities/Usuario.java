@@ -1,4 +1,4 @@
-package com.br.zup.gerenciadordeguildas.usuario;
+package com.br.zup.gerenciadordeguildas.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

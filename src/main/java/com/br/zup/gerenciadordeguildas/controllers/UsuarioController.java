@@ -1,7 +1,9 @@
-package com.br.zup.gerenciadordeguildas.usuario;
+package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.usuario.dtos.CadastroUsuarioDTO;
-import com.br.zup.gerenciadordeguildas.usuario.dtos.UsuarioDTO;
+import com.br.zup.gerenciadordeguildas.entities.Usuario;
+import com.br.zup.gerenciadordeguildas.services.UsuarioService;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.usuario.CadastroUsuarioDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.usuario.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

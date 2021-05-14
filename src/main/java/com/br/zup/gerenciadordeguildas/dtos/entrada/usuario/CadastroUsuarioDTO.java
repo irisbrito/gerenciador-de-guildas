@@ -1,6 +1,6 @@
-package com.br.zup.gerenciadordeguildas.usuario.dtos;
+package com.br.zup.gerenciadordeguildas.dtos.entrada.usuario;
 
-import com.br.zup.gerenciadordeguildas.usuario.Usuario;
+import com.br.zup.gerenciadordeguildas.entities.Usuario;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
