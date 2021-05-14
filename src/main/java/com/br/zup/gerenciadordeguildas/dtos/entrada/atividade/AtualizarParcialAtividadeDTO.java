@@ -1,12 +1,9 @@
 package com.br.zup.gerenciadordeguildas.dtos.entrada.atividade;
 
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
-import com.br.zup.gerenciadordeguildas.entities.Guilda;
-import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import lombok.*;
 
-import java.util.List;
 
 @Getter
 @Setter
