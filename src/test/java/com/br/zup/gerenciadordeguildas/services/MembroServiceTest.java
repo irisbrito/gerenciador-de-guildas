@@ -4,12 +4,17 @@ import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ContextConfiguration(classes = MembroService.class)
@@ -43,5 +48,14 @@ public class MembroServiceTest {
         this.guilda.setMembros(Collections.singletonList(membro));
 
         this.membro.setGuilda(guilda);
+    }
+
+    @Test
+    @DisplayName("Deve cadastrar um Membro com sucesso")
+    public void testarCadastrarMembro() {
+        Mockito.when(membroRepository.save(Mockito.any(Membro.class))).thenReturn(membro);
+
+        Membro membroTeste = membroService.cadastrarMembro(membro);
+        assertEquals(membroTeste, membro);
     }
 }
