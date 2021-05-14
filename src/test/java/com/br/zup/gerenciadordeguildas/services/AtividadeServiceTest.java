@@ -4,6 +4,7 @@ import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +16,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ContextConfiguration(classes = AtividadeService.class)
@@ -73,5 +76,18 @@ public class AtividadeServiceTest {
 
         Atividade atividadeTeste = atividadeService.cadastrarAtividade(atividade);
         assertEquals(atividadeTeste, atividade);
+    }
+
+    @Test
+    @DisplayName("Deve buscar todas as Atividades com sucesso ou lançar a exceção ListaVaziaException caso não haja nenhuma Atividade cadastrada")
+    public void testarBuscarAtividades() {
+        Optional<Atividade> optionalAtividade = Optional.empty();
+
+        Mockito.when(atividadeRepository.findById(Mockito.anyInt())).thenReturn(optionalAtividade);
+
+        assertThrows(ListaVaziaException.class,() ->{
+            atividadeService.buscarAtividades();
+            throw new ListaVaziaException("atividades", 'a');
+        });
     }
 }
