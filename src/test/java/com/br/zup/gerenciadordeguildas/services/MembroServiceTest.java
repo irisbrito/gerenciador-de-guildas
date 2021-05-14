@@ -16,8 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ContextConfiguration(classes = MembroService.class)
@@ -73,5 +72,17 @@ public class MembroServiceTest {
             membroService.buscarMembros();
             throw new ListaVaziaException("membro", 'o');
         });
+    }
+
+    @Test
+    @DisplayName("Deve buscar um Membro pelo Id com sucesso")
+    public void testarBuscarMembroPeloId(){
+        Optional<Membro> optionalMembro = Optional.of(this.membro);
+        Mockito.when(membroRepository.findById(Mockito.anyInt())).thenReturn(optionalMembro);
+
+        Membro membro = membroService.buscarMembroPeloId(1);
+
+        assertSame(this.membro, membro);
+        assertEquals(membro.getId(),1 );
     }
 }
