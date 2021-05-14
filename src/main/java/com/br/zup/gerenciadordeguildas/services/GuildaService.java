@@ -90,21 +90,6 @@ public class GuildaService {
         throw new ListaVaziaException("representante", 'o');
     }
 
-    public List<Membro> buscarRepresentantesDaGuilda(Integer idDaGuilda) {
-        Guilda guilda =  buscarGuildaPeloId(idDaGuilda);
-        Iterable<Membro> listaDeRepresentantes = membroRepository.findAllByRepresentanteIsAndGuilda(true, guilda);
-        List<Membro> listaDeRepresentantesDaGuilda = new ArrayList<>();
-
-        for(Membro membro : listaDeRepresentantes){
-            if(membro.getGuilda().getId().equals(guilda)){
-                listaDeRepresentantesDaGuilda.add(membro);
-            }
-            return listaDeRepresentantesDaGuilda;
-        }
-
-        throw new ListaVaziaException("Representante", 'o');
-    }
-
     public void validarNomeGuilda(String nome){
         if(guildaRepository.existsByNome(nome)){
             throw new RecursoDuplicadoException("Guilda com nome já cadastrado!");
