@@ -6,6 +6,7 @@ import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
+import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,26 +28,24 @@ public class AtividadeServiceTest {
     @Autowired
     private AtividadeService atividadeService;
 
-    @Autowired
-    private MembroService membroService;
-
     @MockBean
     private AtividadeRepository atividadeRepository;
 
+    @MockBean
+    private MembroService membroService;
+
 
     private Atividade atividade;
-    private Membro membro;
-    private Guilda guilda;
 
     @BeforeEach
     public void setUp() {
 
-        this.membro = new Membro();
-        this.membro.setId(1);
-        this.membro.setNome("NomeMembro para teste.");
-        this.membro.setEmail("emailmembro@teste.com");
-        this.membro.setZenity("Zenity para teste.");
-        this.membro.setRepresentante(false);
+        Membro membro = new Membro();
+        membro.setId(1);
+        membro.setNome("NomeMembro para teste.");
+        membro.setEmail("emailmembro@teste.com");
+        membro.setZenity("Zenity para teste.");
+        membro.setRepresentante(false);
 
         this.atividade = new Atividade();
         this.atividade.setId(1);
@@ -55,16 +54,16 @@ public class AtividadeServiceTest {
         this.atividade.setStatus(Status.PENDENTE);
         this.atividade.setResponsaveis(Collections.singletonList(membro));
 
-        this.guilda = new Guilda();
-        this.guilda.setId(1);
-        this.guilda.setNome("NomeGuilda para teste.");
-        this.guilda.setDescricao("Descrição para teste.");
-        this.guilda.setObjetivos("Objetivos para teste.");
-        this.guilda.setLinkDoChat("LinkDoChat para teste.");
-        this.guilda.setMembros(Collections.singletonList(membro));
-        this.guilda.setAtividades(Collections.singletonList(atividade));
+        Guilda guilda = new Guilda();
+        guilda.setId(1);
+        guilda.setNome("NomeGuilda para teste.");
+        guilda.setDescricao("Descrição para teste.");
+        guilda.setObjetivos("Objetivos para teste.");
+        guilda.setLinkDoChat("LinkDoChat para teste.");
+        guilda.setMembros(Collections.singletonList(membro));
+        guilda.setAtividades(Collections.singletonList(atividade));
 
-        this.membro.setGuilda(guilda);
+        membro.setGuilda(guilda);
         this.atividade.setGuilda(guilda);
     }
 
