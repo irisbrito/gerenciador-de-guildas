@@ -5,7 +5,6 @@ import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -14,11 +13,13 @@ import java.util.Optional;
 @Service
 public class AtividadeService {
 
-    @Autowired
     private AtividadeRepository atividadeRepository;
-
-    @Autowired
     private MembroService membroService;
+
+    public AtividadeService(AtividadeRepository atividadeRepository, MembroService membroService) {
+        this.atividadeRepository = atividadeRepository;
+        this.membroService = membroService;
+    }
 
     public Atividade cadastrarAtividade(Atividade atividade){
         return atividadeRepository.save(atividade);
