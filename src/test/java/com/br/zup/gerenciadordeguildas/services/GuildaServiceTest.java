@@ -1,10 +1,11 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
-import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
+import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,8 +18,10 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.time.Instant;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -69,7 +72,6 @@ public class GuildaServiceTest {
         this.guilda.setAtividades(Collections.singletonList(atividade));
 
         this.membro.setGuilda(guilda);
-        this.ata.setGuilda(guilda);
         this.atividade.setGuilda(guilda);
     }
 
@@ -80,5 +82,18 @@ public class GuildaServiceTest {
 
         Guilda guildaTeste = guildaService.cadastrarGuilda(guilda);
         assertEquals(guildaTeste, guilda);
+    }
+
+    @Test
+    @DisplayName("Deve buscar todas as Guildas com sucesso ou lançar a exceção ListaVaziaException caso não haja nenhuma Guilda cadastrada")
+    public void testarBuscarGuildas() {
+        Optional<Guilda> optionalGuilda = Optional.empty();
+
+        Mockito.when(guildaRepository.findById(Mockito.anyInt())).thenReturn(optionalGuilda);
+
+        assertThrows(ListaVaziaException.class,() ->{
+            guildaService.buscarGuildas();
+            throw new ListaVaziaException("guilda", 'a');
+        });
     }
 }
