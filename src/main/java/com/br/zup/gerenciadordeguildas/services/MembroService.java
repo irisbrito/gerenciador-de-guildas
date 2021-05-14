@@ -7,7 +7,6 @@ import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +55,7 @@ public class MembroService {
     }
 
 
-    public Iterable<Membro> retornarTodosOsMembros(){
+    public Iterable<Membro> buscarMembros(){
         Iterable<Membro> listaDeMembros = membroRepository.findAll();
 
         if(listaDeMembros.iterator().hasNext()){

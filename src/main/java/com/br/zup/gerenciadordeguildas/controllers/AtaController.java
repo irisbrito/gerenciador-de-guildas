@@ -46,7 +46,8 @@ public class AtaController {
 
     @GetMapping("guilda/{nome}/")
     public Iterable<Ata> buscarAtasPeloNomeDaGuilda(@PathVariable String nome) {
-        return ataService.buscarAtasPeloNomeDaGuilda(nome);
+        Guilda guilda = guildaService.buscarGuildaPeloNome(nome);
+        return ataService.buscarAtasPeloNomeDaGuilda(guilda);
     }
 
     @GetMapping("{id}/")
@@ -58,11 +59,9 @@ public class AtaController {
     @ResponseStatus(HttpStatus.OK)
     public Ata atualizarAta(@PathVariable Integer id, @RequestBody AtualizarAtaDTO ataDTO) {
         Guilda guilda = new Guilda();
-
         if(ataDTO.getGuilda() != null){
          guilda  =  guildaService.buscarGuildaPeloNome(ataDTO.getGuilda());
         }
-
         Ata ata = ataService.atualizarAta(ataDTO.converterDTOParaEntity(id, guilda));
 
         return ata;

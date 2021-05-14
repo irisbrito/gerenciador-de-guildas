@@ -7,6 +7,8 @@ import com.br.zup.gerenciadordeguildas.enums.Status;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
+import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,12 +29,14 @@ public class AtividadeServiceTest {
     @Autowired
     private AtividadeService atividadeService;
 
+    @Autowired
+    private MembroService membroService;
+
     @MockBean
     private AtividadeRepository atividadeRepository;
 
     @MockBean
     private MembroService membroService;
-
 
     private Atividade atividade;
 
@@ -64,6 +67,17 @@ public class AtividadeServiceTest {
         guilda.setAtividades(Collections.singletonList(atividade));
 
         membro.setGuilda(guilda);
+
+        this.guilda = new Guilda();
+        this.guilda.setId(1);
+        this.guilda.setNome("NomeGuilda para teste.");
+        this.guilda.setDescricao("Descrição para teste.");
+        this.guilda.setObjetivos("Objetivos para teste.");
+        this.guilda.setLinkDoChat("LinkDoChat para teste.");
+        this.guilda.setMembros(Collections.singletonList(membro));
+        this.guilda.setAtividades(Collections.singletonList(atividade));
+
+        this.membro.setGuilda(guilda);
         this.atividade.setGuilda(guilda);
     }
 

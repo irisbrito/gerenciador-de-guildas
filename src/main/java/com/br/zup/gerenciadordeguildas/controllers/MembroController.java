@@ -41,8 +41,8 @@ public class MembroController {
     }
 
     @GetMapping
-    public Iterable<Membro> listarMembros(){
-        return membroService.retornarTodosOsMembros();
+    public Iterable<Membro> buscarMembros(){
+        return membroService.buscarMembros();
     }
 
     @GetMapping("{id}/")

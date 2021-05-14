@@ -1,13 +1,10 @@
 package com.br.zup.gerenciadordeguildas.controllers;
 
-import com.br.zup.gerenciadordeguildas.dtos.entrada.ata.AtualizarAtaParcialDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarParcialAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.CadastroAtividadeDTO;
 import com.br.zup.gerenciadordeguildas.dtos.entrada.atividade.AtualizarAtividadeDTO;
-import com.br.zup.gerenciadordeguildas.dtos.saida.ata.AtualizarAtaParcialDTOSaida;
 import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.AtualizarAtividadeDTOSaida;
 import com.br.zup.gerenciadordeguildas.dtos.saida.atividade.CadastroAtividadeDTOSaida;
-import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
@@ -51,10 +48,29 @@ public class AtividadeController {
         return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
+    @PostMapping("{id}/representantes/{idDoMembro}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
+        Atividade atividade = atividadeService.adicionarRepresentanteNaAtividade(id, idDoMembro);
+        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Atividade> buscarAtividades(){
         return atividadeService.buscarAtividades();
+    }
+
+    @GetMapping("{id}/")
+    public Atividade buscarAtividadePeloId(@PathVariable Integer id){
+        return atividadeService.buscarAtividadePeloId(id);
+    }
+
+    @GetMapping("/guilda/{guilda}/")
+    @ResponseStatus(HttpStatus.OK)
+    public CadastroAtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
+        Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
+        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
     }
 
     @PutMapping("{id}/")
@@ -74,29 +90,10 @@ public class AtividadeController {
         return modelMapper.map(atividade, AtualizarAtividadeDTOSaida.class);
     }
 
-    @GetMapping("{id}/")
-    public Atividade buscarAtividadePeloId(@PathVariable Integer id){
-        return atividadeService.buscarAtividadePeloId(id);
-    }
-
-    @GetMapping("{guilda}/")
-    @ResponseStatus(HttpStatus.OK)
-    public CadastroAtividadeDTO buscarAtividadePelaGuilda(@PathVariable String guilda) {
-        Atividade atividade = atividadeService.buscarAtividadePelaGuilda(guilda);
-        return modelMapper.map(atividade, CadastroAtividadeDTO.class);
-    }
-
     @DeleteMapping("{idDaAtividade}/atividades/{idDoMembro}/")
     @ResponseStatus(HttpStatus.OK)
     public void deletarResponsavelDaAtividade(@PathVariable Integer idDaAtividade, @PathVariable Integer idDoMembro) {
         atividadeService.deletarResponsavelAtividade(idDaAtividade, idDoMembro);
-    }
-
-    @PostMapping("{id}/representantes/{idDoMembro}/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public CadastroAtividadeDTOSaida cadastrarRepresentanteDaAtividade(@PathVariable Integer id, @PathVariable Integer idDoMembro){
-        Atividade atividade = atividadeService.adicionarRepresentanteNaAtividade(id, idDoMembro);
-        return CadastroAtividadeDTOSaida.converterEntityParaDTOSaida(atividade);
     }
 
     @DeleteMapping("{id}/")

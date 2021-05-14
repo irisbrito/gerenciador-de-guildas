@@ -17,11 +17,11 @@ import java.util.List;
 @Service
 public class GuildaService {
 
-    private GuildaRepository guildaRepository;
-    private MembroService membroService;
-    private AtaService ataService;
-    private AtividadeService atividadeService;
-    private MembroRepository membroRepository;
+    private final GuildaRepository guildaRepository;
+    private final MembroService membroService;
+    private final AtaService ataService;
+    private final AtividadeService atividadeService;
+    private final MembroRepository membroRepository;
 
     public GuildaService(GuildaRepository guildaRepository, MembroService membroService, AtaService ataService, AtividadeService atividadeService, MembroRepository membroRepository) {
         this.guildaRepository = guildaRepository;
@@ -60,7 +60,7 @@ public class GuildaService {
         return guildaRepository.save(guilda);
     }
 
-    public Iterable<Guilda> retornarTodasAsGuildas(){
+    public Iterable<Guilda> buscarGuildas(){
         Iterable<Guilda> listaDeGuildas = guildaRepository.findAll();
 
         if(listaDeGuildas.iterator().hasNext()){
@@ -80,10 +80,10 @@ public class GuildaService {
                .orElseThrow((() -> new RecursoNaoEncontradoException("Guilda", id)));
     }
 
-    public Iterable<Membro> buscarRepresentantesDaGuilda(Guilda guilda){
+    public Iterable<Membro> buscarRepresentantesDaGuilda(Guilda guilda) {
         Iterable<Membro> listaDeRepresentantesDaGuilda = membroRepository.findAllByRepresentanteIsAndGuilda(true, guilda);
 
-        if(listaDeRepresentantesDaGuilda.iterator().hasNext()){
+        if (listaDeRepresentantesDaGuilda.iterator().hasNext()) {
             return listaDeRepresentantesDaGuilda;
         }
 
