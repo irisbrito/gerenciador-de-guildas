@@ -28,6 +28,9 @@ public class MembroServiceTest {
     @MockBean
     private MembroRepository membroRepository;
 
+    @MockBean
+    private GuildaService guildaService;
+
     private Membro membro;
     private Guilda guilda;
 
