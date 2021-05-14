@@ -44,8 +44,8 @@ public class GuildaController {
     }
 
     @GetMapping
-    public Iterable<Guilda> listarGuildas(){
-        return guildaService.retornarTodasAsGuildas();
+    public Iterable<Guilda> buscarGuildas(){
+        return guildaService.buscarGuildas();
     }
 
     @GetMapping("{nome}/")

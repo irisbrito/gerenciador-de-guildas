@@ -60,7 +60,7 @@ public class GuildaService {
         return guildaRepository.save(guilda);
     }
 
-    public Iterable<Guilda> retornarTodasAsGuildas(){
+    public Iterable<Guilda> buscarGuildas(){
         Iterable<Guilda> listaDeGuildas = guildaRepository.findAll();
 
         if(listaDeGuildas.iterator().hasNext()){

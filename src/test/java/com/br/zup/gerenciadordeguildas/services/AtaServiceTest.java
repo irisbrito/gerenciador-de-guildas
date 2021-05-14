@@ -1,10 +1,9 @@
-package com.br.zup.gerenciadordeguildas.ata;
+package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
-import com.br.zup.gerenciadordeguildas.services.AtaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
