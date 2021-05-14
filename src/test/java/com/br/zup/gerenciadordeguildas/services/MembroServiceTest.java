@@ -2,6 +2,7 @@ package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
+import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,8 +14,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ContextConfiguration(classes = MembroService.class)
@@ -57,5 +60,18 @@ public class MembroServiceTest {
 
         Membro membroTeste = membroService.cadastrarMembro(membro);
         assertEquals(membroTeste, membro);
+    }
+
+    @Test
+    @DisplayName("Deve buscar todos os Membros com sucesso ou lançar a exceção ListaVaziaException caso não haja nenhum Membro cadastrado")
+    public void testarBuscarMembros() {
+        Optional<Membro> optionalMembro = Optional.empty();
+
+        Mockito.when(membroRepository.findById(Mockito.anyInt())).thenReturn(optionalMembro);
+
+        assertThrows(ListaVaziaException.class,() ->{
+            membroService.buscarMembros();
+            throw new ListaVaziaException("membro", 'o');
+        });
     }
 }
