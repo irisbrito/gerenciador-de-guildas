@@ -58,7 +58,7 @@ public class MembroService {
     }
 
 
-    public Iterable<Membro> retornarTodosOsMembros(){
+    public Iterable<Membro> buscarMembros(){
         Iterable<Membro> listaDeMembros = membroRepository.findAll();
 
         if(listaDeMembros.iterator().hasNext()){
