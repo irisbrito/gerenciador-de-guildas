@@ -7,6 +7,9 @@ import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,6 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.time.Instant;
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -66,5 +71,14 @@ public class GuildaServiceTest {
         this.membro.setGuilda(guilda);
         this.ata.setGuilda(guilda);
         this.atividade.setGuilda(guilda);
+    }
+
+    @Test
+    @DisplayName("Deve cadastrar uma Guilda com sucesso")
+    public void testarCadastrarGuilda() {
+        Mockito.when(guildaRepository.save(Mockito.any(Guilda.class))).thenReturn(guilda);
+
+        Guilda guildaTeste = guildaService.cadastrarGuilda(guilda);
+        assertEquals(guildaTeste, guilda);
     }
 }
