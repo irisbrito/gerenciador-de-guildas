@@ -20,8 +20,7 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -95,5 +94,17 @@ public class GuildaServiceTest {
             guildaService.buscarGuildas();
             throw new ListaVaziaException("guilda", 'a');
         });
+    }
+
+    @Test
+    @DisplayName("Deve buscar uma Guilda pelo Id com sucesso")
+    public void testarBuscarGuildaPeloId(){
+        Optional<Guilda> optionalGuilda = Optional.of(this.guilda);
+        Mockito.when(guildaRepository.findById(Mockito.anyInt())).thenReturn(optionalGuilda);
+
+        Guilda guilda = guildaService.buscarGuildaPeloId(1);
+
+        assertSame(this.guilda, guilda);
+        assertEquals(guilda.getId(),1 );
     }
 }
