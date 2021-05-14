@@ -1,6 +1,7 @@
 package com.br.zup.gerenciadordeguildas.services;
 
 import com.br.zup.gerenciadordeguildas.entities.Ata;
+import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.exceptions.RecursoNaoEncontradoException;
 import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
@@ -26,7 +27,7 @@ public class AtaService {
         throw new ListaVaziaException("Ata", 'a');
     }
 
-    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(String guilda){
+    public Iterable<Ata> buscarAtasPeloNomeDaGuilda(Guilda guilda){
         Iterable<Ata> listaAtas = ataRepository.findAllByGuilda(guilda);
         if(listaAtas.iterator().hasNext()){
             return listaAtas;
