@@ -4,14 +4,19 @@ import com.br.zup.gerenciadordeguildas.entities.Atividade;
 import com.br.zup.gerenciadordeguildas.entities.Guilda;
 import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
-import com.br.zup.gerenciadordeguildas.repositories.AtaRepository;
+import com.br.zup.gerenciadordeguildas.repositories.AtividadeRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ContextConfiguration(classes = AtividadeService.class)
@@ -20,8 +25,11 @@ public class AtividadeServiceTest {
     @Autowired
     private AtividadeService atividadeService;
 
+    @Autowired
+    private MembroService membroService;
+
     @MockBean
-    private AtaRepository ataRepository;
+    private AtividadeRepository atividadeRepository;
 
 
     private Atividade atividade;
@@ -43,7 +51,7 @@ public class AtividadeServiceTest {
         this.atividade.setNome("NomeAtividade para teste");
         this.atividade.setDescricao("DescriçãoAtividade para teste");
         this.atividade.setStatus(Status.PENDENTE);
-        this.atividade.setResponsaveis(Arrays.asList(membro));
+        this.atividade.setResponsaveis(Collections.singletonList(membro));
 
         this.guilda = new Guilda();
         this.guilda.setId(1);
@@ -51,10 +59,19 @@ public class AtividadeServiceTest {
         this.guilda.setDescricao("Descrição para teste.");
         this.guilda.setObjetivos("Objetivos para teste.");
         this.guilda.setLinkDoChat("LinkDoChat para teste.");
-        this.guilda.setMembros(Arrays.asList(membro));
-        this.guilda.setAtividades(Arrays.asList(atividade));
+        this.guilda.setMembros(Collections.singletonList(membro));
+        this.guilda.setAtividades(Collections.singletonList(atividade));
 
         this.membro.setGuilda(guilda);
         this.atividade.setGuilda(guilda);
+    }
+
+    @Test
+    @DisplayName("Deve cadastrar uma Atividade com sucesso")
+    public void testarCadastrarAtividade() {
+        Mockito.when(atividadeRepository.save(Mockito.any(Atividade.class))).thenReturn(atividade);
+
+        Atividade atividadeTeste = atividadeService.cadastrarAtividade(atividade);
+        assertEquals(atividadeTeste, atividade);
     }
 }
