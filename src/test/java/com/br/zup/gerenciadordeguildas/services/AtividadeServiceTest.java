@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,10 +36,9 @@ public class AtividadeServiceTest {
     @MockBean
     private AtividadeRepository atividadeRepository;
 
-    @MockBean
-    private MembroService membroService;
-
     private Atividade atividade;
+    private Guilda guilda;
+    private Membro membro;
 
     @BeforeEach
     public void setUp() {
