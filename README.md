@@ -95,3 +95,75 @@ Body:
 "assuntos": "feminismo, poder feminino, personagens fortes",
 "guilda": "Zup Ladies"
 }
+
+### PUT
+Atualizar Atividade: localhost:8080/atividades/id/
+Atualizar Ata: localhost:8080/atas/id/
+
+
+**Atualizar Atividade**: localhost:8080/atividades/id/
+O body deve ser:
+{
+"nome": "Encontro semanal - maio 2021",
+"descricao": "Primeiro encontro do mês da ZuPride",
+"responsaveis": ["Ana Alves"],
+"status": "CONCLUIDA",
+"guilda": "ZuPride"
+}
+
+
+**Atualizar Ata**: localhost:8080/atas/id/
+Body:
+{
+"data": "2022-07-07",
+"pauta": "Filmes LGBTs",
+"assuntos": "personagens fortes",
+"guilda": "ZuPride"
+}
+
+
+### PATCH
+Atualizar Guilda Parcial: localhost:8080/guildas/id/
+Atualizar Atividade Parcial: localhost:8080/atividades/id/
+Atualizar Ata Parcial: localhost:8080/atas/id/
+Atualizar Membro Parcial: localhost:8080/membros/id/
+
+**Atualizar Guilda Parcial**: localhost:8080/guildas/id/
+O body deve ser:
+{
+"nome": "ZuPride",
+"descricao": "Guilda para LGBTQIA+",
+"objetivos": "A ZuPride preza pelo acolhimento e fomento da comunidade LGBTQIA+ na área da tecnologia",
+"linkDoChat":”https://mail.google.com/mail/u/0/?tab=rm&ogbl#chat/space/AAAAE2jzjYw"
+}
+
+**Atualizar Atividade Parcial**: localhost:8080/atividades/id/
+
+{
+"nome": "ZuPride",
+"descricao": "Guilda para LGBTQIA+!",
+"status": “CONCLUIDA” 
+}
+
+**Atualizar Ata Parcial**: localhost:8080/atas/id/
+{
+"pauta": "Filmes LGBTQIA+",
+"assuntos": "Filmes LGBTQIA+ com personagens fortes",
+"guilda":”ZuPride"
+}
+
+**Atualizar Membro Parcial**: localhost:8080/membros/id/
+{
+"nome": "Ana Carolina",
+"email": "anacarolina@zup.com.br",
+"zenity":”https://people.zup.com.br/",
+“representante”:”false”
+}
+
+### CONTAMOS COM ISSUES E MELHORIAS
+
+**DESENVOLVIDO POR:
+- Íris Brito De Souza
+- Natália Moneda Palota
+- Ricardo Alcantara Silva
+
