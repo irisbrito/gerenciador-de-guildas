@@ -7,6 +7,7 @@ import com.br.zup.gerenciadordeguildas.entities.Membro;
 import com.br.zup.gerenciadordeguildas.enums.Status;
 import com.br.zup.gerenciadordeguildas.exceptions.ListaVaziaException;
 import com.br.zup.gerenciadordeguildas.repositories.GuildaRepository;
+import com.br.zup.gerenciadordeguildas.repositories.MembroRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,18 @@ public class GuildaServiceTest {
 
     @MockBean
     private GuildaRepository guildaRepository;
+
+    @MockBean
+    private MembroRepository membroRepository;
+
+    @MockBean
+    private AtaService ataService;
+
+    @MockBean
+    private MembroService membroService;
+
+    @MockBean
+    private AtividadeService atividadeService;
 
     private Ata ata;
     private Guilda guilda;
