@@ -1,7 +1,7 @@
 package com.br.zup.gerenciadordeguildas.jwt;
 
-import com.br.zup.gerenciadordeguildas.usuario.Usuario;
-import com.br.zup.gerenciadordeguildas.usuario.UsuarioRepository;
+import com.br.zup.gerenciadordeguildas.entities.Usuario;
+import com.br.zup.gerenciadordeguildas.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,5 +1,6 @@
-package com.br.zup.gerenciadordeguildas.usuario;
+package com.br.zup.gerenciadordeguildas.repositories;
 
+import com.br.zup.gerenciadordeguildas.entities.Usuario;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

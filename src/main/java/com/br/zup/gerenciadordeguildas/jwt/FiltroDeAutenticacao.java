@@ -1,6 +1,6 @@
 package com.br.zup.gerenciadordeguildas.jwt;
 
-import com.br.zup.gerenciadordeguildas.usuario.dtos.LoginDTO;
+import com.br.zup.gerenciadordeguildas.dtos.entrada.usuario.LoginDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
